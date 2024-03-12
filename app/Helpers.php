@@ -35,3 +35,16 @@ if (!function_exists('get_settings')) {
         return empty($setting['val']) ? '' : @$setting['val'];
     }
 }
+
+if (!function_exists('randon_prefix')) {
+    function randon_prefix($val) {
+        $random = "";
+        srand((float) microtime() * 1000000);
+        $data = "A0B1C2DE3FG4HIJ5KLM6NOP7QR8ST9UVW0XYZ";
+        for ($i = 0; $i < $length; $i++) {
+            $random .= substr($data, (rand() % (strlen($data))), 1);
+        }
+
+        return $random;
+    }
+}
