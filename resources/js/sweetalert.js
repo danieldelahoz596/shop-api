@@ -1,17 +1,17 @@
-const Swal = require('sweetalert2');
+import Swal from 'sweetalert2';
 
 window.addEventListener('error_login_swal',function(e){
-    Swal.fire(e.detail);
+    Swal.fire(e.detail[0]);
 });
 
 window.addEventListener('success_login_swal',function(e){
     Swal.fire({
-        title: e.detail.title,
-        timer: e.detail.timer,
-        icon: e.detail.icon,
-        toast: e.detail.toast,
-        position: e.detail.postion,
-        text: e.detail.text
+        title: e.detail[0].title,
+        timer: e.detail[0].timer,
+        icon: e.detail[0].icon,
+        toast: e.detail[0].toast,
+        position: e.detail[0].postion,
+        text: e.detail[0].text
     }).then(function() {
         window.location = "/";
     });
