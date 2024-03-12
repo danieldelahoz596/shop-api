@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Livewire\LandingPage;
+use App\Livewire\Pages\Auth\Login;
+use App\Livewire\Pages\Auth\Register;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', LandingPage::class)->name('/');
+Route::get('/index', LandingPage::class)->name('index');
+Route::get('/landingpage', LandingPage::class)->name('landingpage');
+
+// Auth Pages
+Route::get('/login', Login::class)->name('login');
+Route::get('/register', Register::class)->name('register');
