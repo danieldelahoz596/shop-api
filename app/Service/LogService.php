@@ -3,12 +3,12 @@
 namespace App\Service;
 
 use hisorange\BrowserDetect\Parser as Browser;
+use Stevebauman\Location\Facades\Location;
 
 class LogService {
 
     public static function userLog($logtitle, $logdescription){
-        // $location_data = \Location::get(request()->ip());
-        // TO DO: change above code to an API call
+        $location_data = Location::get(request()->ip());
 
         $log_data = [
             'log_name' => $logtitle,

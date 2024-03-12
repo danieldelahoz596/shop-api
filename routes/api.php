@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Auth Controller
+use App\Http\Controllers\Auth\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function () {
+    // Auth Route
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
+        Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
+        Route::group(['middleware' => 'auth:sanctum'], function () {
+            Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
+            Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
+            Route::post('changePassword', [AuthController::class, 'changePassword']);
+            Route::get('logout', [AuthController::class, 'logout']);
+        });
+    });
 });

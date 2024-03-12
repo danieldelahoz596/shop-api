@@ -25,7 +25,7 @@ if (!function_exists('v')) {
 
 if (!function_exists('user_logs')) {
     function user_logs($data) {
-        UserLog::create($data);
+        UserLogs::create($data);
     }
 }
 
