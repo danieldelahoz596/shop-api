@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_addresses', function (Blueprint $table) {
+        Schema::create('user_verifications', function (Blueprint $table) {
             $table->uuid();
             $table->integer('user_id');
-            $table->text('street')->nullable();
-            $table->text('city')->nullable();
-            $table->text('province')->nullable();
-            $table->text('region')->nullable();
-            $table->text('zip_code')->nullable();
-            $table->int('is_deleted')->default(0)->nullable();
+            $table->text('photo')->nullable();
+            $table->text('video')->nullable();
+            $table->text('status')->nullable();
+            $table->text('is_deleted')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_addresses');
+        Schema::dropIfExists('user_verifications');
     }
 };

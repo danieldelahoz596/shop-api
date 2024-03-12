@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserAddress extends Model
+class UserVerification extends Model
 {
     use HasFactory;
 
@@ -16,10 +16,9 @@ class UserAddress extends Model
      */
     protected $fillable = [
         'user_id',
-        'street',
-        'city',
-        'province',
-        'zip_code',
+        'photo',
+        'video',
+        'status',
         'is_deleted',
     ];
 }

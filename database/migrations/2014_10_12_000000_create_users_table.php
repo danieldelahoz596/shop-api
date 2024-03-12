@@ -13,23 +13,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid();
-            $table->integer('user_role_id')->nullable();
-            $table->string('user_firstname')->nullable();
-            $table->string('user_lastname')->nullable();
-            $table->string('user_name')->nullable();
-            $table->date('user_birthday')->nullable();
-            $table->integer('user_area_code')->nullable();
-            $table->integer('user_phone_number')->unique()->nullable();
-            $table->string('user_email')->unique()->nullable();
-            $table->int('user_address')->nullable();
-            $table->int('is_deleted')->nullable();
-            $table->text('user_email_verify_token')->nullable();+
+            $table->integer('role_id')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('name')->nullable();
+            $table->date('birthday')->nullable();
+            $table->integer('phone_number')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->int('address')->nullable();
+            $table->int('is_deleted')->default(0)->nullable();
+            $table->text('email_verify_token')->nullable();+
             $table->timestamp('email_verified_at')->nullable();
-            $table->text('user_forgot_password_token')->nullable();
-            $table->text('user_username')->nullable();
-            $table->integer('user_ftl')->default(1)->nullable();
-            $table->text('user_profile_picture')->nullable();
-            $table->timestamp('user_lastlogin')->nullable();
+            $table->text('forgot_password_token')->nullable();
+            $table->text('uusername')->nullable();
+            $table->integer('ftl')->default(1)->nullable();
+            $table->text('profile_picture')->nullable();
+            $table->timestamp('lastlogin')->nullable();
             $table->string('password');
             $table->integer('is_online')->nullable();
             $table->rememberToken();

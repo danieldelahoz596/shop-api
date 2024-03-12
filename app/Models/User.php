@@ -18,25 +18,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_role_id',
-        'user_firstname',
-        'user_lastname',
-        'user_name',
-        'user_birthday',
-        'user_area_code',
-        'user_phone_number',
-        'user_email',
-        'user_address',
+        'role_id',
+        'firstname',
+        'lastname',
+        'name',
+        'birthday',
+        'phone_number',
+        'email',
+        'address',
         'is_deleted',
         'email_verified_at',
-        'user_username',
-        'user_ftl',
-        'user_profile_picture',
-        'user_lastlogin',
+        'username',
+        'ftl',
+        'profile_picture',
+        'lastlogin',
         'password',
         'is_online',
-        'user_email_verify_token',
-        'user_forgot_password_token',
+        'email_verify_token',
+        'forgot_password_token',
     ];
 
     /**
@@ -47,8 +46,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'user_email_verify_token',
-        'user_forgot_password_token',
+        'email_verify_token',
+        'forgot_password_token',
     ];
 
     /**
@@ -59,7 +58,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'user_email_verify_token' => 'hashed',
-        'user_forgot_password_token' => 'hashed',
+        'email_verify_token' => 'hashed',
+        'forgot_password_token' => 'hashed',
     ];
 }
