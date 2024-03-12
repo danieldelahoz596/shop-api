@@ -82,4 +82,24 @@ class AuthController extends Controller
             ], 400);
         }
     }
+
+    public function registerEmailChecker(Request $request){
+        $validatedData = $request->validate([
+            'email' => 'required|string|email',
+        ]);
+
+        $email_checker = User::where('email', $validatedData['email'])->first();
+
+        if($email_checker){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Email Already Taken'
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Email not yet taken'
+        ], 200);
+    }
 }

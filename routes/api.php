@@ -21,6 +21,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
+        Route::post('registerEmailChecker', [AuthController::class, 'registerEmailChecker']);
         Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
