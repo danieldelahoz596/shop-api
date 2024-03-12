@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('is_deleted')->default(0)->nullable();
             $table->text('log_latitude')->nullable();
             $table->text('log_longitude')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

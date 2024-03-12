@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('role_name')->nullable();
             $table->text('role_description')->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

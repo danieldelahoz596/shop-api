@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_addresses', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('uuid')->default(DB::raw('(UUID())'));
             $table->integer('user_id');
             $table->text('street')->nullable();
             $table->text('city')->nullable();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('zip_code')->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

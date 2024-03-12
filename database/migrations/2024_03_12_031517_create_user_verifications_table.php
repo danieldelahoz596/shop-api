@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_verifications', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('uuid')->default(DB::raw('(UUID())'));
             $table->integer('user_id');
             $table->text('photo')->nullable();
             $table->text('video')->nullable();
             $table->text('status')->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
