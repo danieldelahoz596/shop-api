@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('photo')->nullable();
             $table->text('video')->nullable();
             $table->text('status')->nullable();
-            $table->text('is_deleted')->nullable();
+            $table->boolean('is_deleted')->default(0)->nullable();
             $table->timestamps();
         });
     }

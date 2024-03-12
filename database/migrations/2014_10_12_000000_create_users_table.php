@@ -20,13 +20,13 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->integer('phone_number')->unique()->nullable();
             $table->string('email')->unique()->nullable();
-            $table->int('address')->nullable();
-            $table->int('is_deleted')->default(0)->nullable();
-            $table->text('email_verify_token')->nullable();+
+            $table->integer('address')->nullable();
+            $table->boolean('is_deleted')->default(0)->nullable();
+            $table->text('email_verify_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->text('forgot_password_token')->nullable();
             $table->text('uusername')->nullable();
-            $table->integer('ftl')->default(1)->nullable();
+            $table->boolean('ftl')->default(1)->nullable();
             $table->text('profile_picture')->nullable();
             $table->timestamp('lastlogin')->nullable();
             $table->string('password');
