@@ -1,7 +1,7 @@
 <?php
+use Illuminate\Support\Facades\Http;
 
 //Model Calls
-
 use App\Models\UserLogs;
 use App\Models\WebsiteGlobalSetting;
 
@@ -46,5 +46,11 @@ if (!function_exists('randon_prefix')) {
         }
 
         return $random;
+    }
+}
+
+if (!function_exists('movider_service')) {
+    function movider_service() {
+        //movider
     }
 }
