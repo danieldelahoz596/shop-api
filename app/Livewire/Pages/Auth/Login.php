@@ -10,10 +10,14 @@ use Carbon\Carbon;
 use App\Service\LogService;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendOtpViaMail;
+use Livewire\Attribute\js;
 
 class Login extends Component
 {
     public $email,$password,$remember_me,$phone_otp, $phone_number, $email_otp;
+    public $type = "password";
+
+    public $input;
 
     public function render()
     {
@@ -86,4 +90,14 @@ class Login extends Component
         Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
         $this->email_otp = 1;
     }
+
+    public function togglePassword()
+    {
+      if($this->type === "password"){
+        $this->type = "text";
+      } else{
+        $this->type ="password";
+      }
+    }
+
 }
