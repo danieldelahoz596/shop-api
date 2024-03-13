@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('email_verify_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->text('forgot_password_token')->nullable();
+            $table->integer('otp_code')->nullable();
             $table->text('username')->nullable();
             $table->boolean('ftl')->default(1)->nullable();
             $table->text('profile_picture')->nullable();

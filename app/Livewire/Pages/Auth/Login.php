@@ -13,7 +13,7 @@ use App\Mail\SendOtpViaMail;
 
 class Login extends Component
 {
-    public $email,$password,$remember_me,$phone_otp = 1, $phone_number, $email_otp;
+    public $email,$password,$remember_me,$phone_otp, $phone_number, $email_otp;
 
     public function render()
     {
@@ -42,8 +42,7 @@ class Login extends Component
             ]);
             session()->flash('error', 'Looks like the credentials you entered are not found');
         }else{
-            $otp_gen = otp_generator();
-            Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
+            $this->phone_otp = 1;
             // TO DO: Create logic for OTP
             // send OTP
             // get user data base on $this->email
@@ -74,6 +73,8 @@ class Login extends Component
 
     public function emailSend(){
         $this->phone_otp = 0;
+        $otp_gen = otp_generator();
+        Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
         $this->email_otp = 1;
     }
 }

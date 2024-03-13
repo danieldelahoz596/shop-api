@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Http;
 
 //Model Calls
+use App\Models\User;
 use App\Models\UserLogs;
 use App\Models\WebsiteGlobalSetting;
 
@@ -58,7 +59,7 @@ if (!function_exists('movider_service')) {
 if (!function_exists('otp_generator')) {
     function otp_generator() {
         $otp_compare = mt_rand(111111, 999999);
-        $user_data = Users::where('sms_verification_code', $otp_compare)->first();
+        $user_data = User::where('otp_code', $otp_compare)->first();
         $otp = '';
         if (isset($user_data)) {
             $otp_random = mt_rand(111111, 999999);
