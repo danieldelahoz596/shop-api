@@ -42,7 +42,6 @@ class Login extends Component
         }else{
             // TO DO: Create logic for OTP
             // send OTP
-            // flag for send OTP via email
             // get user data base on $this->email
             // $this->phone_number = $user_data->phone_number
             // get user OTP Code base on result for database query
