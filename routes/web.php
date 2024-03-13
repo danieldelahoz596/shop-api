@@ -8,6 +8,9 @@ use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\LoginPhone;
 use App\Livewire\Pages\Auth\EmailVerify;
 use App\Livewire\VerificationAlert;
+use App\Livewire\Preferences;
+use App\Livewire\Styles;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +32,7 @@ Route::get('/login/number', LoginPhone::class)->name('login/number')->middleware
 Route::get('/register', Register::class)->name('register')->middleware('guest');
 Route::get('/verify/{token}', EmailVerify::class)->name('email-verify')->middleware('guest');
 Route::get('/register/verification-alert', VerificationAlert::class)->name('verificationalert')->middleware('guest');
+
+Route::get('/onboarding/preferences', Preferences::class);
+Route::get('/onboarding/styles', Styles::class);
+

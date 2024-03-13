@@ -34,7 +34,7 @@
                   </div>
                 </div>
               </div>
-              <button wire:click.prevent="sendCode" type="button" class="btn btn-block btn-primary w-100 text-white">
+              <button wire:click.prevent="loginPhone" type="button" class="btn btn-block btn-primary w-100 text-white">
                     <span wire:loading>
                       <span class="spinner-border" role="status">
                         <span class="visually-hidden"></span>
@@ -71,7 +71,7 @@
                     </div>
                   </div>
                   <!-- End of Form -->
-                  <button wire:click.prevent="verifyCode" type="button" class="btn btn-block btn-primary w-100 text-white">
+                  <button wire:click.prevent="login" type="button" class="btn btn-block btn-primary w-100 text-white">
                     <span wire:loading>
                       <span class="spinner-border" role="status">
                         <span class="visually-hidden"></span>

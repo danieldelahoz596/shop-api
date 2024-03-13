@@ -57,9 +57,30 @@ if (!function_exists('randon_prefix')) {
 }
 
 if (!function_exists('movider_service')) {
-    function movider_service()
-    {
-        //movider
+    function movider_service($to, $otp) {
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->post('https://api.movider.co/v1/sms', [
+                'form_params' => [
+                    'api_key' => "2chr0NvIckMLtRXX9BxJUFOHxMI",
+                    'api_secret' => "UHcn2ot9GdD8ZfIP1H5zYboyHkbdiPnxRIZFYs4o",
+                    'text' => "Your OTP code is: " . $otp,
+                    'to' => $to,
+                    'from' => "MOVIDER"
+                ]
+            ]);
+
+            // Check the status code
+            if ($response->getStatusCode() === 200) {
+                return true; // success
+            } else {
+                return false; // failure
+            }
+        } catch (\Exception $e) {
+            // Log any exceptions that occur
+            \Log::error('Movider SMS Error: ' . $e->getMessage());
+            return false; // failure
+        }
     }
 }
 

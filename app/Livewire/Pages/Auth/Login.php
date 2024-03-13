@@ -23,13 +23,23 @@ class Login extends Component
     {
         return view('livewire.pages.auth.login');
     }
+    
 
-    public function login(){
+    public function switchToPhoneNumberLogin()
+    {
+        $this->loginMode = 'phone';
+    }
+
+    public function switchToEmailLogin()
+    {
+        $this->loginMode = 'email';
+    }
+
+    public function loginEmail(){
         $validate = $this->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
-
         $user = auth()->getProvider()->retrieveByCredentials($validate);
 
         if(!auth()->validate($validate)){
@@ -48,45 +58,43 @@ class Login extends Component
         }else{
             // TO DO: Create logic for OTP
             $this->phone_otp = 1;
+            $this->phoneSend();
             $otp_gen = otp_generator();
             User::where('email', '=', $this->email)
             ->update([
                 'otp_code' => $otp_gen
             ]);
-            // send OTP with helper function movider_service();
+            // send OTP with helper function movider_service(); - DONE
             // get user data base on $this->email
             // $this->phone_number = $user_data->phone_number
             // get user OTP Code base on result for database query
             // match input OTP to database OTP
+            // counter function 120000 == expired reset/update otp
 
-            // auth()->login($user, $this->remember_me);
-            // User::where('id', '=', auth()->user()->id)
-            // ->update([
-            //     'lastlogin' => Carbon::now()
-            // ]);
-            // $log_name = 'User login';
-            // $log_desc = 'User successfull login using email '.$this->email;
-            // LogService::userLog($log_name,$log_desc);
-            // $this->dispatch('success_login_swal', [
-            //     'title' => 'Success',
-            //     'timer'=>3000,
-            //     'icon'=>'success',
-            //     'toast'=>false,
-            //     'position'=>'center',
-            //     'text' => 'You have logged in successfully. Welcome back! '.auth()->user()->user_firstname.' '.auth()->user()->user_lastname
-            // ]);
+            auth()->login($user, $this->remember_me);
+            User::where('id', '=', auth()->user()->id)
+            ->update([
+                'lastlogin' => Carbon::now()
+            ]);
+            $log_name = 'User login';
+            $log_desc = 'User successfull login using email '.$this->email;
+            LogService::userLog($log_name,$log_desc);
+            $this->dispatch('success_login_swal', [
+                'title' => 'Success',
+                'timer'=>3000,
+                'icon'=>'success',
+                'toast'=>false,
+                'position'=>'center',
+                'text' => 'You have logged in successfully. Welcome back! '.auth()->user()->user_firstname.' '.auth()->user()->user_lastname
+            ]);
 
-            // session()->flash('message', 'You have logged in successfully. Welcome back! '.auth()->user()->user_firstname.' '.auth()->user()->user_lastname);
+            session()->flash('message', 'You have logged in successfully. Welcome back! '.auth()->user()->user_firstname.' '.auth()->user()->user_lastname);
         }
     }
 
     public function emailSend(){
         $this->phone_otp = 0;
         $otp_gen = otp_generator();
-        User::where('email', '=', $this->email)
-        ->update([
-            'otp_code' => $otp_gen
-        ]);
         Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
         $this->email_otp = 1;
     }
@@ -100,4 +108,10 @@ class Login extends Component
       }
     }
 
+    public function phoneSend(){
+        $this->phone_otp = 0;
+        $otp_gen = otp_generator();
+        movider_service("+63".$this->phone_number, $otp_gen);
+        $this->phone_otp = 1;
+    }
 }
