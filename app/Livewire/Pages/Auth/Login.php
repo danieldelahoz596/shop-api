@@ -8,6 +8,8 @@ use Livewire\Component;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Service\LogService;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOtpViaMail;
 
 class Login extends Component
 {
@@ -40,6 +42,8 @@ class Login extends Component
             ]);
             session()->flash('error', 'Looks like the credentials you entered are not found');
         }else{
+            $otp_gen = otp_generator();
+            Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
             // TO DO: Create logic for OTP
             // send OTP
             // get user data base on $this->email

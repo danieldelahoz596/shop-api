@@ -54,3 +54,19 @@ if (!function_exists('movider_service')) {
         //movider
     }
 }
+
+if (!function_exists('otp_generator')) {
+    function otp_generator() {
+        $otp_compare = mt_rand(111111, 999999);
+        $user_data = Users::where('sms_verification_code', $otp_compare)->first();
+        $otp = '';
+        if (isset($user_data)) {
+            $otp_random = mt_rand(111111, 999999);
+            $otp = $otp_random;
+        } else {
+            $otp =  $otp_compare;
+        }
+
+        return $otp;
+    }
+}
