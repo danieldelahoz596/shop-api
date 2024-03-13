@@ -10,13 +10,14 @@
             <div class="d-flex">
                 <div>
                     <input type="text" wire:model="firstname"
-                        class="rounded form-control @error('email') is-invalid @enderror" placeHolder="First Name" />
+                        class="rounded form-control @error('firstname') is-invalid @enderror"
+                        placeHolder="First Name" />
 
                 </div>
 
                 <div>
                     <input type=" text" wire:model="lastname"
-                        class="rounded ms-1 form-control @error('email') is-invalid @enderror"
+                        class="rounded ms-1 form-control @error('lastname') is-invalid @enderror"
                         placeHolder="Last Name" />
 
                 </div>
@@ -33,11 +34,11 @@
             <div class=" w-100 justify-content-center align-items-center d-flex">
                 <label for="dob" class="w-50">Date of Birth:</label>
                 <input wire:model="birthday" type="date"
-                    class="rounded w-full form-control @error('email') is-invalid @enderror" id="dob" name="dob">
+                    class="rounded w-full form-control @error('birthday') is-invalid @enderror" id="dob" name="dob">
 
             </div>
 
-            <select wire:model="gender" class="form-control @error('email') is-invalid @enderror">
+            <select wire:model="gender" class="form-control @error('gender') is-invalid @enderror">
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -45,7 +46,7 @@
 
 
             <select wire:model="selectedProvince" name="country_code" id="country_code"
-                class="form-control @error('email') is-invalid @enderror" required>
+                class="form-control @error('province') is-invalid @enderror" required>
                 <option value="">Location</option>
                 @foreach($provinces as $province)
                 <option value="{{ $province['name'] }}">{{ $province['name'] }}</option>

@@ -180,6 +180,6 @@ class RegistrationForm extends Component
 
         // Reset form fields
         $this->reset(['selectedIdd', 'gender', 'address', 'phone_number', 'firstname', 'lastname', 'email', 'username', 'password']);
-        return redirect()->route('verification-alert');
+        return redirect()->route('verificationalert');
     }
 }
