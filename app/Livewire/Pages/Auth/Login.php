@@ -11,7 +11,7 @@ use App\Service\LogService;
 
 class Login extends Component
 {
-    public $email,$password,$remember_me;
+    public $email,$password,$remember_me,$phone_otp = 1, $phone_number, $email_otp;
 
     public function render()
     {
@@ -40,6 +40,14 @@ class Login extends Component
             ]);
             session()->flash('error', 'Looks like the credentials you entered are not found');
         }else{
+            // TO DO: Create logic for OTP
+            // send OTP
+            // flag for send OTP via email
+            // get user data base on $this->email
+            // $this->phone_number = $user_data->phone_number
+            // get user OTP Code base on result for database query
+            // match input OTP to database OTP
+
             auth()->login($user, $this->remember_me);
             User::where('id', '=', auth()->user()->id)
             ->update([
@@ -59,5 +67,10 @@ class Login extends Component
 
             session()->flash('message', 'You have logged in successfully. Welcome back! '.auth()->user()->user_firstname.' '.auth()->user()->user_lastname);
         }
+    }
+
+    public function emailSend(){
+        $this->phone_otp = 0;
+        $this->email_otp = 1;
     }
 }

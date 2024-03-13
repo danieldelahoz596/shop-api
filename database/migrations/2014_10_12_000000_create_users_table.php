@@ -30,7 +30,7 @@ return new class extends Migration
             $table->text('username')->nullable();
             $table->boolean('ftl')->default(1)->nullable();
             $table->text('profile_picture')->nullable();
-            $table->timestamp('lastlogin')->nullable();
+            $table->date('lastlogin')->nullable();
             $table->string('password');
             $table->integer('is_online')->default(1)->nullable();
             $table->rememberToken();
