@@ -24,8 +24,7 @@
     <body>
         <div id="app">
             <livewire:components.nav>
-        
-            <main class="py-4">
+            <main> 
                 {{ $slot }}
             </main>
         </div>

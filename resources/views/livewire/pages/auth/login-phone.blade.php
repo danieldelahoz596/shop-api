@@ -1,4 +1,4 @@
-<section class="min-vh-100 " style="background-image: url('{{ asset('assets/img/LoginBg.png') }}'); background-position:center; background-repeat:no-repeat;">
+<section class="d-flex align-items-center" id="loginPage" style="background-image: url({{ asset('assets/img/loginBg.png') }});">
   <div class="container">
     <div class="row justify-content-end">
       <div class="col-12 col-md-8 col-lg-6 justify-content-center">
