@@ -110,10 +110,17 @@
         </div>
       </div>
     </div>
-    <!-- <div class="d-flex justify-content-center mt-4">
-      <button type="button" class="viewAll">
-          View All
-      </button>
-    </div> -->
+    <div class="copyStyle pt-4 d-flex justify-content-between">
+      <div class="left">
+        <div class="description">
+          <h1>Copy their style</h1>
+          <p>A throwaway mentality doesn't bode well for our planet. If you're ready to send Patagonia stuff on its next journey, we'll buy it back and get it to someone who needs it.</p>
+          <button>Shop now</button>
+        </div>
+      </div>
+      <div class="right">
+        <img src="{{ asset('assets/img/slides/slide2.jpeg') }}" alt="">
+      </div>
+    </div>
   </div>
 </div>

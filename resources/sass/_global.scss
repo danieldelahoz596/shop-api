@@ -29,8 +29,63 @@ body {
     }
 }
 
+.carouselLinks{
+  position: absolute;
+  z-index: 1;
+  right: 50%;
+  transform: translateX(48%);
+  .nav-link{
+    font-family: NATS;
+    color: white !important;
+    font-size: clamp(1rem, 2vw, 2.5rem);
+    text-shadow: 0px 3px 2px rgba(0,0,0,0.6);
+  }
+}
+
+.carousel-item{
+  .carousel-caption{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 2rem;
+    margin-bottom: 4.375rem;
+    h5{
+      font-size: clamp(2rem, 6.4vw, 8rem);
+      padding: 0;
+      margin: 0;
+    }
+    p{
+      margin: 0;
+      padding: 0;
+      font-family: NATS;
+      max-width: 1227px;
+      min-width: 730px;
+      font-size: clamp(1rem, 2vw, 2rem);
+      letter-spacing: 2px;
+      line-height: 80%;
+      text-shadow: 0px 3px 2px rgba(0,0,0,0.6);
+    }
+    .carouselBtn{
+      all: unset;
+      cursor: pointer;
+      max-width: 35.4vw;
+      width: 100%;
+      background: transparent;
+      border: 1px solid white;
+      border-radius: 11px;
+      font-size: 2rem;
+      font-family: NATS;
+      transition: all 0.3s ease;
+      &:hover{
+        border-color: $primary;
+        background: $primary;
+      }
+    }
+  }
+}
+
 .carousel-image {
-    height: 40vh;
+    height: 92.3vh;
 }
 
 .signup-container{

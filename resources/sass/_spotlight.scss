@@ -1,0 +1,162 @@
+.spotBtn{
+  all: unset;
+  cursor: pointer;
+  max-width: 400px;
+  border-radius: 11px;
+  border: 2px solid $primary;
+  background: transparent;
+  color: $tertiary;
+  width: 100%;
+  text-align: center;
+  padding-block: 0.55rem;
+}
+
+
+
+.spotlightWrapper{
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  column-gap: 1rem;
+  &::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    background: transparent;
+    opacity: 0;
+  }
+  .content{
+    position: absolute;
+    bottom: 23px;
+    left: 34%;
+  }
+}
+
+.sellingContainer{
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  .right{
+    width: 50%;
+    h1{
+      font-family: $font-family-nats;
+      font-size: clamp(2.5rem, 4.5vw, 5rem);
+      color: $tertiary;
+      letter-spacing: -3px;
+    }
+    p{
+      font-family: $font-family-nats;
+      font-size: clamp(1rem, 1.5vw, 2rem);;
+      color: #701D00;
+      line-height: 1;
+      
+    }
+  }
+}
+
+.sellingInfoContainer{
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 85.9vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .descriptionWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h1{
+      font-size: 4rem;
+      color:$tertiary ;
+      font-family: $font-family-nats;
+    }
+    p{
+      font-size: 1rem;
+      max-width: 50vw;
+      text-align: center;
+    }
+    .ctaSell{
+      text-decoration: none;
+      width: 100%;
+      max-width: 363px;
+      text-align: center;
+      .info{
+        font-size: 1.5rem;
+      }
+      .ctaIcon{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .arrowLine{
+          height: 1px;
+          width: 100%;
+          display: inline-block;
+          background-color: red;
+        }
+        .fa-angle-right{
+          position: absolute;
+          right: -2px;
+          bottom: -6.4px;
+        }
+      }
+    }
+  }
+  .starIcon{
+    position: absolute;
+    top: 0;
+    left: 123px;
+  }
+  .buudlIcon{
+    position: absolute;
+    bottom: 0;
+    right: 123px;
+  }
+}
+
+@media (width < 1281px) {
+  .sellingInfoContainer{
+    .starIcon{
+      left: 33px;
+    }
+    .buudlIcon{
+      right: 29px;
+    }
+  }
+
+}
+
+.priceInfoContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .left{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    h1{
+      font-family: $font-family-nats;
+      font-size: clamp(2rem, 4.5vw, 5rem);
+      color: $tertiary;
+      letter-spacing: -3px;
+    }
+    p{
+      font-family: $font-family-nats;
+      font-size: clamp(1rem, 1.5vw, 2rem);
+      color: #701D00;
+      line-height: 1;
+    }
+  }
+  .right{
+    .flowerIcon{
+      position: absolute;
+      bottom: -42px;
+      left: -96px;
+    }
+  }
+}
+

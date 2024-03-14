@@ -7,6 +7,7 @@ use App\Livewire\Pages\Auth\Login;
 use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\LoginPhone;
 use App\Livewire\Pages\Auth\EmailVerify;
+use App\Livewire\Pages\Seller\SellerProfile;
 use App\Livewire\VerificationAlert;
 use App\Livewire\Preferences;
 use App\Livewire\Styles;
@@ -36,3 +37,5 @@ Route::get('/register/verification-alert', VerificationAlert::class)->name('veri
 Route::get('/onboarding/preferences', Preferences::class);
 Route::get('/onboarding/styles', Styles::class);
 
+//Seller Pages
+Route::get('/sellerProfile', SellerProfile::class);
