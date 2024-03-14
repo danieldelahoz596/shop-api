@@ -6,8 +6,8 @@
   </div>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-5">
+    <div class="wrapper">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
@@ -92,7 +92,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">

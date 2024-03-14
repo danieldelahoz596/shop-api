@@ -1,61 +1,61 @@
-.placeItemGrid{
-  background-color: transparent !important;
-  text-align: center;
-  max-width: 250px;
-  .itemImg{
-    overflow: hidden;
-    position: relative;
-    a.image{
-      display: block;
-      img{
-        width: 250px; height:272px; background-color:beige;
-        border: none !important;
+.wrapper{
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  padding-left: 40px;
+  padding-bottom: 20px;
+  &::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    background: transparent;
+    opacity: 0;
+  }
+  .itemWrap{
+    min-width: 300px;
+    height: 100%;
+    .placeItemGrid{
+      background-color: transparent !important;
+      text-align: center;
+      max-width: 250px;
+      .itemImg{
+        overflow: hidden;
+        position: relative;
+        a.image{
+          display: block;
+          img{
+            width: 250px; height:272px; background-color:beige;
+            border: none !important;
+          }
+        }
+        .itemLikeIcon{
+          font-size: 22px;
+          position: absolute;
+          top: 15px;
+          right: 15px;     
+        }
+        .itemLinks{
+          position: absolute;
+          bottom: -10px;
+          right: 50%;
+          transform: translateX(50%);
+          background: $primary;
+          opacity: 0;
+          width: 100%;
+          padding-block: 10px;
+          border-radius: 30px;
+          color: #fff;
+          text-decoration: none;
+          font-size: 16px;
+          transition: all 0.3s ease 0s;
+        }
+      }
+      &:hover{
+        .itemLinks{
+          bottom: 10px;
+          opacity: 1;
+        }
       }
     }
-    .itemLikeIcon{
-      font-size: 22px;
-      position: absolute;
-      top: 15px;
-      right: 15px;     
-    }
-    .itemLinks{
-      position: absolute;
-      bottom: -10px;
-      right: 50%;
-      transform: translateX(50%);
-      background: $primary;
-      opacity: 0;
-      width: 100%;
-      padding-block: 10px;
-      border-radius: 30px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      transition: all 0.3s ease 0s;
-    }
-  }
-  &:hover{
-    .itemLinks{
-      bottom: 10px;
-      opacity: 1;
-    }
-  }
-}
-.viewAll{
-  all: unset;
-  color: $primary;
-  background: transparent;
-  max-width: 250px;
-  width: 100%;
-  padding-block: 10px;
-  border: 2px solid $primary;
-  border-radius: 30px;
-  outline: none;
-  text-align: center;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  &:hover{
-    background: $primary;
-    color: #fff;
   }
 }

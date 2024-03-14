@@ -6,12 +6,12 @@
   </div>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-5">
+    <div class="wrapper">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -20,15 +20,15 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> Red Blouse </h3>
-            <div class="price lh-1" >P 200</div>
+            <div class="price lh-1">P 200</div>
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -37,15 +37,15 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> Red Blouse </h3>
-            <div class="price lh-1" >P 200</div>
+            <div class="price lh-1">P 200</div>
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -54,15 +54,15 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> V Neck </h3>
-            <div class="price lh-1" >P 100</div>
+            <div class="price lh-1">P 100</div>
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -71,15 +71,15 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> Vintage Jacket </h3>
-            <div class="price lh-1" >P 100</div>
+            <div class="price lh-1">P 100</div>
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -88,15 +88,15 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> Red Blouse </h3>
-            <div class="price lh-1" >P 200</div>
+            <div class="price lh-1">P 200</div>
           </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 col-5">
+      <div class="itemWrap">
         <div class="placeItemGrid">
           <div class="itemImg">
             <a href="" class="d-block image">
-                <img src="" alt="">
+              <img src="" alt="">
             </a>
             <a href="" class="itemLikeIcon">
               <i class="far fa-heart"></i>
@@ -105,14 +105,14 @@
           </div>
           <div class="itemContent text-start">
             <h3 class="m-0"> Red Blouse </h3>
-            <div class="price lh-1" >P 200</div>
+            <div class="price lh-1">P 200</div>
           </div>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
       <button type="button" class="viewAll">
-          View All
+        View All
       </button>
     </div>
   </div>
