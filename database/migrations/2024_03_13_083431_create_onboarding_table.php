@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_verifications', function (Blueprint $table) {
+        Schema::create('onboarding', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->text('photo')->nullable();
-            $table->text('video')->nullable();
-            $table->text('status')->nullable();
-            $table->boolean('is_deleted')->default(0)->nullable();
-            $table->softDeletes();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->json('preferences')->nullable();
+            $table->json('styles')->nullable();
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_verifications');
+        Schema::dropIfExists('onboarding');
     }
 };
