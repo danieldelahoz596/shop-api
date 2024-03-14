@@ -39,7 +39,7 @@ class SendOtpViaMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.sendotpviamail',
+            view: 'mails.sendotpviamail',
             //otp: $this->otp
         );
     }

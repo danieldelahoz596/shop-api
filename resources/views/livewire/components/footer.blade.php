@@ -1,4 +1,4 @@
-<div>
+<footer>
   <div class="container-fluid p-0 m-0 footer" style="background-image: url({{ asset('assets/img/snakeBgBeige.png') }});">
     <div class="footerWrapper">
       <div class="footerDescription">
@@ -41,4 +41,4 @@
       </div>
     </div>
   </div>
-</div>
+</footer>

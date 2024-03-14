@@ -8,35 +8,101 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Mail\RegisterMail;
+use App\Service\LogService;
+use App\Mail\SendOtpViaMail;
+use Livewire\Attributes\Rule;
 use Mail;
 use Str;
 
 class RegistrationForm extends Component
 {
     public $currentStep = 1;
-    public $selectedIdd;
-    public $phone_number;
-    public $email;
-    public $birthday;
-    public $firstname;
-    public $lastname;
-    public $username;
-    public $password;
-    public $gender;
-    public $address;
+    public $selectedIdd, $phone_number, $email, $birthday, $firstname, $lastname, $username;
+    public $password, $gender, $address, $password_confirmation;
+    public  $remember_me, $phone_otp, $email_otp;
     public $countries = [];
     public $provinces = [];
     public $cities = [];
-    public $selectedCity;
-    public $selectedProvince;
+    public $selectedCity, $selectedProvince, $streetNumber, $barangay, $street;
+    public $phone;
+    public $input;
+    public $otp;
+    public $otc1, $otc2, $otc3, $otc4, $otc5, $otc6;
+    public $inputCode;
+
+    public function otp_gen()
+    {
+        // generate 6 digit $otp
+        return $this->otp;
+    }
+    public function switchToPhoneNumberLogin()
+    {
+        $this->loginMode = 'phone';
+    }
+
+    public function switchToEmailLogin()
+    {
+        $this->loginMode = 'email';
+    }
 
 
+    public function verifyCode()
+    {
+        $inputCode = $this->otc1 . $this->otc2 . $this->otc3 . $this->otc4 . $this->otc5 . $this->otc6;
+        movider_service($this->phone, $this->otp_gen());
+        return $inputCode;
+    }
+
+    public function emailSend()
+    {
+        $this->phone_otp = 0;
+        $otp_gen = otp_generator();
+        Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
+        $this->email_otp = 1;
+    }
+
+    //THIS SETUP IS FOR THE ADDRESS INCLUDING PROVINCES AND MUNICIPALITIES
+    protected $listeners = ['provinceSelected'];
+
+
+    protected $rules = [
+        'password' => [
+            'required',
+            'min:8', // Minimum 8 characters
+            'regex:/[a-z]/', // Must include lowercase letters
+            'regex:/[A-Z]/', // Must include uppercase letters
+            'regex:/[0-9]/', // Must include numbers
+            'regex:/[@$!%*#?&]/', // Must include a special character
+        ],
+        'phone_number' => [
+            'required',
+            'digits:10', // digit is 10
+
+        ],
+    ];
+    protected $messages = [
+        'password.required' => 'The password field is required.',
+        'password.min' => 'The password must be at least :min characters.',
+        'password.regex' => 'Uppercase, lowercase, and one number atleast.',
+        'phone_number.required' => 'It should be 10 digits country code is not included.',
+        'phone_number.digit' => 'It should be 10 digits country code is not included.',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+
+    public function provinceSelected($provinceCode)
+    {
+        $this->fetchCities($provinceCode);
+    }
 
     public function mount()
     {
         $this->fetchCountryCodes();
         $this->fetchProvinces();
-        // $this->fetchCities();
     }
 
     public function fetchProvinces()
@@ -53,33 +119,28 @@ class RegistrationForm extends Component
         }
     }
 
-    // public function fetchCities($provinceCode)
-    // {
-    //     if (!empty($provinceCode)) {
-    //         $response = Http::get("https://psgc.gitlab.io/api/province/{$provinceCode}/municipalities");
+    public function fetchCities($provinceCode)
+    {
+        if (!empty($provinceCode)) {
+            $response = Http::get("https://psgc.gitlab.io/api/provinces/{$provinceCode}/municipalities");
 
-    //         if ($response->successful()) {
-    //             $this->cities = collect($response->json())->map(function ($city) {
-    //                 return [
-    //                     'code' => $city['code'],
-    //                     'name' => $city['name'],
-    //                 ];
-    //             })->toArray();
-    //         } else {
-    //             $this->cities = [];
-    //         }
-    //     } else {
-    //         $this->cities = [];
-    //     }
-    // }
-
-
-    // public function updatedSelectedProvince($provinceCode)
-    // {
-    //     $this->fetchCities($provinceCode);
-    // }
+            if ($response->successful()) {
+                $this->cities = collect($response->json())->map(function ($city) {
+                    return [
+                        'code' => $city['code'],
+                        'name' => $city['name'],
+                    ];
+                })->toArray();
+            } else {
+                $this->cities = [];
+            }
+        } else {
+            $this->cities = [];
+        }
+    }
 
 
+    //THIS IS TO GET THE COUNTRY CODE (SELECTIDD)
     public function fetchCountryCodes()
     {
         $response = Http::get('https://restcountries.com/v3.1/all?fields=name,idd');
@@ -101,24 +162,33 @@ class RegistrationForm extends Component
             })->toArray();
         }
     }
-
+    //RENDER TO PAGE
     public function render()
     {
         return view('livewire.pages.auth.registration-form', [
             'countries' => $this->countries,
         ]);
     }
+
+    //THIS IS FOR THE NEXT BUTTON
     public function increaseStep()
     {
+        if ($this->currentStep === 3) {
+            // Check if we are on Step 3
+            $this->phone_otp = true; // Enable phone OTP mode
+            return; // Exit the function without incrementing the step
+        }
         $this->validateData();
         $this->currentStep++;
+        $this->loading = true;
+        $this->loading = false;
     }
 
     public function decreaseStep()
     {
         $this->currentStep--;
     }
-
+    //OTHER VALIDATIONS ARE HERE
     protected function validateData()
     {
         if ($this->currentStep === 1) {
@@ -127,28 +197,39 @@ class RegistrationForm extends Component
                 'firstname' => 'required',
                 'lastname' => 'required',
                 'gender' => 'required',
-                'birthday' => 'required'
-            ]);
-        } elseif ($this->currentStep === 2) {
-            $this->validate([
-                'selectedIdd' => 'required',
-                'phone_number' => 'required|numeric|digits:10',
+                'birthday' => 'required|date'
             ]);
         } elseif ($this->currentStep === 3) {
             $this->validate([
-                'username' => 'required',
-                'password' => 'required',
+                'selectedIdd' => 'required',
+                'phone_number' => 'required|numeric|digits:10|unique:users,phone_number',
+            ]);
+        } elseif ($this->currentStep === 4) {
+            $this->validate([
+                'username' => 'required|min:4|unique:users,username',
+                'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+                'password_confirmation' => 'required|same:password',
             ]);
         }
     }
 
-
+    //SUBMIT BUTTON
 
     public function submit()
     {
+        $this->phone_otp = 1;
+        $this->phoneSend();
+        $otp_gen = otp_generator();
+        User::where('email', '=', $this->email)
+            ->update([
+                'otp_code' => $otp_gen
+            ]);
+
+        $this->loading = true; // Before the operation
+        $this->loading = false; // After the operation
         // Validate form data
         $this->validateData();
-
+        $address =  $this->streetNumber . ' ' . $this->street . ', ' . $this->barangay . ', ' . $this->selectedCity . ', ' . $this->selectedProvince;
         // Create the user
         $user = User::create([
             'email' => $this->email,
@@ -159,7 +240,7 @@ class RegistrationForm extends Component
             'username' => $this->username,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
-            'address' => $this->selectedProvince,
+            'address' => $address,
             'gender' => $this->gender,
             'email_verify_token' => randon_prefix(),
             'password' => Hash::make($this->password),
@@ -169,13 +250,16 @@ class RegistrationForm extends Component
         Mail::to($this->email)->send(new RegisterMail($user->email_verify_token, $user->email, $user->name));
 
         // Dispatch success event
-        $this->dispatch('success_registration_swal', [
+        $log_name = 'User registered';
+        $log_desc = 'User successfully registered. ';
+        LogService::userLog($log_name, $log_desc);
+        $this->dispatch('success_login_swal', [
             'title' => 'Success',
             'timer' => 3000,
             'icon' => 'success',
             'toast' => false,
             'position' => 'center',
-            'text' => 'You have registered successfully! Please verify your email to activate your account.',
+            'text' => 'You have successfully registered. Please Check you email '
         ]);
 
         // Reset form fields
