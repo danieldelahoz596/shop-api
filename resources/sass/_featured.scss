@@ -1,0 +1,84 @@
+.commBtn{
+  all: unset;
+  cursor: pointer;
+  background-color:#fff;
+  border-radius: 11px;
+  color: black;
+  max-width: 11.125rem;
+  width: 100%;
+  text-align: center;
+  padding-block: 5px;
+}
+
+
+.communityWrapper{
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  padding-left: 40px;
+  padding-bottom: 20px;
+  column-gap: 1rem;
+  &::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    background: transparent;
+    opacity: 0;
+  }
+  .communityItems{
+    position: relative;
+    .cta{
+      position: absolute;
+      bottom: 2rem;
+      left: 1rem;
+      h1{
+        color: #fff;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.valueInfoContainer{
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 85.9vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .valueWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1{
+      font-size: 3rem;
+      color: $tertiary;
+    }
+    .valueGrid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      .value{
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        .icon{
+          font-size: 7rem;
+        }
+        h4{
+          font-size: 1.5rem;
+          color: $tertiary;
+          
+        }
+        p{
+          font-size: 1rem;
+          color: $tertiary;
+        }
+      }
+    }
+  }
+}

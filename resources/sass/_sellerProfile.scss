@@ -1,0 +1,17 @@
+.nav-underline{
+  .navWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    white-space: nowrap;
+    .nav-item{
+      width: 100%;
+      button{
+        width: 100%;
+        .active{
+          border-bottom-color: $primary !important;
+        }
+      }
+    }
+  }
+}
