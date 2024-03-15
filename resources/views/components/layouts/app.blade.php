@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
 
         <link rel="shortcut icon" href="{{ asset('assets/img/buudl_orange.png') }}" type="image/x-icon">
 
@@ -21,6 +22,7 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @livewireStyles
     </head>
+<<<<<<< HEAD
 
     <style>
     .otp-input {
@@ -44,6 +46,8 @@
         cursor: default;
     }
     </style>
+=======
+>>>>>>> 54cb3382c42e4b9ad7c2009e31f32f4068acb25d
     <body>
         <div id="app">
             <livewire:components.nav>
@@ -52,6 +56,6 @@
             </main>
         </div>
         @livewireScripts
-        <livewire:components.footer>
     </body>
+    <livewire:components.footer>
 </html>
