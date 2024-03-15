@@ -4,31 +4,31 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use App\Mail\RegisterMail;
 use App\Service\LogService;
 use App\Mail\SendOtpViaMail;
-use Livewire\Attributes\Rule;
 use Mail;
-use Str;
 
 class RegistrationForm extends Component
 {
     public $currentStep = 1;
+    //input fields for registration form
     public $selectedIdd, $phone_number, $email, $birthday, $firstname, $lastname, $username;
     public $password, $gender, $address, $password_confirmation;
     public  $remember_me, $phone_otp, $email_otp;
+    //for address
     public $countries = [];
     public $provinces = [];
     public $cities = [];
-    public $selectedCity, $selectedProvince, $streetNumber, $barangay, $street;
-    public $phone;
+    public $selectedCity, $selectedProvince, $streetNumber, $barangay, $street, $phone;
     public $input;
     public $otp;
     public $otc1, $otc2, $otc3, $otc4, $otc5, $otc6;
     public $inputCode;
+    public $otp_sent_time;
 
     public function otp_gen()
     {
@@ -44,7 +44,26 @@ class RegistrationForm extends Component
         $this->loginMode = 'email';
     }
 
+    public function resendCode()
+    {
+        $currentTime = now();
+        $user = $this->email;
+        if ($user->otp_sent_time && $currentTime->diffInSeconds($user->otp_sent_time) < 120) {
+            session()->flash('error', 'Error sending OTP. Please wait at least 2 minutes before resending the code.');
+        } else {
 
+            $otp_gen = otp_generator();
+            $user->update([
+                'otp_code' => $otp_gen,
+
+            ]);
+
+            $currentTime = now();
+            $user->otp_sent_time = $currentTime;
+            $user->save();
+            session()->flash('message', 'A new OTP code has been sent.');
+        }
+    }
     public function verifyCode()
     {
         $inputCode = $this->otc1 . $this->otc2 . $this->otc3 . $this->otc4 . $this->otc5 . $this->otc6;
@@ -57,6 +76,13 @@ class RegistrationForm extends Component
             $this->email_otp = false;
             $this->currentStep++;
         }
+    }
+    public function phoneSend()
+    {
+        $this->phone_otp = 0;
+        $otp_gen = otp_generator();
+        movider_service("+63" . $this->phone_number, $otp_gen);
+        $this->phone_otp = 1;
     }
 
     public function emailSend()
@@ -189,11 +215,21 @@ class RegistrationForm extends Component
     //THIS IS FOR THE NEXT BUTTON
     public function increaseStep()
     {
-        if ($this->currentStep === 3) {
-            // Check if we are on Step 3
-            $this->phone_otp = true; // Enable phone OTP mode
 
-            return; // Exit the function without incrementing the step
+        if ($this->currentStep === 3) {
+            $this->phone_otp = true;
+            $this->phoneSend();
+            $otp_gen = otp_generator();
+            $currentTime = now();
+            User::where('email', '=', $this->email)
+                ->update([
+                    'otp_code' => $otp_gen,
+                ]);
+            $currentTime = now();
+            $this->otp_sent_time = $currentTime;
+
+
+            return;
         }
         $this->validateData();
         $this->currentStep++;
@@ -234,13 +270,13 @@ class RegistrationForm extends Component
 
     public function submit()
     {
-        // $this->phone_otp = 1;
-        // $this->phoneSend();
-        // $otp_gen = otp_generator();
-        // User::where('email', '=', $this->email)
-        //     ->update([
-        //         'otp_code' => $otp_gen
-        //     ]);
+        $this->phone_otp = 1;
+        $this->phoneSend();
+        $otp_gen = otp_generator();
+        User::where('email', '=', $this->email)
+            ->update([
+                'otp_code' => $otp_gen
+            ]);
 
         $this->loading = true; // Before the operation
         $this->loading = false; // After the operation
