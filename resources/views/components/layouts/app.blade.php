@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
 
         <link rel="shortcut icon" href="{{ asset('assets/img/buudl_orange.png') }}" type="image/x-icon">
 
@@ -21,23 +22,6 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @livewireStyles
     </head>
-
-    <style>
-        .otp-input {
-    width: 40px; /* Width of each box */
-    height: 40px; /* Height of each box */
-    margin: 0 5px; /* Spacing between boxes */
-    text-align: center;
-    border: 1px solid #ccc; /* Border of the boxes */
-    font-size: 20px;
-    border-radius: 4px; /* Optional: for rounded corners */
-
-    /* Improves mobile experience */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-    </style>
     <body>
         <div id="app">
             <livewire:components.nav>
@@ -46,6 +30,6 @@
             </main>
         </div>
         @livewireScripts
-        <livewire:components.footer>
     </body>
+    <livewire:components.footer>
 </html>
