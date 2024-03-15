@@ -137,7 +137,7 @@
                                     @error('email')
                                         <small><span class="text-danger error">{{ $message }}</span></small>
                                     @enderror
-                                    <a href="{{ route('login/number') }}" class="text-dark LoginPhone"><u>Log in with
+                                    <a href="" wire:click.prevent="togglePhoneNumberLogin" class="text-dark LoginPhone"><u>Log in with
                                             Phone Number</u></a>
                                 </div>
                             </div>

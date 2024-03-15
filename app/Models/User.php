@@ -31,6 +31,7 @@ class User extends Authenticatable
         'is_deleted',
         'email_verified_at',
         'otp_code',
+        'otp_sent_time',
         'username',
         'ftl',
         'profile_picture',

@@ -23,10 +23,10 @@
     </head>
 
     <style>
-        .otp-input {
+    .otp-input {
     width: 40px; /* Width of each box */
     height: 40px; /* Height of each box */
-    margin: 0 5px; /* Spacing between boxes */
+    margin: 0 -5px; /* Spacing between boxes */
     text-align: center;
     border: 1px solid #ccc; /* Border of the boxes */
     font-size: 20px;

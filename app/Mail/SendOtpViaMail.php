@@ -23,34 +23,14 @@ class SendOtpViaMail extends Mailable
         $this->otp = $otp;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Buudl OTP',
-        );
+        return $this->from(env('MAIL_FROM_ADDRESS'))
+            ->subject('OTP')
+            ->view('mails.sendotpviamail')
+            ->with([
+                'otp' => $this->otp,
+            ]);
     }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mails.sendotpviamail',
-            //otp: $this->otp
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
-    }
+    
 }
