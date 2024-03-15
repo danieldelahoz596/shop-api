@@ -14,7 +14,7 @@ use Livewire\Attribute\js;
 
 class Login extends Component
 {
-    public $email, $password, $remember_me, $phone_otp, $phone_number, $email_otp;
+    public $email, $password, $remember_me, $phone_otp, $phone_number, $email_otp, $otp_gen;
     public $otc1, $otc2, $otc3, $otc4, $otc5, $otc6;
     public $type = "password";
     public $input;
@@ -104,9 +104,10 @@ class Login extends Component
     public function emailSend()
     {
         $this->phone_otp = 0;
-        $otp_gen = otp_generator();
-        Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
         $this->email_otp = 1;
+        $this->otp_gen = otp_generator();
+        // dd($this->email);
+        Mail::to($this->email)->send(new SendOtpViaMail($this->otp_gen));
     }
 
     public function togglePassword()
@@ -121,7 +122,7 @@ class Login extends Component
     public function phoneSend()
     {
         $this->phone_otp = 0;
-        $otp_gen = otp_generator();
+        $this->otp_gen = otp_generator();
         movider_service("+63" . $this->phone_number, $otp_gen);
         $this->phone_otp = 1;
     }
