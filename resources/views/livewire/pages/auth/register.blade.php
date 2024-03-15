@@ -6,9 +6,9 @@ background-image: url('{{ asset('assets/img/1-Background.png') }}');
   width: 100vw; 
   height: 100vh;
   position: relative; 
-  top: 9vh;
+  top: 0;
   left: 0;
 ">
-    <livewire:registration-form>
+  <livewire:registration-form>
 
 </div>

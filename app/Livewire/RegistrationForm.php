@@ -86,13 +86,22 @@ class RegistrationForm extends Component
             'digits:10', // digit is 10
 
         ],
+        'email' => [
+            'required',
+            'email',
+            'unique:users,email', // digit is 10
+
+        ],
     ];
     protected $messages = [
         'password.required' => 'The password field is required.',
         'password.min' => 'The password must be at least :min characters.',
         'password.regex' => 'Uppercase, lowercase, and one number atleast.',
-        'phone_number.required' => 'It should be 10 digits country code is not included.',
+        'phone_number.required' => 'It should be 10 digits. Country code is not included.',
         'phone_number.digit' => 'It should be 10 digits country code is not included.',
+        'email.required' => 'The email field is required.',
+        'email.email' => 'The email field should be a valid email.',
+        'email.unique' => 'The email is already taken.',
     ];
 
     public function updated($propertyName)
@@ -225,13 +234,13 @@ class RegistrationForm extends Component
 
     public function submit()
     {
-        $this->phone_otp = 1;
-        $this->phoneSend();
-        $otp_gen = otp_generator();
-        User::where('email', '=', $this->email)
-            ->update([
-                'otp_code' => $otp_gen
-            ]);
+        // $this->phone_otp = 1;
+        // $this->phoneSend();
+        // $otp_gen = otp_generator();
+        // User::where('email', '=', $this->email)
+        //     ->update([
+        //         'otp_code' => $otp_gen
+        //     ]);
 
         $this->loading = true; // Before the operation
         $this->loading = false; // After the operation
