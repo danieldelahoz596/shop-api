@@ -32,7 +32,6 @@ class RegistrationForm extends Component
 
     public function otp_gen()
     {
-        // generate 6 digit $otp
         return $this->otp;
     }
     public function switchToPhoneNumberLogin()
@@ -50,14 +49,22 @@ class RegistrationForm extends Component
     {
         $inputCode = $this->otc1 . $this->otc2 . $this->otc3 . $this->otc4 . $this->otc5 . $this->otc6;
         movider_service($this->phone, $this->otp_gen());
-        return $inputCode;
+        // Logger
+
+        if ($this->otp == (int)$inputCode) {
+            // Logger
+            $this->phone_otp = false;
+            $this->email_otp = false;
+            $this->currentStep++;
+        }
     }
 
     public function emailSend()
     {
         $this->phone_otp = 0;
         $otp_gen = otp_generator();
-        Mail::to($this->email)->send(new SendOtpViaMail($otp_gen));
+        Mail::to($this->email)->send(new SendOtpViaMail($otp_gen)); // Iisang variable, kasi pag cinall mo twice, different ang OTP
+        $this->otp = $otp_gen;
         $this->email_otp = 1;
     }
 
@@ -176,6 +183,7 @@ class RegistrationForm extends Component
         if ($this->currentStep === 3) {
             // Check if we are on Step 3
             $this->phone_otp = true; // Enable phone OTP mode
+
             return; // Exit the function without incrementing the step
         }
         $this->validateData();
@@ -245,6 +253,7 @@ class RegistrationForm extends Component
             'email_verify_token' => randon_prefix(),
             'password' => Hash::make($this->password),
         ]);
+
 
         // Send verification email
         Mail::to($this->email)->send(new RegisterMail($user->email_verify_token, $user->email, $user->name));
