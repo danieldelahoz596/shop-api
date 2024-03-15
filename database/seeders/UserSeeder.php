@@ -56,6 +56,19 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('@dm1n18tR@t0r$'),
             ],
+            [
+                'role_id' => 1,
+                'firstname' => 'Janeil',
+                'lastname' => 'Alcano',
+                'name' => 'Janeil Alcano',
+                'phone_area_code' => '63',
+                'phone_number' => '09606782830',
+                'email' => 'janeilalcano01@gmail.com',
+                'username' => 'janeilc12345',
+                'ftl' => 1,
+                'email_verified_at' => now(),
+                'password' => bcrypt('!Janeil1998'),
+            ],
         ];
 
         foreach ($users as $value) {

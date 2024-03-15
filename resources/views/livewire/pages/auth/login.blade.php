@@ -18,59 +18,107 @@
                             </div>
                             <div class="form-group">
                                 <div class="d-flex flex-column mb-4">
-                                  <div class="digit-group" x-data="{
-                                    handleInput(input, index) {
-                                        let value = input.value;
-                                        input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
-                                
-                                        if (index < 5 && value) {
-                                            input.nextElementSibling.focus(); // Move to next field if not last
+                                    <div class="digit-group" x-data="{
+                                        handleInput(input, index) {
+                                            let value = input.value;
+                                            input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
+                                    
+                                            if (event.inputType === 'deleteContentBackward' && index !== 0 && !value) {
+                                                input.previousElementSibling.focus(); // Move to previous field on backspace
+                                            } else if (index < 5 && value) {
+                                                input.nextElementSibling.focus(); // Move to next field if not last
+                                            }
                                         }
-                                    }
-                                }">
-                                    @foreach (['otc1', 'otc2', 'otc3', 'otc4', 'otc5', 'otc6'] as $otc)
-                                        <input type="text" inputmode="numeric" maxlength="1" x-ref="{{ $otc }}"
-                                               wire:model.defer="{{ $otc }}"
-                                               class="otp-input"
-                                               @input="handleInput($event.target, '{{ $loop->index }}')">
-                                    @endforeach
-                                </div>
-                                
-                                
-                                    <div x-data="{ countdown: 120, isDisabled: true }" x-init="isDisabled = true;
-                                    countdown = 120;
-                                    let timer = setInterval(() => {
-                                        if (countdown > 0) {
-                                            countdown--;
-                                        } else {
-                                            clearInterval(timer);
-                                            isDisabled = false;
+                                    }">
+                                        @foreach (['otc1', 'otc2', 'otc3', 'otc4', 'otc5', 'otc6'] as $otc)
+                                            <input type="text" inputmode="numeric" maxlength="1"
+                                                x-ref="{{ $otc }}" wire:model.defer="{{ $otc }}"
+                                                class="otp-input"
+                                                @input="handleInput($event.target, '{{ $loop->index }}')">
+                                        @endforeach
+                                    </div>
+
+                                    <div x-data="{
+                                        countdown: 120,
+                                        isDisabled: true,
+                                        timer: null,
+                                        startTimer() {
+                                            this.isDisabled = true;
+                                            this.countdown = 120;
+                                            this.timer = setInterval(() => {
+                                                if (this.countdown > 0) {
+                                                    this.countdown--;
+                                                } else {
+                                                    clearInterval(this.timer);
+                                                    this.isDisabled = false;
+                                                }
+                                            }, 1000);
+                                        },
+                                        resetTimer() {
+                                            clearInterval(this.timer);
+                                            this.startTimer();
                                         }
-                                    }, 1000);">
+                                    }" x-init="startTimer()">
+
                                         @if (session('message'))
                                             <div class="alert alert-success">
                                                 {{ session('message') }}
                                             </div>
                                         @elseif(session('error'))
-                                            <div class="alert alert-success">
+                                            <div class="alert alert-danger">
                                                 {{ session('error') }}
                                             </div>
                                         @endif
-                                        <button id="resendButton" wire:click.prevent="resendCode"
-                                            :disabled="isDisabled">Resend Code</button>
+
+                                        <a href="#" id="resendLink" wire:click.prevent="resendCode"
+                                            :class="{ 'disabled-link': isDisabled }"
+                                            @click="isDisabled ? $event.preventDefault() : resetTimer()"
+                                            x-bind:aria-disabled="isDisabled.toString()">
+                                            Resend Code
+                                        </a>
                                         <span x-show="isDisabled"
                                             x-text="'Please wait ' + countdown + ' seconds...'"></span>
                                     </div>
 
 
-                                    @if (session('otp_error'))
-                                        <small><span class="text-danger error">{{ session('otp_error') }}</span></small>
-                                    @endif
+                                    <div x-data="{
+                                        countdown: 120,
+                                        isDisabled: true,
+                                        timer: null,
+                                        startTimer() {
+                                            this.isDisabled = true;
+                                            this.countdown = 120;
+                                            this.timer = setInterval(() => {
+                                                if (this.countdown > 0) {
+                                                    this.countdown--;
+                                                } else {
+                                                    clearInterval(this.timer);
+                                                    this.isDisabled = false;
+                                                }
+                                            }, 1000);
+                                        },
+                                        resetTimer() {
+                                            clearInterval(this.timer);
+                                            this.startTimer();
+                                        }
+                                    }" x-init="startTimer()">
+
+                                        @if (session('otp_error'))
+                                            <small><span
+                                                    class="text-danger error">{{ session('otp_error') }}</span></small>
+                                        @endif
+                                    </div>
+                                    <button wire:click.prevent="verifyCode" type="button"
+                                        class="btn btn-block btn-primary w-100 text-white">
                                 </div>
-                                <button wire:click.prevent="verifyCode" type="button"
-                                    class="btn btn-block btn-primary w-100 text-white">
+                                <a href="#" id="resendLink" wire:click.prevent="emailSend"
+                                    :class="{ 'disabled-link': isDisabled }"
+                                    @click="isDisabled ? $event.preventDefault() : resetTimer()"
+                                    x-bind:aria-disabled="isDisabled.toString()">
+                                    Send code via email
+                                </a>
+                                <span x-show="isDisabled" x-text="'Please wait ' + countdown + ' seconds...'"></span>
                             </div>
-                            <button wire:click.prevent="emailSend" value="1">Send OTP via email</button>
                             <!-- End of Form -->
 
                             <span wire:loading>
@@ -137,7 +185,8 @@
                                     @error('email')
                                         <small><span class="text-danger error">{{ $message }}</span></small>
                                     @enderror
-                                    <a href="" wire:click.prevent="togglePhoneNumberLogin" class="text-dark LoginPhone"><u>Log in with
+                                    <a href="" wire:click.prevent="togglePhoneNumberLogin"
+                                        class="text-dark LoginPhone"><u>Log in with
                                             Phone Number</u></a>
                                 </div>
                             </div>

@@ -37,6 +37,12 @@
     -moz-appearance: none;
     appearance: none;
 }
+
+.disabled-link {
+        pointer-events: none; /* Prevent clicking */
+        color: grey;
+        cursor: default;
+    }
     </style>
     <body>
         <div id="app">

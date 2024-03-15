@@ -20,16 +20,6 @@ class Login extends Component
     public $input;
 
 
-    // public function switchToPhoneNumberLogin()
-    // {
-    //     $this->loginMode = 'phone';
-    // }
-
-    // public function switchToEmailLogin()
-    // {
-    //     $this->loginMode = 'email';
-    // }
-
     public $usePhoneNumber = false;
     public $useEmail = true;
 
@@ -87,7 +77,7 @@ class Login extends Component
         } else {
             // Resend the code logic here
             // $this->phoneSend();
-            $otp_gen = otp_generator(); // Assuming this function generates the OTP
+            $otp_gen = otp_generator();
             $user->update([
                 'otp_code' => $otp_gen,
                 // 'otp_sent_time' => $currentTime
