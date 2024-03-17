@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md  navbar-light bg-white shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">
-      <img class="buudl-logo" src="{{ asset('assets/img/buudl_brown.svg') }}" alt="logo">
+      <img class="buudl-logo img-fluid" src="{{ asset('assets/img/buudl_brown.svg') }}" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
       <span class="navbar-toggler-icon"></span>
@@ -12,8 +12,9 @@
       <div class="navbar-nav-container position-relative">
         <div class="search">
           <div x-data="{ open: false }">
-            <a type="button" x-on:click="open = ! open" class="searchBtn"><i class="fa fa-search"></i></a>
-            <span x-show="open" x-transition><input type="search" class="form-control" autofocus></span>
+            <a type="button" x-on:click="open = !open" class="searchBtn"><i class="fa fa-search"></i></a>
+            <span x-show="open" style="visibility: visible;"><input type="search" class="form-control" autofocus></span>
+            <span x-show="!open" style="visibility: hidden;"><input type="search" class="form-control" autofocus></span>
           </div>
         </div>
         <!-- Right Side Of Navbar -->

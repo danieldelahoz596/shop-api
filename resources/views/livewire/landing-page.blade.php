@@ -1,18 +1,18 @@
 <div class="pb-4">
   <div class="container-fluid px-0 position-relative">
-    <div class="container carouselLinks">
+    <div class="container carouselLinks position-absolute end-50 z-1">
       <div class="standard-cat">
         <ul class="nav justify-content-evenly">
-          <li class="nav-item">
+          <li class="nav-item display-6">
             <a class="nav-link text-secondary" href="#">Men</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item display-6">
             <a class="nav-link text-secondary" href="#">Women</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item display-6">
             <a class="nav-link text-secondary" href="#">Kids</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item display-6">
             <a class="nav-link text-secondary" href="#">Sale</a>
           </li>
         </ul>
@@ -28,26 +28,26 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="{{ asset('assets/img/slides/banner1.png') }}" class="d-block w-100 carousel-image" alt="slide_1">
-            <div class="carousel-caption d-none d-md-flex">
-              <h5>First slide label</h5>
-              <p>Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
+            <div class="carousel-caption">
+              <h5 class="display-1 m-0 p-0">First slide label</h5>
+              <p class="m-0 p-0 container-xl h1 container-md">Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
               <button class="carouselBtn">Let's go!</button>
             </div>
           </div>
           <div class="carousel-item">
             <img src="{{ asset('assets/img/slides/banner2.png') }}" class="d-block w-100 carousel-image" alt="slide_2">
-            <div class="carousel-caption d-none d-md-flex">
-              <h5>Second slide label</h5>
-              <p>Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
+            <div class="carousel-caption">
+              <h5 class="display-1 m-0 p-0">Second slide label</h5>
+              <p class="m-0 p-0 container-xl h1 container-md">Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
               <button class="carouselBtn">Let's go!</button>
             </div>
           </div>
           <div class="carousel-item">
             <img src="{{ asset('assets/img/slides/banner3.png') }}" class="d-block w-100 carousel-image" alt="slide_3">
-            <div class="carousel-caption d-none d-md-flex">
-              <h5>Third slide label</h5>
-              <p>Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
-              <button class="carouselBtn">Let's go!</button>
+            <div class="carousel-caption">
+              <h5 class="display-1 m-0 p-0">Third slide label</h5>
+              <p class="m-0 p-0 container-xl h1 container-md">Be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth. be part of our community. Thrift. Shop. Circular fashion. Save earth.</p>
+              <button class="carouselBtn ">Let's go!</button>
             </div>
           </div>
         </div>

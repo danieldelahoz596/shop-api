@@ -22,32 +22,6 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @livewireStyles
     </head>
-<<<<<<< HEAD
-
-    <style>
-    .otp-input {
-    width: 40px; /* Width of each box */
-    height: 40px; /* Height of each box */
-    margin: 0 -5px; /* Spacing between boxes */
-    text-align: center;
-    border: 1px solid #ccc; /* Border of the boxes */
-    font-size: 20px;
-    border-radius: 4px; /* Optional: for rounded corners */
-
-    /* Improves mobile experience */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-.disabled-link {
-        pointer-events: none; /* Prevent clicking */
-        color: grey;
-        cursor: default;
-    }
-    </style>
-=======
->>>>>>> 54cb3382c42e4b9ad7c2009e31f32f4068acb25d
     <body>
         <div id="app">
             <livewire:components.nav>

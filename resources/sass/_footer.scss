@@ -1,5 +1,5 @@
-.footer{
-  position: sticky;
+footer{
+  position: relative;
   left: 0;
   bottom: 0;
   background-size: contain;
@@ -7,35 +7,22 @@
   height: 40vh;
   background-color: $primary;
   .footerWrapper{
-    height: 100%;
-    max-width: 1744px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
     .footerDescription{
-      display: flex;
-      justify-content: space-around;
-      width: 80%;
-      align-items: center;
-      height: 100%;
       .footerTitle{
+        padding: 3rem 0 0 6rem;
         h1{
-          font-size: clamp(2rem, 5.5vw, 6rem);
-          color: $tertiary;
-          letter-spacing: -6px;
-          font-weight: 600;
-          margin: 0;
+          color: $tertiary !important;
+          margin: 0 !important;
         }
         h3{
-          font-size: clamp(1.5rem, 2vw, 3rem);
-          color: $tertiary;
-          max-width: 570px;
-          margin: 0;
+          color: $tertiary !important;
+          margin: 0 !important;
         }
       }
       .footerInfos{
         height: 56%;
-        h3{
+        padding-top: 4.5rem !important;
+        h1{
           letter-spacing: -3px;
           color: $tertiary;
         }
@@ -50,14 +37,47 @@
       }
     }
     .footerSocial{
-      display: flex;
-      justify-content: end;
-      column-gap: 2rem;
-      width: 96%;
+      // display: flex;
+      // column-gap: 2rem;
+      // width: 96%;
       .social{
         a{
           color: $tertiary;
           font-size: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1399.98px){
+  // additional default
+  .w-xl-100{ width: 100% !important;}
+
+  ul{
+    margin: 0 !important;
+  }
+  h1{
+    font-size: 2rem;
+  }
+  .display-1{
+    font-size: 4rem
+  }
+  .display-6{
+    font-size: 1.5rem
+  }
+  .display-4{
+    font-size: 2.5rem
+  }
+  footer{
+    .footerWrapper{
+      .footerDescription{
+        .footerTitle{
+          padding: 0 0 0 6rem;
+        }
+        .footerInfos{
+          height: 56%;
+          padding-top: 1rem !important;
         }
       }
     }
