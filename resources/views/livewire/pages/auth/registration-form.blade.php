@@ -142,19 +142,23 @@
 
         <div class="form-group">
             <div class="d-flex flex-column mb-4">
-                <div class="digit-group">
-                    <input type="number" pattern="[0-9]*" inputtype="numeric" autocomplete="one-time-code" id="otc-1"
-                        wire.model.defer="otc_1" class="codeDanger otpNumber">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-2"
-                        wire.model.defer="otc_2" class="codeDanger otpNumber">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-3"
-                        wire.model.defer="otc_3" class="codeDanger otpNumber">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-4"
-                        wire.model.defer="otc_4" class="codeDanger otpNumber">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-5"
-                        wire.model.defer="otc_5" class="codeDanger otpNumber">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-6"
-                        wire.model.defer="otc_6" class="codeDanger otpNumber">
+                <div class="digit-group" x-data="{
+                                        handleInput(input, index) {
+                                            let value = input.value;
+                                            input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
+                                    
+                                            if (event.inputType === 'deleteContentBackward' && index !== 0 && !value) {
+                                                input.previousElementSibling.focus(); // Move to previous field on backspace
+                                            } else if (index < 5 && value) {
+                                                input.nextElementSibling.focus(); // Move to next field if not last
+                                            }
+                                        }
+                                    }">
+                    @foreach (['otc1', 'otc2', 'otc3', 'otc4', 'otc5', 'otc6'] as $otc)
+                    <input type="text" inputmode="numeric" maxlength="1" x-ref="{{ $otc }}"
+                        wire:model.defer="{{ $otc }}" class="otp-input"
+                        @input="handleInput($event.target, '{{ $loop->index }}')">
+                    @endforeach
                 </div>
                 @error('number')
                 <small><span class="text-danger error">{{ $message }}</span></small>
@@ -198,9 +202,9 @@
 
 
             <!-- Resend OTP Button -->
-            <button x-bind:disabled="disabled" class="btn btn-block btn-primary w-100 text-white"
+            <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 w-100 p-2 text-white"
                 x-on:click="resendOTP">
-                Resend OTP
+                Resend OTP<span x-show="disabled" x-text="'(' + countdown + ')'"></span>
             </button>
         </div>
 
@@ -217,8 +221,8 @@
             </span>
         </button> -->
         <!-- End of Form -->
-        <button wire:click.prevent="verifyCode" type="button" class="btn btn-block btn-primary w-100 text-white">
-            Register
+        <button wire:click.prevent="verifyCode" type="button" class="btn btn-block mt-1 btn-primary w-100 text-white">
+            Verify now
             <span wire:loading>
                 <span class="spinner-border" role="status">
                     <span class="visually-hidden"></span>
@@ -235,29 +239,35 @@
         </div>
         <div class="form-group">
             <div class="d-flex flex-column mb-4">
-                <div class="digit-group">
-                    <input type="number" pattern="[0-9]*" inputtype="numeric" autocomplete="one-time-code" id="otc-1"
-                        wire:model.defer="otc1" class="codeDanger">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-2"
-                        wire:model.defer="otc2" class="codeDanger">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-3"
-                        wire:model.defer="otc3" class="codeDanger">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-4"
-                        wire:model.defer="otc4" class="codeDanger">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-5"
-                        wire:model.defer="otc5" class="codeDanger">
-                    <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" inputtype="numeric" id="otc-6"
-                        wire:model.defer="otc6" class="codeDanger">
+                <div class="digit-group" x-data="{
+                                        handleInput(input, index) {
+                                            let value = input.value;
+                                            input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
+                                    
+                                            if (event.inputType === 'deleteContentBackward' && index !== 0 && !value) {
+                                                input.previousElementSibling.focus(); // Move to previous field on backspace
+                                            } else if (index < 5 && value) {
+                                                input.nextElementSibling.focus(); // Move to next field if not last
+                                            }
+                                        }
+                                    }">
+                    @foreach (['otc1', 'otc2', 'otc3', 'otc4', 'otc5', 'otc6'] as $otc)
+                    <input type="text" inputmode="numeric" maxlength="1" x-ref="{{ $otc }}"
+                        wire:model.defer="{{ $otc }}" class="otp-input border-2"
+                        @input="handleInput($event.target, '{{ $loop->index }}')">
+                    @endforeach
                 </div>
                 @error('number')
                 <small><span class="text-danger error">{{ $message }}</span></small>
                 @enderror
             </div>
         </div>
-        <button wire:click.prevent="phoneSend" value="1" class="btn btn-block btn-primary w-100 text-white">Send OTP via
-            Phone</button>
-        <!-- End of Form -->
-        <div x-data="{
+    </div>
+    <button wire:click.prevent="phoneSend" value="1" class="btn btn-block btn-primary mx-2 w-100 p-2 text-white">Send
+        OTP via
+        Phone</button>
+    <!-- End of Form -->
+    <div x-data="{
         countdown: 30,
         disabled: true,
         init() {
@@ -290,127 +300,125 @@
         timer: null
     }" x-init="init()">
 
-            <span x-show="disabled" x-text="'(' + countdown + ')'"></span>
-            <!-- Resend OTP Button -->
-            <button x-bind:disabled="disabled" class="btn btn-block btn-primary w-100 text-white"
-                x-on:click="resendOTP">
-                Resend OTP
-            </button>
+
+        <!-- Resend OTP Button -->
+        <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 w-100 p-2 text-white"
+            x-on:click="resendOTP">
+            Resend OTP<span x-show="disabled" x-text="'(' + countdown + ')'"></span>
+        </button>
+    </div>
+
+
+    <button wire:click.prevent="verifyCode" type="button" class="btn btn-block btn-primary mx-2 p-2 w-100 text-white">
+        Verify Code
+        <span wire:loading>
+            <span class="spinner-border" role="status">
+                <span class="visually-hidden"></span>
+            </span>
+        </span>
+    </button>
+    <!-- <a href="#" id="resendLink" wire:click.prevent="resendCode"
+            :class="{ 'disabled-link': isDisabled } btn btn-block btn-primary w-100 text-white"
+            @click="isDisabled ? $event.preventDefault() : resetTimer()" x-bind:aria-disabled="isDisabled.toString()">
+            Resend Code
+        </a> -->
+    <span x-show="isDisabled" x-text="'Please wait ' + countdown + ' seconds...'"></span>
+    @else
+    <!-- Last Form -->
+    <div class=" justify-content-center gap-2 align-items-center d-flex flex-column bg-white p-3">
+        <h5 class="" style="color:#808080;">Step 3 of 4</h5>
+        <h1 class="text-primary ">What's your phone number</h1>
+        <span class="h5 text-center">We need this to very it's you.<br>Don't worry, you are secure with us</span>
+        <div class="mt-3">
+            <div class="d-flex flex-wrap flex-row">
+                <select name="country_code" id="country_code" wire:model="selectedIdd"
+                    class="form-control cc-container bg-white">
+                    @foreach ($countries as $country)
+                    @foreach ($country['callingCodes'] as $code)
+                    <option value="{{ $code }}">{{ $country['name'] }} {{ $code }} </option>
+                    @endforeach
+                    @endforeach
+                </select>
+                <input type="text" wire:model.live="phone_number"
+                    class=" w-75 ms-2 rounded bg-white form-control @error('phone_number') is-invalid @enderror"
+                    placeHolder=" " />
+
+            </div>
+            @error('phone_number') <span class="text-danger error">{{ $message }}</span> @enderror
         </div>
 
+        <div class="text-center text-sm mt-10 text-gray-600">
+            <div>
+                <button wire:click="increaseStep"
+                    class="btn bg-primary  h-12 rounded mt-1 text-white color-orange font-semibold">Send
+                    Code</button>
+                <div wire:loading wire:target="increaseStep" class="absolute inset-0 flex justify-center items-center">
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+            <div class="text-center"><a href="/login" class="text-orange-600">Have an account already?</a>
+            </div>
+        </div>
 
-        <button wire:click.prevent="verifyCode" type="button" class="btn btn-block btn-primary w-100 text-white">
-            Verify Code
+    </div>
+    @endif
+</div>
+@endif
+
+
+@if ($currentStep == 4)
+<div class="border justify-content-center gap-2 align-items-center d-flex flex-column bg-white p-3">
+    <h5 class="" style="color:#808080;">Step 4 of 4</h5>
+    <h1 class="text-primary ">Last stretch!</h1>
+    <h3 class="lead">Just one step your closet</h3>
+
+    <div class="w-75 d-flex flex-column justify-content-center gap-2 align-items-center">
+        <input type="text" wire:model="username" class="rounded form-control @error('email') is-invalid @enderror"
+            placeHolder="Username" />
+        @error('username') <span class="error">{{ $message }}</span> @enderror
+
+
+
+        <input type="password" wire:model.live="password"
+            class="rounded form-control @error('password') is-invalid @enderror" placeholder="Password" />
+
+        {{-- Display all error messages --}}
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        <input type="password" wire:model="password_confirmation"
+            class="rounded form-control @error('email') is-invalid @enderror" placeHolder="Confirm Password" />
+        <ul class="text-left" style="color: #808080;text-align: left;">
+            <li> Must be at least 8 characters</li>
+            <li> Uppercase, lowercase, and one number atleast</li>
+        </ul>
+
+
+        <button wire:click="submit"
+            class="btn bg-primary mt-3 p-2 px-5 h-12 rounded text-white color-orange font-semibold relative">
+            <span wire:loading.remove wire:target="submit">All set!</span>
+            <!-- Loading Spinner -->
             <span wire:loading>
                 <span class="spinner-border" role="status">
                     <span class="visually-hidden"></span>
                 </span>
             </span>
         </button>
-        <!-- <a href="#" id="resendLink" wire:click.prevent="resendCode"
-            :class="{ 'disabled-link': isDisabled } btn btn-block btn-primary w-100 text-white"
-            @click="isDisabled ? $event.preventDefault() : resetTimer()" x-bind:aria-disabled="isDisabled.toString()">
-            Resend Code
-        </a> -->
-        <span x-show="isDisabled" x-text="'Please wait ' + countdown + ' seconds...'"></span>
-        @else
-        <!-- Last Form -->
-        <div class=" justify-content-center gap-2 align-items-center d-flex flex-column bg-white p-3">
-            <h5 class="" style="color:#808080;">Step 3 of 4</h5>
-            <h1 class="text-primary ">What's your phone number</h1>
-            <span class="h5 text-center">We need this to very it's you.<br>Don't worry, you are secure with us</span>
-            <div class="mt-3">
-                <div class="d-flex flex-wrap flex-row">
-                    <select name="country_code" id="country_code" wire:model="selectedIdd"
-                        class="form-control cc-container bg-white">
-                        @foreach ($countries as $country)
-                        @foreach ($country['callingCodes'] as $code)
-                        <option value="{{ $code }}">{{ $country['name'] }} {{ $code }} </option>
-                        @endforeach
-                        @endforeach
-                    </select>
-                    <input type="text" wire:model.live="phone_number"
-                        class=" w-75 ms-2 rounded bg-white form-control @error('phone_number') is-invalid @enderror"
-                        placeHolder=" " />
-
-                </div>
-                @error('phone_number') <span class="text-danger error">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="text-center text-sm mt-10 text-gray-600">
-                <div>
-                    <button wire:click="increaseStep"
-                        class="btn bg-primary  h-12 rounded mt-1 text-white color-orange font-semibold">Send
-                        Code</button>
-                    <div wire:loading wire:target="increaseStep"
-                        class="absolute inset-0 flex justify-center items-center">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4">
-                            </circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-center"><a href="/login" class="text-orange-600">Have an account already?</a>
-                </div>
-            </div>
-
-        </div>
-        @endif
     </div>
-    @endif
-
-
-    @if ($currentStep == 4)
-    <div class="border justify-content-center gap-2 align-items-center d-flex flex-column bg-white p-3">
-        <h5 class="" style="color:#808080;">Step 4 of 4</h5>
-        <h1 class="text-primary ">Last stretch!</h1>
-        <h3 class="lead">Just one step your closet</h3>
-
-        <div class="w-75 d-flex flex-column justify-content-center gap-2 align-items-center">
-            <input type="text" wire:model="username" class="rounded form-control @error('email') is-invalid @enderror"
-                placeHolder="Username" />
-            @error('username') <span class="error">{{ $message }}</span> @enderror
-
-
-
-            <input type="password" wire:model.live="password"
-                class="rounded form-control @error('password') is-invalid @enderror" placeholder="Password" />
-
-            {{-- Display all error messages --}}
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
-            <input type="password" wire:model="password_confirmation"
-                class="rounded form-control @error('email') is-invalid @enderror" placeHolder="Confirm Password" />
-            <ul class="text-left" style="color: #808080;text-align: left;">
-                <li> Must be at least 8 characters</li>
-                <li> Uppercase, lowercase, and one number atleast</li>
-            </ul>
-
-
-            <button wire:click="submit"
-                class="btn bg-primary mt-3 p-2 px-5 h-12 rounded text-white color-orange font-semibold relative">
-                <span wire:loading.remove wire:target="submit">All set!</span>
-                <!-- Loading Spinner -->
-                <span wire:loading>
-                    <span class="spinner-border" role="status">
-                        <span class="visually-hidden"></span>
-                    </span>
-                </span>
-            </button>
-        </div>
-    </div>
-    @endif
+</div>
+@endif
 </div>
 </div>
