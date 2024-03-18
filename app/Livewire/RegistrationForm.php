@@ -2,15 +2,17 @@
 
 namespace App\Livewire;
 
+
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\User;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\RegisterMail;
 use App\Service\LogService;
 use App\Mail\SendOtpViaMail;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationForm extends Component
 {
@@ -18,31 +20,25 @@ class RegistrationForm extends Component
     //input fields for registration form
     public $selectedIdd, $phone_number, $email, $birthday, $firstname, $lastname, $username;
     public $password, $gender, $address, $password_confirmation;
-    public  $remember_me, $phone_otp, $email_otp;
+    public  $remember_me, $phone_otp, $email_otp, $attribute;
     //for address
     public $countries = [];
     public $provinces = [];
     public $cities = [];
     public $selectedCity, $selectedProvince, $streetNumber, $barangay, $street, $phone;
     public $input;
-    public $otp;
+    public $otp, $otp_code;
     public $otc1, $otc2, $otc3, $otc4, $otc5, $otc6;
     public $inputCode;
     public $otp_sent_time;
+    public $day, $month, $year;
+    public $start_date;
 
     public function otp_gen()
     {
         return $this->otp;
     }
-    public function switchToPhoneNumberLogin()
-    {
-        $this->loginMode = 'phone';
-    }
 
-    public function switchToEmailLogin()
-    {
-        $this->loginMode = 'email';
-    }
 
     public function resendCode()
     {
@@ -118,7 +114,13 @@ class RegistrationForm extends Component
             'unique:users,email', // digit is 10
 
         ],
+        'birthday' => [
+            'required',
+
+
+        ],
     ];
+
     protected $messages = [
         'password.required' => 'The password field is required.',
         'password.min' => 'The password must be at least :min characters.',
@@ -128,11 +130,42 @@ class RegistrationForm extends Component
         'email.required' => 'The email field is required.',
         'email.email' => 'The email field should be a valid email.',
         'email.unique' => 'The email is already taken.',
-    ];
+        'birthday.required' => 'You must input your birthday',
 
+    ];
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
+
+        // Additional validation for the birthday field
+        if ($propertyName === 'birthday') {
+            $this->validateBirthday();
+        }
+    }
+
+    protected function validateBirthday()
+    {
+        // Check if the birthday is not empty and contains the expected format
+
+        // Split the date string into day, month, and year components
+        $components = explode('-', $this->birthday);
+        // Check if all expected components are present
+        if (count($components) === 3) {
+            list($day, $month, $year) = $components;
+
+            // Create a Carbon instance with the components
+            $birthdate = Carbon::create($day, $month, $year);
+
+            // Calculate age
+            $age = $birthdate->diffInYears(Carbon::now());
+
+            if ($age < 18) {
+                $this->addError('birthday', 'You must be at least 18 years old.');
+            }
+        } else {
+            // Handle invalid format
+            $this->addError('birthday', 'Invalid date format.');
+        }
     }
 
 
@@ -145,6 +178,7 @@ class RegistrationForm extends Component
     {
         $this->fetchCountryCodes();
         $this->fetchProvinces();
+        $this->sendOTP();
     }
 
     public function fetchProvinces()
@@ -211,7 +245,29 @@ class RegistrationForm extends Component
             'countries' => $this->countries,
         ]);
     }
+    public function sendOTP()
+    {
+        if ($this->currentStep === 3 && $this->canResendOTP()) {
+            // Invalidate the previous OTP and generate a new one
+            $otp_gen = otp_generator();
 
+            // Method that sends the OTP, adjust with your actual sending logic
+            $this->phoneSend($this->phone_number, $otp_gen);
+
+            // Store the OTP and the time it was sent in the component's state
+            $this->otp_sent_time = now();
+        }
+    }
+
+    // Check if we can resend the OTP
+    private function canResendOTP()
+    {
+        if (!$this->otp_sent_time) {
+            return true;
+        }
+        $cooldown = $this->otp_sent_time->addSeconds(30);
+        return now()->greaterThanOrEqualTo($cooldown);
+    }
     //THIS IS FOR THE NEXT BUTTON
     public function increaseStep()
     {
@@ -233,8 +289,6 @@ class RegistrationForm extends Component
         }
         $this->validateData();
         $this->currentStep++;
-        $this->loading = true;
-        $this->loading = false;
     }
 
     public function decreaseStep()
@@ -278,8 +332,7 @@ class RegistrationForm extends Component
                 'otp_code' => $otp_gen
             ]);
 
-        $this->loading = true; // Before the operation
-        $this->loading = false; // After the operation
+
         // Validate form data
         $this->validateData();
         $address =  $this->streetNumber . ' ' . $this->street . ', ' . $this->barangay . ', ' . $this->selectedCity . ', ' . $this->selectedProvince;
