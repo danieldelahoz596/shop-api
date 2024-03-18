@@ -126,7 +126,8 @@
                 <small><span class="text-danger error">{{ $message }}</span></small>
                 @enderror
                 <a href="" wire:click.prevent="togglePhoneNumberLogin" class="text-dark LoginPhone"><u>Log in with
-                    Phone Number</u></a>
+                    Phone Number</u>
+                </a>
               </div>
             </div>
             <!-- End of Form -->
@@ -170,9 +171,7 @@
                   </span>
                 </span>
               </div>
-              <span wire:loading.remove wire:target="login" class="text-white">Sign in</span>
-
-
+              <span wire:loading.remove class="text-white">Sign in</span>
             </button>
 
             <div class="divider d-flex align-items-center my-2">
