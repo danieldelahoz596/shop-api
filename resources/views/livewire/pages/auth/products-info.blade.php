@@ -88,11 +88,18 @@
                     </div>
                     </p>
                     <div>
-                        <ul>
-                            <li><small class="text-muted">Retro</small></li>
-                            <li><small class="text-muted">Streetwear</small></li>
-                            <li><small class="text-muted">Casual</small></li>
-                            <li><small class="text-muted">Y2K</small></li>
+                        <ul style=" list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;">
+                            <li style="float: left;
+  margin-right: 5px;"><small class="text-muted">Retro</small></li>
+                            <li style="float: left; margin-right: 5px;"><small class="text-muted">Streetwear</small>
+                            </li>
+                            <li style="float: left;
+  margin-right: 5px;"><small class="text-muted">Casual</small></li>
+                            <li style="float: left;
+  margin-right: 5px;"><small class="text-muted">Y2K</small></li>
                         </ul>
                     </div>
                 </div>
@@ -166,6 +173,14 @@
 
     @script
     <script>
+    Alpine.data('counter', () => {
+        return {
+            count: 0,
+            increment() {
+                this.count++
+            },
+        }
+    })
     // JavaScript to synchronize thumbnails with the carousel
     const thumbnails = document.querySelectorAll('.thumbnail-selector img');
     const updateThumbnails = (activeIndex) => {
