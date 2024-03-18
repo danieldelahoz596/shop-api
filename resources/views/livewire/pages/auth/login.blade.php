@@ -15,46 +15,51 @@
                     :email="$email"
                  />
             @else
-                <!-- Form -->
-                <div class="form-group">
-                    <div class="d-flex flex-column mb-2">
-                        <input class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email or Username" type="text" aria-label="email adress" wire:model="email" wire:keydown.enter="login">
-                        @error('email')
-                        <small><span class="text-danger error">{{ $message }}</span></small>
-                        @enderror
-                        <a href="" wire:click.prevent="togglePhoneNumberLogin" class="text-dark LoginPhone"><u>Log in with
-                            Phone Number</u></a>
-                    </div>
-                </div>
+            <!-- Form -->
+            <div class="form-group">
+              <div class="d-flex flex-column mb-2">
+                <input class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email or Username" type="text" aria-label="email adress" wire:model="email" wire:keydown.enter="login">
+                @error('email')
+                    <small><span class="text-danger error">{{ $message }}</span></small>
+                @enderror
+                <a href="" wire:click.prevent="togglePhoneNumberLogin" class="text-dark LoginPhone"><u>Log in with
+                    Phone Number</u>
+                </a>
+              </div>
+            </div>
+            <!-- End of Form -->
+            <div class="form-group">
+              <!-- Form -->
+              <div class="form-group">
                 <!-- End of Form -->
                 <div class="form-group">
                     <!-- Form -->
                     <div class="form-group">
                         <div class="d-flex flex-column mb-2">
-                        <div class="position-relative">
-                            <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" type="{{ $type }}" aria-label="Password" wire:model="password">
-                            <button type="button" class="toggleButton" wire:click.prevent="togglePassword">
-                            @if ($type == 'password')
-                            <i class="fa-regular fa-eye-slash"></i>
-                            @else
-                            <i class="fa-regular fa-eye"></i>
-                            @endif
-                            </button>
-                        </div>
-                        @error('password')
-                        <small><span class="text-danger error">{{ $message }}</span></small>
-                        @enderror
-                        <a href="" class="text-dark ForgotPassword"><u>Forgot Password</u></a>
+                            <div class="position-relative">
+                                <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" type="{{ $type }}" aria-label="Password" wire:model="password">
+                                <button type="button" class="toggleButton" wire:click.prevent="togglePassword">
+                                    @if ($type == 'password')
+                                        <i class="fa-regular fa-eye-slash"></i>
+                                    @else
+                                        <i class="fa-regular fa-eye"></i>
+                                    @endif
+                                </button>
+                            </div>
+                            @error('password')
+                                <small><span class="text-danger error">{{ $message }}</span></small>
+                            @enderror
+                            <a href="" class="text-dark ForgotPassword"><u>Forgot Password</u></a>
                         </div>
                     </div>
 
                     <!-- End of Form -->
                     <div class="d-block d-sm-flex justify-content-between align-items-center mb-4">
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me" wire:model="remember_me">
-                        <label class="form-check-label" for="remember_me">
-                            Remember me
-                        </label>
+                            <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me" wire:model="remember_me">
+                            <label class="form-check-label" for="remember_me">
+                                Remember me
+                            </label>
                         </div>
                         <div><a href="/forgot-password" class="small text-right">Lost password?</a></div>
                     </div>
@@ -68,20 +73,21 @@
                         </span>
                         </span>
                     </div>
-                    <span wire:loading.remove wire:target="login" class="text-white">Sign in</span>
+                    <span wire:loading.remove class="text-white">Sign in</span>
                 </button>
 
                 <div class="divider d-flex align-items-center my-2">
                     <p class="text-center fw-bold mx-3 mb-0 text-muted">or</p>
                 </div>
-
                 <div class="socialLink">
-                    <span class="socialLinkButton"><a href="">
-                        <i class="text-primary fab fa-facebook-f" style="color:#2A5297 !important;"></i><span id="fbText"></span>
+                    <span class="socialLinkButton">
+                        <a href="">
+                            <i class="text-primary fab fa-facebook-f" style="color:#2A5297 !important;"></i><span id="fbText"></span>
                         </a>
                     </span>
-                    <span class="socialLinkButton" id="register-button"><a href="">
-                        <i class="fa-brands fa-google" style="color: blue;"></i><span id="gText"></span>
+                    <span class="socialLinkButton" id="register-button">
+                        <a href="">
+                            <i class="fa-brands fa-google" style="color: blue;"></i><span id="gText"></span>
                         </a>
                     </span>
                 </div>

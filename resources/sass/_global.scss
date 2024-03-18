@@ -3,7 +3,7 @@ body {
 }
 
 
-.navbar-nav, .navbar-nav-container{
+.navbar-nav-container{
   display: flex;
   flex: content;
   column-gap: 1rem;
@@ -11,6 +11,11 @@ body {
   .fa-bag-shopping, .fa-envelope, .fa-user{
     color: $tertiary;
     font-size: 25px;
+  }
+  .navbar-nav{
+    .nav-item{
+      margin: 0 0.5rem;
+    }
   }
 }
 
@@ -46,30 +51,21 @@ body {
 }
 
 .search {
-    width: 100%;
-    .searchBtn {
-      position: absolute;
-      top: 12px;
-      right: 30%;
-    }
-    input {
-    width: 60vh;
-    height: 38px;
-    text-indent: 25px;
-    margin-left: 13rem;
-    background: transparent !important;
-    :focus{
-        box-shadow: none !important;
-        border: 2px solid blue;
-      } 
-    }
-    @media (max-width: 1281px) {
-      .searchBtn {
-        right: 34%;
-      }
-      input{
-        width: 69vh;
-      }
+    .input-span{
+      max-width: 60vh;
+      width: 100%;
+      text-align: start;
+      input {
+        max-width: 60vh;
+        width: 100%;
+        height: 38px;
+        text-indent: 25px;
+        background: transparent !important;
+        :focus{
+            box-shadow: none !important;
+            border: 2px solid blue;
+          } 
+        }
     }
 }
 

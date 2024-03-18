@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md  navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg  navbar-light bg-white shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">
       <img class="buudl-logo img-fluid" src="{{ asset('assets/img/buudl_brown.svg') }}" alt="logo">
@@ -9,16 +9,16 @@
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
-      <div class="navbar-nav-container position-relative">
-        <div class="search">
-          <div x-data="{ open: false }">
-            <a type="button" x-on:click="open = !open" class="searchBtn"><i class="fa fa-search"></i></a>
-            <span x-show="open" style="visibility: visible;"><input type="search" class="form-control" autofocus></span>
-            <span x-show="!open" style="visibility: hidden;"><input type="search" class="form-control" autofocus></span>
+      <div class="navbar-nav-container position-relative flex-column flex-lg-row">
+        <div class="search w-100 w-lg-50">
+          <div class="d-flex align-items-center justify-content-end" x-data="{ open: false }">
+            <span class="input-span border border-black my-2 my-lg-0" x-show="open" style="visibility: visible;"><input placeholder="Search" type="search" class="form-control" autofocus></span>
+            <span class="input-span my-2 my-lg-0" x-show="!open" style="visibility: hidden;"><input type="search" class="form-control" autofocus></span>
+            <a type="button" x-on:click="open = !open" class="searchBtn ps-2"><i class="fa fa-search"></i></a>
           </div>
         </div>
         <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav d-flex align-items-center flex-row">
           <li class="nav-item">
             <a class="nav-link navBtn" role="button" href="{{ route('login') }}">Sell</a>
           </li>

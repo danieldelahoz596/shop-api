@@ -37,9 +37,6 @@ footer{
       }
     }
     .footerSocial{
-      // display: flex;
-      // column-gap: 2rem;
-      // width: 96%;
       .social{
         a{
           color: $tertiary;
@@ -50,9 +47,11 @@ footer{
   }
 }
 
+
 @media (max-width: 1399.98px){
   // additional default
   .w-xl-100{ width: 100% !important;}
+
 
   ul{
     margin: 0 !important;
@@ -82,4 +81,10 @@ footer{
       }
     }
   }
+}
+
+
+@media (max-width: 991.98px){
+  //addition default
+  .w-lg-50{width: 50% !important;}
 }
