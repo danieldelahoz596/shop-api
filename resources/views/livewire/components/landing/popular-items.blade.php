@@ -4,21 +4,70 @@
     <a href="" class="text-black ms-2"><u>More</u></a>
   </div>
 
-  <div class="container-fluid pb-5">
+  <div x-data="{swiper: null}" x-init="swiper = new Swiper($refs.container, {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+      },
+      parallax: true,
+      rewind: true,
 
-    <div>
-      <div class="brandImages">
-        <div class="imgWrap">
-          <div class="placeItemGrid">
+      
+      slidesPerView: 1,
+      spaceBetween: 0,
+  
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 0,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 0,
+        },
+        1399: {
+          slidesPerView: 4,
+          spaceBetween: 0,
+        },
+      },
+    })" class="position-relative mx-auto d-flex flex-row">
+    <div class="position-absolute top-50 start-0 translate-middle-y z-3 d-flex align-items-center">
+      <button @click="swiper.slidePrev()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6">
+          <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="position-absolute top-50 end-0 translate-middle-y z-3 d-flex align-items-center">
+      <button @click="swiper.slideNext()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="swiper-container" x-ref="container">
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide p-4">
+          <div class="d-flex flex-column rounded shadow overflow-hidden">
             <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
+            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
             </div>
             <div class="imgContent text-start">
               <h3 class="m-0">skirts</h3>
               <div class="price lh-1">P 200</div>
             </div>
           </div>
-          <div class="placeItemGrid">
+        </div>
+
+        <div class="swiper-slide p-4">
+          <div class="d-flex flex-column rounded shadow overflow-hidden">
             <div class="brandImg">
               <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
             </div>
@@ -27,34 +76,10 @@
               <div class="price lh-1">P 200</div>
             </div>
           </div>
-          <div class="placeItemGrid">
-            <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
-            </div>
-            <div class="imgContent text-start">
-              <h3 class="m-0">skirts</h3>
-              <div class="price lh-1">P 200</div>
-            </div>
-          </div>
-          <div class="placeItemGrid">
-            <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-            </div>
-            <div class="imgContent text-start">
-              <h3 class="m-0">skirts</h3>
-              <div class="price lh-1">P 200</div>
-            </div>
-          </div>
-          <div class="placeItemGrid">
-            <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-            </div>
-            <div class="imgContent text-start">
-              <h3 class="m-0">skirts</h3>
-              <div class="price lh-1">P 200</div>
-            </div>
-          </div>
-          <div class="placeItemGrid">
+        </div>
+
+        <div class="swiper-slide p-4">
+          <div class="d-flex flex-column rounded shadow overflow-hidden">
             <div class="brandImg">
               <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
             </div>
@@ -66,12 +91,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="d-flex justify-content-center mt-4">
-      <button type="button" class="viewAll">
-        View All
-      </button>
-    </div> -->
   </div>
 
   <div class="container-fluid shopByCategory mt-5">

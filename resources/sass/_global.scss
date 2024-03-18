@@ -36,25 +36,12 @@ body {
       width: 53%;
     }
   }
-  .search{
-    display: block;
-    height: 38px;
-    .searchBtn{
-      right: 16% !important;
-      top: 9px !important;      
-    }
-    input{
-      width: 47vh !important;
-      margin-left: 2rem !important;      
-    }
-  }
 }
 
 .search {
     .input-span{
       max-width: 60vh;
       width: 100%;
-      text-align: start;
       input {
         max-width: 60vh;
         width: 100%;
@@ -66,6 +53,11 @@ body {
             border: 2px solid blue;
           } 
         }
+    }
+    .searchBtn{
+      .fa-search{
+        color: $tertiary;
+      }
     }
 }
 
