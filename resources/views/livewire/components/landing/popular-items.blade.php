@@ -10,12 +10,9 @@
         delay: 5000,
       },
       parallax: true,
-      rewind: true,
-
-      
+      rewind: true,     
       slidesPerView: 1,
       spaceBetween: 0,
-  
       breakpoints: {
         640: {
           slidesPerView: 1,
@@ -55,9 +52,9 @@
       <div class="swiper-wrapper">
         <!-- Slides -->
         <div class="swiper-slide p-4">
-          <div class="d-flex flex-column rounded shadow overflow-hidden">
+          <div class="d-flex flex-column overflow-hidden">
             <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
+            <a href="" class="img "><img class="" src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
             </div>
             <div class="imgContent text-start">
               <h3 class="m-0">skirts</h3>
@@ -67,9 +64,9 @@
         </div>
 
         <div class="swiper-slide p-4">
-          <div class="d-flex flex-column rounded shadow overflow-hidden">
+          <div class="d-flex flex-column overflow-hidden">
             <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
+              <a href="" class="img "><img class="" src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
             </div>
             <div class="imgContent text-start">
               <h3 class="m-0">skirts</h3>
@@ -79,9 +76,9 @@
         </div>
 
         <div class="swiper-slide p-4">
-          <div class="d-flex flex-column rounded shadow overflow-hidden">
+          <div class="d-flex flex-column overflow-hidden">
             <div class="brandImg">
-              <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
+              <a href="" class="img "><img class="" src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
             </div>
             <div class="imgContent text-start">
               <h3 class="m-0">skirts</h3>

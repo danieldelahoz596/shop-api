@@ -14,9 +14,38 @@
   display: flex;
   align-items: center;
 }
+.item_btn{
+  all: unset;
+  cursor: pointer;
+  max-width: 21.188rem;
+  width: 100%;
+  text-align: center;
+  background: $primary;
+  padding: 1.25rem 0;
+  border-radius: 13px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.settings.dropdown-toggle::after{
+  all: unset !important;
+}
+
+
 .muted{
   color: rgb(49, 13, 0, 0.5);
 }
 .muted.active{
   color: rgb(49, 13, 0,1);
 }
+.items{
+  .badges{
+    top: 1rem;
+    right: 1rem;
+    row-gap: 0.5rem;
+  }
+  .img{
+    width: 100%;
+  }
+}
+
