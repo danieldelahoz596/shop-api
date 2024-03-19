@@ -27,6 +27,10 @@
   font-size: 1.15rem;
 }
 
+.settings.dropdown-toggle::after{
+  all: unset !important;
+}
+
 
 .muted{
   color: rgb(49, 13, 0, 0.5);
