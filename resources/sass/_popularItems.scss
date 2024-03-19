@@ -8,6 +8,30 @@
   }
 }
 
+.left-navigation{
+  width: 9% !important;
+}
+.right-navigation{
+  width: 9% !important;
+}
+
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .carousel-item{
   .image{
     width: 20vw;
