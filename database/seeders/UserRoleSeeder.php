@@ -24,9 +24,19 @@ class UserRoleSeeder extends Seeder
             [
                 'role_name' => 'User',
             ],
+            [
+                'role_name' => 'Seller',
+            ],
+            [
+                'role_name' => 'Buyer'
+            ]
         ];
         foreach ($roles as $value) {
-            UserRole::create($value);
+            $slug = strtolower(str_replace(' ', '-', $value['role_name']));
+            UserRole::create([
+                'role_name' => $value['role_name'],
+                'slug' => $slug
+            ]);
         }
     }
 }

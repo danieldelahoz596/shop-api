@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
             $table->text('role_name')->nullable();
+            $table->string('slug')->nullable();
             $table->text('role_description')->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
             $table->softDeletes();

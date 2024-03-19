@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\RegisterMail;
 use App\Service\LogService;
 use App\Mail\SendOtpViaMail;
+use App\Models\UserAddress;
+use App\Models\UserRole;
 use Illuminate\Support\Facades\Mail;
 
 class RegistrationForm extends Component
@@ -33,6 +35,7 @@ class RegistrationForm extends Component
     public $otp_sent_time;
     public $day, $month, $year;
     public $start_date;
+    public $loading;
 
     public function otp_gen()
     {
@@ -161,11 +164,15 @@ class RegistrationForm extends Component
 
             if ($age < 18) {
                 $this->addError('birthday', 'You must be at least 18 years old.');
+                return false;
             }
         } else {
             // Handle invalid format
             $this->addError('birthday', 'Invalid date format.');
+            return false;
         }
+
+        return true;
     }
 
 
@@ -191,7 +198,10 @@ class RegistrationForm extends Component
                     'code' => $province['code'],
                     'name' => $province['name'],
                 ];
-            })->toArray();
+            })
+            ->sortBy('name')
+            ->values()
+            ->toArray();
         }
     }
 
@@ -206,7 +216,10 @@ class RegistrationForm extends Component
                         'code' => $city['code'],
                         'name' => $city['name'],
                     ];
-                })->toArray();
+                })
+                ->sortBy('name')
+                ->values()
+                ->toArray();
             } else {
                 $this->cities = [];
             }
@@ -235,7 +248,10 @@ class RegistrationForm extends Component
                     'name' => $country['name']['common'],
                     'callingCodes' => $fullCodes,
                 ];
-            })->toArray();
+            })
+            ->sortBy('name')
+            ->values()
+            ->toArray();
         }
     }
     //RENDER TO PAGE
@@ -271,7 +287,6 @@ class RegistrationForm extends Component
     //THIS IS FOR THE NEXT BUTTON
     public function increaseStep()
     {
-
         if ($this->currentStep === 3) {
             $this->phone_otp = true;
             $this->phoneSend();
@@ -287,7 +302,13 @@ class RegistrationForm extends Component
 
             return;
         }
+
         $this->validateData();
+
+        if (!$this->validateBirthday()) {
+            return;
+        }
+
         $this->currentStep++;
     }
 
@@ -332,12 +353,18 @@ class RegistrationForm extends Component
                 'otp_code' => $otp_gen
             ]);
 
+        $this->loading = true; // Before the operation
+        $this->loading = false; // After the operation
 
         // Validate form data
         $this->validateData();
         $address =  $this->streetNumber . ' ' . $this->street . ', ' . $this->barangay . ', ' . $this->selectedCity . ', ' . $this->selectedProvince;
+
+        $role = UserRole::where('slug', 'buyer')->first();
+
         // Create the user
         $user = User::create([
+            'role_id' => $role->id,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'name' => $this->firstname . ' ' . $this->lastname,
@@ -352,6 +379,14 @@ class RegistrationForm extends Component
             'password' => Hash::make($this->password),
         ]);
 
+        $street = $this->streetNumber . ' ' . $this->street;
+
+        UserAddress::create([
+            'user_id' => $user->id,
+            'street' => $street,
+            'city' => $this->selectedCity,
+            'province' => $this->selectedProvince,
+        ]);
 
         // Send verification email
         Mail::to($this->email)->send(new RegisterMail($user->email_verify_token, $user->email, $user->name));
