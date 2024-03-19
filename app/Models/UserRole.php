@@ -19,4 +19,9 @@ class UserRole extends Model
         'role_description',
         'is_deleted',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
