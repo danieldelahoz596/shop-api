@@ -1,7 +1,7 @@
 <div>
     <div class="container-fluid border border-black" style="height:100vh;">
       <div class="row" style="height:100vh">
-        <div class="col-3 left border-end">
+        <div class="col-xxl-3 col-xl-4 left border-end">
           <div class="container">
             <div class="w-100 text-end pt-4">
               <a href="" class="settings h4"> <i class="fa-solid fa-ellipsis"></i> </a>
@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="col-9 right p-0 m-0 py-4">
+        <div class="col-9 col-xl-8 right p-0 m-0 py-4">
           <livewire:pages.shop.component.listing />
         </div>
       </div>
