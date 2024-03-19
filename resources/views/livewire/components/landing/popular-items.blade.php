@@ -7,7 +7,7 @@
   <div x-data="{swiper: null}" x-init="swiper = new Swiper($refs.container, {
       loop: true,
       autoplay: {
-        delay: 3000,
+        delay: 5000,
       },
       parallax: true,
       rewind: true,

@@ -1,0 +1,22 @@
+.edit_btn{
+  all: unset;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
+  padding: 1rem 0;
+  border-radius: 10px;
+}
+.share_btn{
+  all: unset;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.muted{
+  color: rgb(49, 13, 0, 0.5);
+}
+.muted.active{
+  color: rgb(49, 13, 0,1);
+}
