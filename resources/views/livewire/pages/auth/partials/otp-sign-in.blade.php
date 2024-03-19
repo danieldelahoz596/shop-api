@@ -72,7 +72,7 @@
             <span wire:loading.remove class="text-white">Log In</span>
         </button>
         @if (session('message'))
-            <div class="pt-2 alert alert-success">
+            <div class="pt-2 alert alert-success mt-2">
             {{ session('message') }}
             </div>
         @elseif(session('error'))

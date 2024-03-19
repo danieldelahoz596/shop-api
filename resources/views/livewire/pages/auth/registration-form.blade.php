@@ -48,9 +48,8 @@
             By continuing, I agree to Buudle Policies and Terms and Conditions
             <div class="flex gap-2">
 
-                <button wire:click="increaseStep"
-                    class="btn bg-primary p-2 px-5 w-75 h-12 rounded mt-1 text-white color-orange font-semibold"><span
-                        wire:target="increaseStep">Next</span>
+                <button wire:click="increaseStep" class="btn bg-primary p-2 px-5 w-75 h-12 rounded mt-1 text-white color-orange font-semibold">
+                    <span wire:loading.remove>Next</span>
                     <!-- Loading Spinner -->
                     <span wire:loading>
                         <span class="spinner-border" role="status">
@@ -112,15 +111,14 @@
         <div class="text-center text-sm mt-3 mb-3 text-gray-600">
             By continuing, I agree to Buudle Policies and Terms and Conditions
             <div class="flex gap-2">
-
-                <button wire:click="increaseStep"
-                    class="btn bg-primary p-2 px-5 w-75 h-12 rounded mt-1 text-white color-orange font-semibold">Next<span
-                        wire:loading>
+                <button wire:click="increaseStep" class="btn bg-primary p-2 px-5 w-75 h-12 rounded mt-1 text-white color-orange font-semibold">
+                    <span wire:loading.remove>Next</span>
+                    <span wire:loading>
                         <span class="spinner-border" role="status">
                             <span class="visually-hidden"></span>
                         </span>
-                    </span></button>
-
+                    </span>
+                </button>
             </div>
 
         </div>
@@ -146,7 +144,7 @@
                                         handleInput(input, index) {
                                             let value = input.value;
                                             input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
-                                    
+
                                             if (event.inputType === 'deleteContentBackward' && index !== 0 && !value) {
                                                 input.previousElementSibling.focus(); // Move to previous field on backspace
                                             } else if (index < 5 && value) {
@@ -165,8 +163,7 @@
                 @enderror
             </div>
         </div>
-        <button wire:click.prevent="emailSend" value="1" class="btn btn-block btn-primary w-100 text-white">Send OTP via
-            email</button>
+        <button wire:click.prevent="emailSend" value="1" class="btn btn-block btn-primary w-100 text-white">Send OTP via email</button>
         <div x-data="{
         countdown: 30,
         disabled: true,
@@ -202,7 +199,7 @@
 
 
             <!-- Resend OTP Button -->
-            <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 w-100 p-2 text-white"
+            <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 mb-1 w-100 p-2 text-white"
                 x-on:click="resendOTP">
                 Resend OTP<span x-show="disabled" x-text="'(' + countdown + ')'"></span>
             </button>
@@ -222,7 +219,7 @@
         </button> -->
         <!-- End of Form -->
         <button wire:click.prevent="verifyCode" type="button" class="btn btn-block mt-1 btn-primary w-100 text-white">
-            Verify now
+            <span wire:loading.remove>Verify Now</span>
             <span wire:loading>
                 <span class="spinner-border" role="status">
                     <span class="visually-hidden"></span>
@@ -243,7 +240,7 @@
                                         handleInput(input, index) {
                                             let value = input.value;
                                             input.value = value.replace(/[^0-9]/g, ''); // Allow only numbers
-                                    
+
                                             if (event.inputType === 'deleteContentBackward' && index !== 0 && !value) {
                                                 input.previousElementSibling.focus(); // Move to previous field on backspace
                                             } else if (index < 5 && value) {
@@ -263,9 +260,9 @@
             </div>
         </div>
     </div>
-    <button wire:click.prevent="phoneSend" value="1" class="btn btn-block btn-primary mx-2 w-100 p-2 text-white">Send
-        OTP via
-        Phone</button>
+    <button wire:click.prevent="phoneSend" value="1" class="btn btn-block btn-primary mx-2 w-100 p-2 text-white">
+        Send OTP via Phone
+    </button>
     <!-- End of Form -->
     <div x-data="{
         countdown: 30,
@@ -302,7 +299,7 @@
 
 
         <!-- Resend OTP Button -->
-        <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 w-100 p-2 text-white"
+        <button x-bind:disabled="disabled" class="btn btn-block btn-primary mx-2 mt-1 mb-1 w-100 p-2 text-white"
             x-on:click="resendOTP">
             Resend OTP<span x-show="disabled" x-text="'(' + countdown + ')'"></span>
         </button>
@@ -310,7 +307,7 @@
 
 
     <button wire:click.prevent="verifyCode" type="button" class="btn btn-block btn-primary mx-2 p-2 w-100 text-white">
-        Verify Code
+        <span wire:loading.remove>Verify Now</span>
         <span wire:loading>
             <span class="spinner-border" role="status">
                 <span class="visually-hidden"></span>
@@ -349,9 +346,9 @@
 
         <div class="text-center text-sm mt-10 text-gray-600">
             <div>
-                <button wire:click="increaseStep"
-                    class="btn bg-primary  h-12 rounded mt-1 text-white color-orange font-semibold">Send
-                    Code</button>
+                <button wire:click="increaseStep" class="btn bg-primary  h-12 rounded mt-1 text-white color-orange font-semibold">
+                    Send Code
+                </button>
                 <div wire:loading wire:target="increaseStep" class="absolute inset-0 flex justify-center items-center">
                     <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4">

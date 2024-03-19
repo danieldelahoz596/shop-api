@@ -62,4 +62,14 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->hasOne(UserRole::class, 'role_id');
+    }
+
+    public function userAddress()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
 }
