@@ -32,7 +32,7 @@
                                 3
                             </span>
                         </span>
-                        <img class="img img-fluid" src="{{ Storage::url($product->image)}}" alt="" style="object-fit: contain;">
+                        <img class="img img-fluid" src="" alt="" style="object-fit: contain;">
                         <div class="item_description pt-3">
                             <h4>{{$product->product_name}}</h4>
                             <h4><span>₱ </span>{{$product->price}}</h4>
@@ -49,6 +49,7 @@
     <div>
 
     </div>
+    {{dd($products)}}
 
     <div class="container text-center pt-5">
 

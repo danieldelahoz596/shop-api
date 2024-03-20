@@ -13,8 +13,11 @@ class Listing extends Component
     public function mount(User $user)
     {
         $this->user = $user;
+        $this->products = Product::all();
+        // $this->products = $this->user->products()->with('category')->get();
 
-        $this->products = Product::where('user_id', $this->user->id)->get();
+        // // Debug the loaded products
+        // logger()->info($this->products);
     }
 
     public function render()
@@ -26,7 +29,7 @@ class Listing extends Component
 
         return view('livewire.pages.shop.component.listing', [
             'user' => $this->user,
-            'products' => $products,
+            'products' => $this->products,
         ]);
     }
 }
