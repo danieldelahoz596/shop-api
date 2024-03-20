@@ -7,7 +7,8 @@ use App\Livewire\Pages\Auth\Login;
 use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\LoginPhone;
 use App\Livewire\Pages\Auth\EmailVerify;
-use App\Http\Controllers\ShopController;
+use App\Livewire\Pages\Shop\Component\Listing;
+use App\Livewire\Pages\Shop\Component\ManageProducts;
 use App\Livewire\Pages\Shop\Profile;
 use App\Livewire\Pages\Shop\Shop;
 
@@ -45,6 +46,7 @@ Route::get('/onboarding/styles', Styles::class);
 
 //Profile Pages
 Route::get('/profile/{user}', Profile::class)->name('profile');
-
+Route::get('/profile/{user}/listing', Listing::class)->name('listing');
+Route::get('/profile/{user}/add-products', ManageProducts::class);
 //Shop
 Route::get('/shop/{keyword}', Shop::class)->name('shop');
