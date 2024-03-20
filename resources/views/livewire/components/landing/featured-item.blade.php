@@ -8,54 +8,16 @@
 
     <div class="brandImages">
       <div class="imgWrap">
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Adidas Bottoms</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>YSL Jackets</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
+        @foreach ($featuredItems as $featuredItem)
+            <div class="placeItemGrid">
+                <div class="brandImg">
+                <a href="" class="img"><img src="{{ asset('assets/img/brands/'.$featuredItem->image) }}" alt=""></a>
+                </div>
+                <div class="imgContent">
+                <h3>{{ $featuredItem->product_name }} from {{ $featuredItem->product_brand }}</h3>
+                </div>
+            </div>
+        @endforeach
       </div>
     </div>
 

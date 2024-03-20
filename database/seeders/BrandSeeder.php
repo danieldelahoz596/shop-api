@@ -14,11 +14,10 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         $brands = [
-            ['name' => 'Gucci'],
-            ['name' => 'Balenciaga'],
-            ['name' => 'Yves Saint Laurent'],
-            ['name' => 'Nike'],
-            ['name' => 'Adidas']
+            ['name' => 'Coach', 'brand_logo' => 'brand1.svg'],
+            ['name' => 'Balenciaga', 'brand_logo' => 'brand2.svg'],
+            ['name' => 'YSL', 'brand_logo' => 'brand3.svg'],
+            ['name' => 'Nike', 'brand_logo' => 'brand4.svg']
         ];
 
         foreach ($brands as $brand) {
@@ -26,6 +25,7 @@ class BrandSeeder extends Seeder
             Brand::create([
                 'name' => $brand['name'],
                 'slug' => $slug,
+                'brand_logo' => $brand['brand_logo'],
                 'status' => true
             ]);
         }

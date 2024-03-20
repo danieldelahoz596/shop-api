@@ -19,6 +19,11 @@ class ProductSeeder extends Seeder
         $categories = SubCategory::all()->pluck('category_id')->toArray();
         $subCategories = SubCategory::all()->pluck('id')->toArray();
         $brands = Brand::all()->pluck('name')->toArray();
+        $images = [
+            'brandimg1.jpg',
+            'brandimg2.jpg',
+            'brandimg3.jpg'
+        ];
 
         $products = [
             [
@@ -32,9 +37,10 @@ class ProductSeeder extends Seeder
                 'slug' => strtolower(str_replace(' ', '-', 'Black Dress')),
                 'price' => 1900,
                 'quantity' => 100,
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'keyword' => ['dress', 'tops', 'sportswear'],
                 'status' => true,
-                'image' => null,
+                'image' => Arr::random($images),
+                'is_featured' => true,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -49,7 +55,8 @@ class ProductSeeder extends Seeder
                 'quantity' => 100,
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
-                'image' => null,
+                'image' => Arr::random($images),
+                'is_featured' => true
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -62,9 +69,10 @@ class ProductSeeder extends Seeder
                 'slug' => strtolower(str_replace(' ', '-', 'Black Tees')),
                 'price' => 1500,
                 'quantity' => 100,
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'keyword' => ['dress', 'tops', 'garments'],
                 'status' => true,
-                'image' => null,
+                'image' => Arr::random($images),
+                'is_featured' => true
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -77,9 +85,10 @@ class ProductSeeder extends Seeder
                 'slug' => strtolower(str_replace(' ', '-', 'Green Pants')),
                 'price' => 1700,
                 'quantity' => 100,
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'keyword' => ['dress', 'tops', 'sportswear'],
                 'status' => true,
-                'image' => null,
+                'image' => Arr::random($images),
+                'is_featured' => true
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -92,9 +101,85 @@ class ProductSeeder extends Seeder
                 'slug' => strtolower(str_replace(' ', '-', 'Orange Jacket')),
                 'price' => 2000,
                 'quantity' => 100,
+                'keyword' => ['dress', 'tops', 'garments'],
+                'status' => true,
+                'image' => Arr::random($images),
+                'is_featured' => true
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1006',
+                'product_name' => 'Green Underwear',
+                'product_description' => 'A green underwear',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Green Underwear')),
+                'price' => 2100,
+                'quantity' => 100,
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
-                'image' => null,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1007',
+                'product_name' => 'Longsleeve',
+                'product_description' => 'A longsleeve',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Longsleeve')),
+                'price' => 2800,
+                'quantity' => 100,
+                'keyword' => ['dress', 'tops', 'sportswear'],
+                'status' => true,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1008',
+                'product_name' => 'Shorts',
+                'product_description' => 'A short',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Shorts')),
+                'price' => 2500,
+                'quantity' => 100,
+                'keyword' => ['dress', 'tops', 'bottom'],
+                'status' => true,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1009',
+                'product_name' => 'Jeans',
+                'product_description' => 'Jeans',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Jeans')),
+                'price' => 2900,
+                'quantity' => 100,
+                'keyword' => ['dress', 'tops', 'garments'],
+                'status' => true,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1010',
+                'product_name' => 'White Sweater',
+                'product_description' => 'A white sweater',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'White Sweater')),
+                'price' => 2400,
+                'quantity' => 100,
+                'keyword' => ['dress', 'tops', 'bottom'],
+                'status' => true,
+                'image' => Arr::random($images),
             ],
         ];
 

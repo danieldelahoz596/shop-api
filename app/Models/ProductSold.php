@@ -18,4 +18,9 @@ class ProductSold extends Model
         'total',
         'mode_of_payment'
     ];
+
+    public function products()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

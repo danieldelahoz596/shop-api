@@ -25,7 +25,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->jsonb('keyword');
             $table->boolean('status');
-            $table->string('image');
+            $table->string('image')->nullable();
+            $table->boolean('is_featured')->default(0)->nullable();
             $table->string('keyword_index')->virtualAs('json_unquote(json_extract(keyword, "$.yourKey"))')->index('keyword_index');
             $table->softDeletes();
             $table->timestamps();

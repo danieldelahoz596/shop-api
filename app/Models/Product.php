@@ -28,4 +28,24 @@ class Product extends Model
     protected $casts = [
         'keyword' => 'array'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function productSold()
+    {
+        return $this->hasMany(ProductSold::class);
+    }
 }
