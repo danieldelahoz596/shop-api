@@ -1,4 +1,4 @@
-<div class="pb-4">
+<div class="pb-4 section-landing">
   <div class="container-fluid px-0 position-relative">
     <div class="container carouselLinks position-absolute end-50 z-1">
       <div class="standard-cat">
