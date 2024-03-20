@@ -18,93 +18,42 @@
 
     <div class="container">
         <div class="product_sell_listing row">
-            <div class="col-lg-3">
-                <div class="items position-relative">
-                    <span class="badges position-absolute d-flex flex-column">
-                        <span class="bag_icon bg-light rounded-5 px-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            0
+            @foreach ($products as $product)
+            <div class="product">
+                <div class="col-lg-3">
+                    <div class="items position-relative">
+                        <span class="badges position-absolute d-flex flex-column">
+                            <span class="bag_icon bg-light rounded-5 px-2">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                0
+                            </span>
+                            <span class="view_icon bg-light rounded-5 px-2">
+                                <i class="fa-regular fa-eye"></i>
+                                3
+                            </span>
                         </span>
-                        <span class="view_icon bg-light rounded-5 px-2">
-                            <i class="fa-regular fa-eye"></i>
-                            3
-                        </span>
-                    </span>
-                    <img class="img img-fluid" src="{{ asset('assets/img/profile_listing/item1.png') }}" alt=""
-                        style="object-fit: contain;">
-                    <div class="item_description pt-3">
-                        <h4>Denim Pants</h4>
-                        <h4>P 400</h4>
+                        <img class="img img-fluid" src="{{ Storage::url($product->image)}}" alt=""
+                            style="object-fit: contain;">
+                        <div class="item_description pt-3">
+                            <h4>{{$product->product_name}}</h4>
+                            <h4><span>₱ </span>{{$product->price}}</h4>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="items position-relative">
-                    <span class="badges position-absolute d-flex flex-column">
-                        <span class="bag_icon bg-light rounded-5 px-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            0
-                        </span>
-                        <span class="view_icon bg-light rounded-5 px-2">
-                            <i class="fa-regular fa-eye"></i>
-                            3
-                        </span>
-                    </span>
-                    <img class="img img-fluid" src="{{ asset('assets/img/profile_listing/item2.png') }}" alt=""
-                        style="object-fit: contain;">
-                    <div class="item_description pt-3">
-                        <h4>Beach Polo</h4>
-                        <h4>P 300</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="items position-relative">
-                    <span class="badges position-absolute d-flex flex-column">
-                        <span class="bag_icon bg-light rounded-5 px-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            0
-                        </span>
-                        <span class="view_icon bg-light rounded-5 px-2">
-                            <i class="fa-regular fa-eye"></i>
-                            3
-                        </span>
-                    </span>
-                    <img class="img img-fluid" src="{{ asset('assets/img/profile_listing/item3.png') }}" alt=""
-                        style="object-fit: contain;">
-                    <div class="item_description pt-3">
-                        <h4>Orange Pants</h4>
-                        <h4>P 600</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="items position-relative">
-                    <span class="badges position-absolute d-flex flex-column">
-                        <span class="bag_icon bg-light rounded-5 px-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            0
-                        </span>
-                        <span class="view_icon bg-light rounded-5 px-2">
-                            <i class="fa-regular fa-eye"></i>
-                            3
-                        </span>
-                    </span>
-                    <img class="img img-fluid" src="{{ asset('assets/img/profile_listing/item4.png') }}" alt=""
-                        style="object-fit: contain;">
-                    <div class="item_description pt-3">
-                        <h4>Shiny Tops</h4>
-                        <h4>P 400</h4>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
+
+
         </div>
     </div>
+    <div>
 
+    </div>
 
     <div class="container text-center pt-5">
 
-        <a href="profile/{{$this->id}}/add-product">
+        <a href="profile/{{$user->id}}/add-product">
             <button class="item_btn">
                 List an Item
             </button></a>
