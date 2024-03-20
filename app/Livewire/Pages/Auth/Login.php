@@ -44,6 +44,7 @@ class Login extends Component
             $log_name = 'User login';
             $log_desc = 'User Attempt Logging in using ' . $this->email;
             LogService::userLog($log_name, $log_desc);
+            $this->phone_otp = 0;
             $this->dispatch('error_login_swal', [
                 'title' => 'Error!',
                 'timer' => 3000,

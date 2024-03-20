@@ -2,7 +2,15 @@
   <div class="container-fluid mb-4 pt-5">
     <h1>Shop Spotlight</h1>
     <div class="spotlightWrapper pb-4">
-      <div class="spotLightShop position-relative">
+      @foreach ($owners as $owner)
+        <div class="spotLightShop position-relative">
+            <a href="" class="shop"><img src="{{ asset('assets/img/spotlight/spotlightimg.png') }}" alt=""></a>
+            <div class="content">
+                <h2>{{ $owner->firstname }}'s Store</h2>
+            </div>
+        </div>
+      @endforeach
+      {{-- <div class="spotLightShop position-relative">
         <a href="" class="shop"><img src="{{ asset('assets/img/spotlight/spotlightimg.png') }}" alt=""></a>
         <div class="content">
           <h2>Retro Store</h2>
@@ -19,13 +27,7 @@
         <div class="content">
           <h2>Retro Store</h2>
         </div>
-      </div>
-      <div class="spotLightShop position-relative">
-        <a href="" class="shop"><img src="{{ asset('assets/img/spotlight/spotlightimg.png') }}" alt=""></a>
-        <div class="content">
-          <h2>Retro Store</h2>
-        </div>
-      </div>
+      </div> --}}
     </div>
 
     <div class="sellingContainer p-4">
