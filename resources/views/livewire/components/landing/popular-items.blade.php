@@ -4,36 +4,9 @@
     <a href="" class="text-black ms-2"><u>More</u></a>
   </div>
 
-  <div x-data="{swiper: null}" x-init="swiper = new Swiper($refs.container, {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-      },
-      parallax: true,
-      rewind: true,     
-      slidesPerView: 1,
-      spaceBetween: 0,
-      breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 0,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 0,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 0,
-        },
-        1399: {
-          slidesPerView: 4,
-          spaceBetween: 0,
-        },
-      },
-    })" class="position-relative mx-auto d-flex flex-row">
+  <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">
     <div class="position-absolute top-50 start-0 translate-middle-y z-3 d-flex align-items-center">
-      <button @click="swiper.slidePrev()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
+      <button @click="slidePrev()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
         <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6">
           <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
         </svg>
@@ -41,7 +14,7 @@
     </div>
 
     <div class="position-absolute top-50 end-0 translate-middle-y z-3 d-flex align-items-center">
-      <button @click="swiper.slideNext()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
+      <button @click="slideNext()" class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none" style="width: 2.5rem; height: 2.5rem;">
         <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6">
           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
         </svg>
@@ -54,7 +27,7 @@
         <div class="swiper-slide p-4">
           <div class="d-flex flex-column overflow-hidden">
             <div class="brandImg">
-            <a href="" class="img "><img class="" src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
+              <a href="" class="img "><img class="" src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
             </div>
             <div class="imgContent text-start">
               <h3 class="m-0">skirts</h3>
@@ -189,5 +162,53 @@
       </div>
     </div>
   </div>
+
+
+  <script>
+    function swiper() {
+      let swiperInstance;
+
+      return {
+        init() {
+          swiperInstance = new Swiper(this.$refs.container, {
+            loop: true,
+            autoplay: {
+              delay: 5000,
+            },
+            parallax: true,
+            rewind: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            breakpoints: {
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 0,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+              },
+              1399: {
+                slidesPerView: 4,
+                spaceBetween: 0,
+              },
+            },
+          });
+        },
+
+        slideNext() {
+          swiperInstance.slideNext();
+        },
+
+        slidePrev() {
+          swiperInstance.slidePrev();
+        },
+      };
+    }
+  </script>
 
 </div>

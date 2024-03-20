@@ -31,6 +31,19 @@
   all: unset !important;
 }
 
+.user_profile{
+  .crop_img{
+    max-width: 94.12px;
+    height: 94.12px;
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 
 .muted{
   color: rgb(49, 13, 0, 0.5);

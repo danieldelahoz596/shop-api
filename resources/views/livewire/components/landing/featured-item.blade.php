@@ -1,94 +1,94 @@
 <div class="p-4">
-  <div class="container-fluid">
 
+  <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center px-4">
       <h1>Featured Items</h1>
       <a href="">More</a>
     </div>
 
-    <div class="brandImages">
-      <div class="imgWrap">
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
+    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">
+      <div class="swiper-container" x-ref="container">
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide p-4">
+            <div class="d-flex flex-column overflow-hidden">
+              <div class="brandImg">
+                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
+              </div>
+              <div class="imgContent">
+                <h3>Tops from Nike</h3>
+              </div>
+            </div>
           </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
+
+          <div class="swiper-slide p-4">
+            <div class="d-flex flex-column overflow-hidden">
+              <div class="brandImg">
+                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
+              </div>
+              <div class="imgContent">
+                <h3>Adidas Bottoms</h3>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
+
+          <div class="swiper-slide p-4">
+            <div class="d-flex flex-column overflow-hidden">
+              <div class="brandImg">
+                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
+              </div>
+              <div class="imgContent">
+                <h3>YSL Jackets</h3>
+              </div>
+            </div>
           </div>
-          <div class="imgContent">
-            <h3>Adidas Bottoms</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>YSL Jackets</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
-          </div>
-        </div>
-        <div class="placeItemGrid">
-          <div class="brandImg">
-            <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-          </div>
-          <div class="imgContent">
-            <h3>Tops from Nike</h3>
+          <div class="swiper-slide p-4">
+            <div class="d-flex flex-column overflow-hidden">
+              <div class="brandImg">
+                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
+              </div>
+              <div class="imgContent">
+                <h3>Tops from Nike</h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="communityContainer pt-5">
-      <div class="communityWrapper">
-        <div class="communityItems">
-          <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
-          <div class="cta">
-            <h1>Join our community</h1>
-            <button class="commBtn">Join</button>
+    <div x-data="swiper_pagination()" x-init="init()" class="position-relative mx-auto d-flex flex-row pt-5">
+      <div class="communityWrapper swiper-container" x-ref="container">
+        <div class="swiper-wrapper pb-5">
+          <div class="communityItems swiper-slide">
+            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="cta">
+              <h1>Join our community</h1>
+              <button class="commBtn">Join</button>
+            </div>
+          </div>
+          <div class="communityItems swiper-slide">
+            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="cta">
+              <h1>Join our community</h1>
+              <button class="commBtn">Join</button>
+            </div>
+          </div>
+          <div class="communityItems swiper-slide">
+            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="cta">
+              <h1>Join our community</h1>
+              <button class="commBtn">Join</button>
+            </div>
+          </div>
+          <div class="communityItems swiper-slide">
+            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="cta">
+              <h1>Join our community</h1>
+              <button class="commBtn">Join</button>
+            </div>
           </div>
         </div>
-        <div class="communityItems">
-          <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
-          <div class="cta">
-            <h1>Join our community</h1>
-            <button class="commBtn">Join</button>
-          </div>
-        </div>
-        <div class="communityItems">
-          <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
-          <div class="cta">
-            <h1>Join our community</h1>
-            <button class="commBtn">Join</button>
-          </div>
-        </div>
-        <div class="communityItems">
-          <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
-          <div class="cta">
-            <h1>Join our community</h1>
-            <button class="commBtn">Join</button>
-          </div>
-        </div>
+        <div class="swiper-pagination d-flex"></div>
       </div>
     </div>
 
@@ -116,4 +116,50 @@
     </div>
 
   </div>
+  <script>
+    function swiper_pagination() {
+      let swiperInstance;
+
+      return {
+        init() {
+          swiperInstance = new Swiper(this.$refs.container, {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+              renderBullets: function(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+              }
+            },
+            breakpoints: {
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              1399: {
+                slidesPerView: 3,
+                spaceBetween: 0,
+              },
+            },
+          });
+        },
+
+        slideNext() {
+          swiperInstance.slideNext();
+        },
+
+        slidePrev() {
+          swiperInstance.slidePrev();
+        },
+      };
+    }
+  </script>
 </div>

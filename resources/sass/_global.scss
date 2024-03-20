@@ -1,12 +1,17 @@
 body {
     overflow-x: hidden;
 }
+
+
+//Additional default
 h1, h2, h3, h4, h5{
   margin: 0 !important;
   padding: 0 !important;
 }
 .w-30{width: 30% !important;}
-
+.w-96{
+  width: 96% !important;
+}
 
 .navbar-nav-container{
   display: flex;
