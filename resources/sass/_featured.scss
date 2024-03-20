@@ -12,13 +12,8 @@
 
 
 .communityWrapper{
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
   height: 100%;
-  padding-left: 40px;
   padding-bottom: 20px;
-  column-gap: 1rem;
   &::-webkit-scrollbar{
     width: 0;
     height: 0;
@@ -36,6 +31,21 @@
         font-size: 1.5rem;
       }
     }
+  }
+  .swiper-pagination{
+    bottom: 20px;
+    left: 50%;
+    width: 80%;
+    transform: translateX(-50%);
+    .swiper-pagination-bullet{
+      width: 50%;
+      margin: 0 !important;
+      border-radius: 2px !important;
+
+    }
+  }
+  .swiper-pagination-bullet-active{
+    background: $primary !important;
   }
 }
 

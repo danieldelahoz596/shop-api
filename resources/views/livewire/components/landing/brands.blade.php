@@ -14,22 +14,26 @@
       <a href="">More</a>
     </div>
 
-    <div class="container-fluid">
-      <div class="brandImages">
-        <div class="imgWrap">
-            @foreach ($brands as $brand)
-                <div class="placeItemGrid">
+    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">
+      <div class="swiper-container" x-ref="container">
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          @foreach ($brands as $brand)
+            <div class="swiper-slide p-4">
+                <div class="d-flex flex-column overflow-hidden">
                     <div class="brandImg">
                         <a href="" class="img"><img src="{{ asset('assets/img/brands/'.$brand->image) }}" alt=""></a>
                     </div>
-                    <div class="imgContent">
+                    <div class="imgContent text-center">
                         <h3>{{ $brand->product_name }} from {{ $brand->product_brand }}</h3>
                     </div>
                 </div>
-            @endforeach
+            </div>
+          @endforeach
         </div>
       </div>
     </div>
+
 
   </div>
 </div>
