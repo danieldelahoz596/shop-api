@@ -10,48 +10,18 @@
       <div class="swiper-container" x-ref="container">
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide p-4">
-            <div class="d-flex flex-column overflow-hidden">
-              <div class="brandImg">
-                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-              </div>
-              <div class="imgContent">
-                <h3>Tops from Nike</h3>
-              </div>
+          @foreach ($featuredItems as $featuredItem)
+            <div class="swiper-slide p-4">
+                <div class="d-flex flex-column overflow-hidden">
+                    <div class="brandImg">
+                        <a href="" class="img"><img src="{{ asset('assets/img/brands/'.$featuredItem->image) }}" alt=""></a>
+                    </div>
+                    <div class="imgContent text-center">
+                        <h3>{{ $featuredItem->product_name }} from {{ $featuredItem->product_brand }}</h3>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="swiper-slide p-4">
-            <div class="d-flex flex-column overflow-hidden">
-              <div class="brandImg">
-                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg2.jpg') }}" alt=""></a>
-              </div>
-              <div class="imgContent">
-                <h3>Adidas Bottoms</h3>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide p-4">
-            <div class="d-flex flex-column overflow-hidden">
-              <div class="brandImg">
-                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg3.jpg') }}" alt=""></a>
-              </div>
-              <div class="imgContent">
-                <h3>YSL Jackets</h3>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide p-4">
-            <div class="d-flex flex-column overflow-hidden">
-              <div class="brandImg">
-                <a href="" class="img"><img src="{{ asset('assets/img/brands/brandimg1.jpg') }}" alt=""></a>
-              </div>
-              <div class="imgContent">
-                <h3>Tops from Nike</h3>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>

@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             UserSeeder::class,
             WebsiteGlobalSettingsSeeder::class,
+            CategorySeeder::class,
+            SubCategorySeeder::class,
+            BrandSeeder::class,
+            ProductSeeder::class,
+            ProductSoldSeeder::class
         ]);
     }
 }

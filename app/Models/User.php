@@ -68,6 +68,7 @@ class User extends Authenticatable
         return $this->hasOne(UserRole::class, 'role_id');
     }
 
+
     public function userAddress()
     {
         return $this->hasOne(UserAddress::class);

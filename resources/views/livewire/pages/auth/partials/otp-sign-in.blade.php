@@ -76,7 +76,7 @@
             {{ session('message') }}
             </div>
         @elseif(session('error'))
-            <div class="pt-2 alert alert-success">
+            <div class="pt-2 alert alert-danger mt-2">
             {{ session('error') }}
             </div>
         @endif
