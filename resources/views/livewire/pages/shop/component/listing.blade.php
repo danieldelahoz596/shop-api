@@ -32,8 +32,7 @@
                                 3
                             </span>
                         </span>
-                        <img class="img img-fluid" src="{{ Storage::url($product->image)}}" alt=""
-                            style="object-fit: contain;">
+                        <img class="img img-fluid" src="{{ Storage::url($product->image)}}" alt="" style="object-fit: contain;">
                         <div class="item_description pt-3">
                             <h4>{{$product->product_name}}</h4>
                             <h4><span>₱ </span>{{$product->price}}</h4>
@@ -53,12 +52,12 @@
 
     <div class="container text-center pt-5">
 
-        <a href="profile/{{$user->id}}/add-product">
+        <a href="{{ request()->url() }}/add-products">
             <button class="item_btn">
                 List an Item
-            </button></a>
+            </button>
+        </a>
+
+
+
     </div>
-
-
-
-</div>

@@ -8,15 +8,13 @@ use App\Models\Product;
 
 class Listing extends Component
 {
-    public ?User $user;
+    public $user;
     public $products;
-    public function mount(User $user = null)
+    public function mount(User $user)
     {
-        if (!$user) {
-            abort(404, 'User not found.'); // Or abort with a 404 error
-        }
-        $this->products = Product::all();
         $this->user = $user;
+
+        $this->products = Product::where('user_id', $this->user->id)->get();
     }
 
     public function render()
