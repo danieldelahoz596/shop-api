@@ -60,28 +60,28 @@
       <div class="communityWrapper swiper-container" x-ref="container">
         <div class="swiper-wrapper pb-5">
           <div class="communityItems swiper-slide">
-            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="img"><img class="img-fluid" src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
             <div class="cta">
               <h1>Join our community</h1>
               <button class="commBtn">Join</button>
             </div>
           </div>
           <div class="communityItems swiper-slide">
-            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="img"><img class="img-fluid" src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
             <div class="cta">
               <h1>Join our community</h1>
               <button class="commBtn">Join</button>
             </div>
           </div>
           <div class="communityItems swiper-slide">
-            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="img"><img class="img-fluid" src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
             <div class="cta">
               <h1>Join our community</h1>
               <button class="commBtn">Join</button>
             </div>
           </div>
           <div class="communityItems swiper-slide">
-            <div class="img"><img src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
+            <div class="img"><img class="img-fluid" src="{{ asset('assets/img/featured/communityImg1.png') }}" alt=""></div>
             <div class="cta">
               <h1>Join our community</h1>
               <button class="commBtn">Join</button>
@@ -146,18 +146,10 @@
               },
               1399: {
                 slidesPerView: 3,
-                spaceBetween: 0,
+                spaceBetween: 30,
               },
             },
           });
-        },
-
-        slideNext() {
-          swiperInstance.slideNext();
-        },
-
-        slidePrev() {
-          swiperInstance.slidePrev();
         },
       };
     }
