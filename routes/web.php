@@ -47,4 +47,4 @@ Route::get('/onboarding/styles', Styles::class);
 Route::get('/profile/{user}', Profile::class)->name('profile');
 
 //Shop
-Route::get('/shop/{keyword}', Shop::class)->name('shop');
+Route::get('/shop/{category?}', Shop::class)->name('shop');

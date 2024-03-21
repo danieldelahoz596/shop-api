@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center px-4">
       <h1>Featured Items</h1>
-      <a href="">More</a>
+      <a href="/shop/all">More</a>
     </div>
 
     <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">

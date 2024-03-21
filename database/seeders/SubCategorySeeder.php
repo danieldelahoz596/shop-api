@@ -18,10 +18,10 @@ class SubCategorySeeder extends Seeder
         $categoryIds = Category::all()->pluck('id')->toArray();
 
         $subCategories = [
-            ['name' => 'T-Shirt', 'category_id' => Arr::random($categoryIds)],
+            ['name' => 'Tops', 'category_id' => Arr::random($categoryIds)],
             ['name' => 'Pants', 'category_id' => Arr::random($categoryIds)],
-            ['name' => 'Underwears', 'category_id' => Arr::random($categoryIds)],
-            ['name' => 'Hats', 'category_id' => Arr::random($categoryIds)]
+            ['name' => 'Dress', 'category_id' => Arr::random($categoryIds)],
+            ['name' => 'Shorts', 'category_id' => Arr::random($categoryIds)]
         ];
 
         foreach ($subCategories as $subCategory) {

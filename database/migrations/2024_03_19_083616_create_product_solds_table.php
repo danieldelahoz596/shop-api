@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('item_price');
             $table->integer('item_quantity');
-            $table->integer('discount');
+            $table->string('item_size')->nullable();
+            $table->integer('discount')->nullable();
             $table->integer('total');
             $table->string('mode_of_payment')->nullable();
             $table->timestamps();

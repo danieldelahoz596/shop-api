@@ -23,11 +23,13 @@ return new class extends Migration
             $table->string('slug');
             $table->integer('price');
             $table->integer('quantity');
-            $table->jsonb('keyword');
-            $table->boolean('status');
+            $table->jsonb('size')->nullable();
+            $table->jsonb('keyword')->nullable();
+            $table->boolean('status')->default(1);
+            $table->integer('discount')->default(0)->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_featured')->default(0)->nullable();
-            $table->string('keyword_index')->virtualAs('json_unquote(json_extract(keyword, "$.yourKey"))')->index('keyword_index');
+            // $table->string('keyword_index')->virtualAs('json_unquote(json_extract(keyword, "$.yourKey"))')->index('keyword_index');
             $table->softDeletes();
             $table->timestamps();
         });
