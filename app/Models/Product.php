@@ -26,7 +26,8 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'keyword' => 'array'
+        'keyword' => 'array',
+        'size' => 'array'
     ];
 
     public function category()
