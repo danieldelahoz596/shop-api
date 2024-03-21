@@ -16,7 +16,11 @@
                         </div>
                     </div>
                     <div class="user_profile d-flex pb-2 ps-4">
+                        @if($user->profile_picture)
                         <img class="img-fluid" src="{{ Storage::url($user->profile_picture)}}" alt="">
+                        @else
+                        <img class="img-fluid" src="{{ asset('assets/img/public_profile/Vector.jpg') }}" alt="">
+                        @endif
                         <div class="user_name ps-4">
                             <h1>{{$user->username}}</h1>
                             <p><span class=" location_icon"> <i class="fa-solid fa-location-dot"></i> </span><span
@@ -48,9 +52,15 @@
                         </div>
                         <div class="row ps-4">
                             <!-- Profile Blade View -->
-                            <button class="edit_btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                                Edit Profile
-                            </button>
+                            <div class="d-flex w-full">
+                                <button class="edit_btn w-full" data-bs-toggle="modal"
+                                    data-bs-target="#editProfileModal">
+                                    Edit Profile
+                                </button>
+                                <button class="share_btn ms-3 w-25">
+                                    <span class="h2"><i class="fa-solid fa-arrow-up-from-bracket"></i></span>
+                                </button>
+                            </div>
                             <!-- Edit Profile Modal -->
                             <div class="modal fade" id="editProfileModal" tabindex="-1"
                                 aria-labelledby="editProfileModalLabel" aria-hidden="true">
@@ -67,11 +77,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <button class="share_btn">
-                                    <span class="h2"><i class="fa-solid fa-arrow-up-from-bracket"></i></span>
-                                </button>
-                            </div>
+
+
+
                         </div>
                     </div>
                 </div>

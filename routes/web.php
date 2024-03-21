@@ -48,6 +48,6 @@ Route::get('/onboarding/styles', Styles::class);
 Route::get('/profile/{user}', Profile::class)->name('profile');
 // Route::get('/profile/{user}/listing', Listing::class)->name('listing');
 Route::get('/profile/{user}/add-products', ManageProducts::class);
-// Route::get('/profile/{user}/purchases', Purchases::class);
+Route::get('/profile/{user}/purchases', Purchases::class);
 //Shop
 Route::get('/shop/{keyword}', Shop::class)->name('shop');
