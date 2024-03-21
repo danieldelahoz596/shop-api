@@ -13,7 +13,6 @@
             <a class="nav-link muted" href="#">Purchases</a>
         </li>
     </ul>
-
     <h4 class="ms-5 ps-3 py-4">4 listings</h4>
 
     <div class="container">
@@ -49,7 +48,7 @@
     <div>
 
     </div>
-    {{dd($products)}}
+
 
     <div class="container text-center pt-5">
 
