@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('quantity');
             $table->jsonb('size')->nullable();
+            $table->string('style')->nullable();
+            $table->string('color')->nullable();
             $table->jsonb('keyword')->nullable();
             $table->boolean('status')->default(1);
             $table->integer('discount')->default(0)->nullable();

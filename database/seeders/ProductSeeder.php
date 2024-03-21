@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enum\ColorEnum;
+use App\Enum\StyleEnum;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -24,6 +26,8 @@ class ProductSeeder extends Seeder
             'brandimg2.jpg',
             'brandimg3.jpg'
         ];
+        $styles = StyleEnum::values();
+        $colors = ColorEnum::values();
 
         $products = [
             [
@@ -38,6 +42,8 @@ class ProductSeeder extends Seeder
                 'price' => 1900,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'sportswear'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -55,6 +61,8 @@ class ProductSeeder extends Seeder
                 'price' => 1800,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -72,6 +80,8 @@ class ProductSeeder extends Seeder
                 'price' => 1500,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'garments'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -89,6 +99,8 @@ class ProductSeeder extends Seeder
                 'price' => 1700,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'sportswear'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -106,6 +118,8 @@ class ProductSeeder extends Seeder
                 'price' => 2000,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'garments'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -123,6 +137,8 @@ class ProductSeeder extends Seeder
                 'price' => 2100,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -139,6 +155,8 @@ class ProductSeeder extends Seeder
                 'price' => 2800,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'sportswear'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -155,6 +173,8 @@ class ProductSeeder extends Seeder
                 'price' => 2500,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -171,6 +191,8 @@ class ProductSeeder extends Seeder
                 'price' => 2900,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'garments'],
                 'status' => true,
                 'image' => Arr::random($images),
@@ -187,6 +209,44 @@ class ProductSeeder extends Seeder
                 'price' => 2400,
                 'quantity' => 100,
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
+                'keyword' => ['dress', 'tops', 'bottom'],
+                'status' => true,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1011',
+                'product_name' => 'Pink Hat',
+                'product_description' => 'A pink hat',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Pink Hat')),
+                'price' => 2100,
+                'quantity' => 100,
+                'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
+                'keyword' => ['dress', 'tops', 'bottom'],
+                'status' => true,
+                'image' => Arr::random($images),
+            ],
+            [
+                'category_id' => Arr::random($categories),
+                'subcategory_id' => Arr::random($subCategories),
+                'user_id' => 3,
+                'product_code' => 'BU1012',
+                'product_name' => 'Black Pants',
+                'product_description' => 'A black pants',
+                'product_brand' => Arr::random($brands),
+                'slug' => strtolower(str_replace(' ', '-', 'Black Pants')),
+                'price' => 1800,
+                'quantity' => 100,
+                'size' => ['XS', 'S', 'M', 'L', 'XL'],
+                'style' => Arr::random($styles),
+                'color' => Arr::random($colors),
                 'keyword' => ['dress', 'tops', 'bottom'],
                 'status' => true,
                 'image' => Arr::random($images),

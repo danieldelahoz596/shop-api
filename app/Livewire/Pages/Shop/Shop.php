@@ -2,7 +2,13 @@
 
 namespace App\Livewire\Pages\Shop;
 
+use App\Enum\ColorEnum;
+use App\Enum\SizeEnum;
+use App\Enum\StyleEnum;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -38,7 +44,7 @@ class Shop extends Component
             }
         }
 
-        return $products->paginate(10);
+        return $products->paginate(20);
     }
 
     public function steals($query)
@@ -60,12 +66,40 @@ class Shop extends Component
         ->orWhereJsonContains('keyword', $this->category);
     }
 
+    public function categories()
+    {
+        return Category::all();
+    }
+
+    public function subcategories()
+    {
+        return SubCategory::all();
+    }
+
+    public function brands()
+    {
+        return Brand::all();
+    }
+
     public function render()
     {
         $products = $this->shopData();
+        $categories = $this->categories();
+        $subcategories = $this->subcategories();
+        $brands = $this->brands();
+
+        $styles = StyleEnum::values();
+        $colors = ColorEnum::values();
+        $sizes = SizeEnum::values();
 
         return view('livewire.pages.shop.shop', [
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories,
+            'subcategories' => $subcategories,
+            'brands' => $brands,
+            'styles' => $styles,
+            'colors' => $colors,
+            'sizes' => $sizes
         ]);
     }
 }
