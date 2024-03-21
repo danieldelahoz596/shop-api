@@ -50,4 +50,4 @@ Route::get('/profile/{user}', Profile::class)->name('profile');
 Route::get('/profile/{user}/add-products', ManageProducts::class);
 Route::get('/profile/{user}/purchases', Purchases::class);
 //Shop
-Route::get('/shop/{keyword}', Shop::class)->name('shop');
+Route::get('/shop/{category?}', Shop::class)->name('shop');

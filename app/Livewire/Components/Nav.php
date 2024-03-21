@@ -7,6 +7,13 @@ use Livewire\Component;
 
 class Nav extends Component
 {
+    public $search;
+
+    public function submit()
+    {
+        $this->dispatch('redirectToShop', ['keyword' => $this->search]);
+    }
+
     public function logout()
     {
         Auth::logout();
