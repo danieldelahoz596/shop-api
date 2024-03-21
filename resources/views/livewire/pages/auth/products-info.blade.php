@@ -65,14 +65,14 @@
             <div class="col-md-6">
                 <div class="card-body">
                     <h3 class="card-title" style="font-weight: bold;">
-                        <!--  $product->name  -->Jacket pag walang kayakap
+                        {{ $products->product_name }}
                     </h3>
                     <p class="card-text"><small class="text-muted">
-                            <!--  $product->description  -->Cute Jacket
+                            {{ $products->product_description }}
                         </small>
                     </p>
                     <p class="card-text">
-                        <!-- PHP  $product->price  -->₱14.00
+                        ₱ {{ $products->price }}
 
                     </p>
                     <div class="d-flex flex-column w-25 gap-2 pt-3 pb-3 pe-3">
@@ -82,9 +82,16 @@
                     </div>
                     <p class="card-text">
                     <div class="mb-2">
-                        <span class="badge bg-success">Authentic</span>
-                        <span class="badge bg-warning text-dark">Pre-loved</span>
-                        <span class="badge bg-danger text-dark">vitage leather jacket</span>
+                        <div>
+                            @if(!empty($keywords))
+                            @foreach ($keywords as $keyword)
+                            <span class="badge bg-secondary">{{ $keyword }}</span>
+                            @endforeach
+                            @else
+                            <p>No keywords found.</p>
+                            @endif
+                        </div>
+
                     </div>
                     </p>
                     <div>
@@ -119,7 +126,7 @@
                         style="width: 50px; height: 50px; object-fit: cover;">
                 </div>
                 <div class="mt-3">
-                    <h6 class="card-subtitle text-muted">Seller: Eric De Guzman</h6>
+                    <h6 class="card-subtitle text-muted">Seller: {{$user->name}}</h6>
                     <p class="text-primary mb-0">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -127,7 +134,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                     </p>
-                    <p class="text-muted">Quezon City | Active now</p>
+                    <p class="text-muted">{{$user->address}} | Active now</p>
                 </div>
                 <div>
                     <button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">Ask a Question</button>
