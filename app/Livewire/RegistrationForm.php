@@ -199,9 +199,9 @@ class RegistrationForm extends Component
                     'name' => $province['name'],
                 ];
             })
-            ->sortBy('name')
-            ->values()
-            ->toArray();
+                ->sortBy('name')
+                ->values()
+                ->toArray();
         }
     }
 
@@ -217,9 +217,9 @@ class RegistrationForm extends Component
                         'name' => $city['name'],
                     ];
                 })
-                ->sortBy('name')
-                ->values()
-                ->toArray();
+                    ->sortBy('name')
+                    ->values()
+                    ->toArray();
             } else {
                 $this->cities = [];
             }
@@ -249,9 +249,9 @@ class RegistrationForm extends Component
                     'callingCodes' => $fullCodes,
                 ];
             })
-            ->sortBy('name')
-            ->values()
-            ->toArray();
+                ->sortBy('name')
+                ->values()
+                ->toArray();
         }
     }
     //RENDER TO PAGE
