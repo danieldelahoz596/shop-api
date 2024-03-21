@@ -13,6 +13,19 @@ class EditProfile extends Component
     use WithFileUploads;
 
     public $photo;
+
+    public $showingSales = false;
+
+    public function showSales()
+    {
+        $this->showingSales = true;
+    }
+
+    public function showListings()
+    {
+        $this->showingSales = false;
+    }
+
     protected $rules = [
         'user.username' => 'string|max:255',
         'photo' => 'nullable|image|max:1024', // 1MB Max
@@ -39,6 +52,8 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.pages.shop.component.edit-profile');
+        return view('livewire.pages.shop.component.edit-profile', [
+            'showingSales' => $this->showingSales
+        ]);
     }
 }

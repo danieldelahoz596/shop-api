@@ -1,19 +1,6 @@
 <div>
-    <ul class="nav d-flex justify-content-between w-30 w-xl-50 ms-4">
-        <li class="nav-item h3
-    ">
-            <a class="nav-link muted active" aria-current="page" href="#">Selling</a>
-        </li>
-        <li class="nav-item h3
-    ">
-            <a class="nav-link muted" href="#">Likes</a>
-        </li>
-        <li class="nav-item h3
-    ">
-            <a class="nav-link muted" href="#">Purchases</a>
-        </li>
-    </ul>
-    <h4 class="ms-5 ps-3 py-4">4 listings</h4>
+
+    <h4 class="ms-5 ps-3 py-4">{{ $productsCount }} listings</h4>
 
     <div class="container">
         <div class="product_sell_listing row">

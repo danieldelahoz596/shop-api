@@ -13,7 +13,7 @@ use App\Livewire\Pages\Shop\Profile;
 use App\Livewire\Pages\Shop\Shop;
 
 use App\Livewire\Pages\Auth\ProductsInfo;
-
+use App\Livewire\Pages\Shop\Component\Purchases;
 use App\Livewire\VerificationAlert;
 use App\Livewire\Preferences;
 use App\Livewire\Styles;
@@ -46,7 +46,8 @@ Route::get('/onboarding/styles', Styles::class);
 
 //Profile Pages
 Route::get('/profile/{user}', Profile::class)->name('profile');
-Route::get('/profile/{user}/listing', Listing::class)->name('listing');
+// Route::get('/profile/{user}/listing', Listing::class)->name('listing');
 Route::get('/profile/{user}/add-products', ManageProducts::class);
+// Route::get('/profile/{user}/purchases', Purchases::class);
 //Shop
 Route::get('/shop/{keyword}', Shop::class)->name('shop');

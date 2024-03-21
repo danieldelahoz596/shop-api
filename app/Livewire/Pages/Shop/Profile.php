@@ -14,7 +14,7 @@ class Profile extends Component
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public User $user;
-
+    public $showingSales = false;
     // Called when the component is instantiated
     public function profile(User $user)
     {
@@ -22,6 +22,19 @@ class Profile extends Component
         $products = $user->products()->with('category')->get();
         return view('user.profile', compact('user', 'products'));
     }
+    public function showSales()
+    {
+        $this->showingSales = true;
+    }
+
+    public function showListings()
+    {
+        $this->showingSales = false;
+    }
+
+
+
+
     public function render(User $user)
     {
         return view('livewire.pages.shop.profile', ['user' => $user]);
