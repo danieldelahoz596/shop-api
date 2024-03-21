@@ -4,16 +4,16 @@
       <div class="standard-cat">
         <ul class="nav justify-content-evenly">
           <li class="nav-item display-6">
-            <a class="nav-link text-secondary" href="#">Men</a>
+            <a class="nav-link text-secondary" href="/shop/men">Men</a>
           </li>
           <li class="nav-item display-6">
-            <a class="nav-link text-secondary" href="#">Women</a>
+            <a class="nav-link text-secondary" href="/shop/women">Women</a>
           </li>
           <li class="nav-item display-6">
-            <a class="nav-link text-secondary" href="#">Kids</a>
+            <a class="nav-link text-secondary" href="/shop/kids">Kids</a>
           </li>
           <li class="nav-item display-6">
-            <a class="nav-link text-secondary" href="#">Sale</a>
+            <a class="nav-link text-secondary" href="/shop/steals">Sale</a>
           </li>
         </ul>
       </div>

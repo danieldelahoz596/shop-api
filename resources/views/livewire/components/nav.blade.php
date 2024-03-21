@@ -12,7 +12,9 @@
       <div class="navbar-nav-container position-relative flex-column flex-lg-row">
         <div class="search w-100 w-lg-50">
           <div class="d-flex align-items-center justify-content-end" x-data="{ open: false }">
-            <span class="input-span my-2 my-lg-0" x-show="open" style="visibility: visible;"><input placeholder="Search" type="search" class="form-control border border-black" autofocus></span>
+            <span class="input-span my-2 my-lg-0" x-show="open" style="visibility: visible;">
+                <input placeholder="Search" type="search" wire:model="search" name="search" id="search" class="form-control border border-black" wire:keydown.enter="submit" autofocus>
+            </span>
             <span class="input-span my-2 my-lg-0" x-show="!open" style="visibility: hidden;"><input type="search" class="form-control" autofocus></span>
             <a type="button" x-on:click="open = !open" class="searchBtn ps-2 h3 m-0"><i class="fa fa-search"></i></a>
           </div>
@@ -59,4 +61,15 @@
         </ul>
       </div>
     </div>
+
+    @script
+        <script>
+            $wire.on('redirectToShop', (data) => {
+                data.forEach((item, index) => {
+                    console.log(item);
+                    window.location.href = '/shop?keyword=' + item.keyword;
+                })
+            });
+        </script>
+    @endscript
 </nav>

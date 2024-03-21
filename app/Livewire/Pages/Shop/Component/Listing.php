@@ -8,16 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class Listing extends Component
 {
-    public $user; // Change to singular since it's one user
+    public $user;
     public $products;
+    public $productsCount;
+    public $sales;
 
-    // Type-hint the User model and set the default to null
+    public $showingSales = false;
+
+    public function showSales()
+    {
+        $this->showingSales = true;
+    }
+
+    public function showListings()
+    {
+        $this->showingSales = false;
+    }
     public function mount(User $user = null)
     {
-        if (!$user) {
-            // For debugging: If there's no user, throw an informative error.
-            throw new \Exception('No user instance passed to the Livewire component.');
-        }
 
         $this->user = $user; // Assign the user instance to the public property
 
@@ -26,7 +34,11 @@ class Listing extends Component
             ->leftJoin('users', 'products.user_id', '=', 'users.id')
             ->where('products.user_id', $this->user->id)
             ->get();
+
+        $this->productsCount = $this->products->count();
+        $this->sales = $this->user->sales;
     }
+
 
     public function render()
     {
