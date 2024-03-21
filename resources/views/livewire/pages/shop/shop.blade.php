@@ -1,6 +1,6 @@
 <div class="section-shop">
   <div class="container">
-    <div class="display-1">
+    <div class="heading display-1 fw-bolder">
       retro tops
     </div>
     <div class="filter-container">
@@ -13,6 +13,12 @@
             </button>
             <div class="dropdown-container" x-show="open" @click.away="open = false">
               <div class="dropdown-content">
+                <div class="dropdown-top-search">
+                  <div class="top-search-wrapper position-relative">
+                    <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input placeholder="Search for Categories" class="search-input">
+                  </div>
+                </div>
                 <div class="dropdown-menu-list d-flex flex-column">
                   <button class="option-group-button" x-on:click="menu1 = ! menu1">
                     <span>Women</span>
@@ -198,7 +204,7 @@
           </div>
 
 
-          <div class="dropdown-trigger position-relative">
+          <div class="dropdown-trigger position-relative" >
             <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span>Brand</span>
               <span><i class="fa-solid fa-angle-down"></i></span>
@@ -207,16 +213,91 @@
           </div>
 
 
-          <div class="dropdown">
-            <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="dropdown-trigger position-relative" x-data="{open:false}">
+            <button class="btn btn-secondary" type="button" x-on:click="open = ! open">
               <span>Style</span>
               <span><i class="fa-solid fa-angle-down"></i></span>
             </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+            <div class="dropdown-container" x-show="open" @click.away="open = false">
+              <div class="dropdown-content">
+                <div class="dropdown-menu-list">
+                  <div class="option-group-list">
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Retro</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Vintage</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Y2K</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Streetwear</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Athleisure</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Casual</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Formal</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Glam</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Cottage</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Punk</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >Preppy & Chic</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                      <div class="option-style-dropdown" role="button">
+                        <label class="option-label">
+                          <p data-testid="checkbox-label" >utility</p>
+                          <input type="checkbox" data-testid="checkbox">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
           </div>
 
           <!-- Will ask marketing about the data for size and the design -->
@@ -258,12 +339,168 @@
                         <input type="checkbox" data-testid="checkbox">
                       </label>
                     </div>
+                    <div class="option-group-style">
+                      <div class="option-gray-dropdown" role="button">
+                        <div class="option-gray">
+                          <div data-testid="colour-circle-gray" id="gray" class="option-gray-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Gray</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-beige-dropdown" role="button">
+                        <div class="option-beige">
+                          <div data-testid="colour-circle-beige" id="beige" class="option-beige-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Beige</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-red-dropdown" role="button">
+                        <div class="option-red">
+                          <div data-testid="colour-circle-red" id="red" class="option-red-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Red</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-blue-dropdown" role="button">
+                        <div class="option-blue">
+                          <div data-testid="colour-circle-blue" id="blue" class="option-blue-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Blue</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-green-dropdown" role="button">
+                        <div class="option-green">
+                          <div data-testid="colour-circle-green" id="green" class="option-green-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Green</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-yellow-dropdown" role="button">
+                        <div class="option-yellow">
+                          <div data-testid="colour-circle-yellow" id="yellow" class="option-yellow-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Yellow</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-purple-dropdown" role="button">
+                        <div class="option-purple">
+                          <div data-testid="colour-circle-purple" id="purple" class="option-purple-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Purple</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-pink-dropdown" role="button">
+                        <div class="option-pink">
+                          <div data-testid="colour-circle-pink" id="pink" class="option-pink-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Pink</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-orange-dropdown" role="button">
+                        <div class="option-orange">
+                          <div data-testid="colour-circle-orange" id="orange" class="option-orange-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Orange</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-brown-dropdown" role="button">
+                        <div class="option-brown">
+                          <div data-testid="colour-circle-brown" id="brown" class="option-brown-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Brown</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-navy-blue-dropdown" role="button">
+                        <div class="option-navy-blue">
+                          <div data-testid="colour-circle-navy-blue" id="navy-blue" class="option-navy-blue-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Navy Blue</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-silver-dropdown" role="button">
+                        <div class="option-silver">
+                          <div data-testid="colour-circle-silver" id="silver" class="option-silver-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Silver</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
+                    <div class="option-group-style">
+                      <div class="option-gold-dropdown" role="button">
+                        <div class="option-gold">
+                          <div data-testid="colour-circle-gold" id="gold" class="option-gold-color"></div>
+                        </div>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Gold</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </div>
+                      <div class="option-group-style">
+                        <div class="option-multicolor-dropdown" role="button">
+                          <div class="option-multicolor">
+                            <div data-testid="colour-circle-multicolor" id="multicolor" class="option-multicolor-color"></div>
+                          </div>
+                        </label>
+                      </div>
+                      <label class="option-label">
+                        <p data-testid="checkbox-label">Multicolor</p>
+                        <input type="checkbox" data-testid="checkbox">
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
           </div>
+
+
           <div class="dropdown">
             <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span>Price</span>
