@@ -1,0 +1,56 @@
+.photo-upload-wrapper{
+  .photo-upload-grid{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    .photo-upload{
+      max-width: 203px; 
+      width:100%; 
+      height:auto; 
+      background-color: transparent;
+      .photo-upload-label{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.product-info-wrapper{
+  .product-name-container{
+    .product-input{
+      input{
+        max-width: 650px;
+        width: 100%;
+        padding: 0.75rem 0;
+        border-radius: 13px;
+        font-size: 1.25rem;
+        text-indent: 25px;
+        border: 1px solid $tertiary;
+      }
+      .text-limit{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+  }
+  .product-description-wrapper{
+    .product-description-input{
+      textarea{
+        max-width: 650px;
+        min-height: 253px;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        font-size: 1.5rem;
+        border-radius:13px ;
+        border-color: $tertiary;
+      }
+      .text-limit{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+  }
+}
