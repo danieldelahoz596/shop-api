@@ -127,7 +127,7 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">Ask a Question</button>
-                    <a href="/profile/{{$user->id}}"><button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">
+                    <a href="/profile/{{ $user->id }}"><button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">
                             <i class="bi bi-shop"></i> Visit Shop
                         </button></a>
                 </div>
@@ -153,49 +153,40 @@
             <div class="card-header">
                 Reviews
             </div>
-            <ul class="list-group list-group-flush">
-                <!-- foreach $reviews as $review -->
-                <li class="list-group-item">
-                    <!--  $review->content  -->
-                    <br>
-                    <small class="text-muted">
-                        <!--  $review->user_name  -  $review->created_at->diffForHumans()  -->
-                    </small>
-                </li>
-                <!-- endforeach -->
-            </ul>
+            @livewire('review-form', ['product' => $product])
+            @livewire('product-reviews', ['product' => $product])
+
         </div>
-    </div>
 
-    @script
-    <script>
-        Alpine.data('counter', () => {
-            return {
-                count: 0,
-                increment() {
-                    this.count++
-                },
-            }
-        })
-        // JavaScript to synchronize thumbnails with the carousel
-        const thumbnails = document.querySelectorAll('.thumbnail-selector img');
-        const updateThumbnails = (activeIndex) => {
+        @script
+        <script>
+            Alpine.data('counter', () => {
+                return {
+                    count: 0,
+                    increment() {
+                        this.count++
+                    },
+                }
+            })
+            // JavaScript to synchronize thumbnails with the carousel
+            const thumbnails = document.querySelectorAll('.thumbnail-selector img');
+            const updateThumbnails = (activeIndex) => {
+                thumbnails.forEach((thumbnail, index) => {
+                    thumbnail.classList.toggle('active', index === activeIndex);
+                });
+            };
+
+            // When a thumbnail is clicked, update the thumbnails
             thumbnails.forEach((thumbnail, index) => {
-                thumbnail.classList.toggle('active', index === activeIndex);
+                thumbnail.addEventListener('click', () => {
+                    updateThumbnails(index);
+                });
             });
-        };
 
-        // When a thumbnail is clicked, update the thumbnails
-        thumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', () => {
-                updateThumbnails(index);
+            // Update thumbnails when the carousel changes
+            const mainCarousel = document.querySelector('#mainCarousel');
+            mainCarousel.addEventListener('slide.bs.carousel', (event) => {
+                updateThumbnails(event.to);
             });
-        });
-
-        // Update thumbnails when the carousel changes
-        const mainCarousel = document.querySelector('#mainCarousel');
-        mainCarousel.addEventListener('slide.bs.carousel', (event) => {
-            updateThumbnails(event.to);
-        });
-    </script>
-    @endscript
+        </script>
+        @endscript

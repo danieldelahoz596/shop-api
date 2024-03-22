@@ -33,7 +33,7 @@ use App\Livewire\Styles;
 Route::get('/', LandingPage::class)->name('/');
 Route::get('/index', LandingPage::class)->name('index');
 Route::get('/landingpage', LandingPage::class)->name('landingpage');
-Route::get('/product={products}', ProductsInfo::class)->name('productsinfo');
+Route::get('/product/{product_id}-{category_id}-{product_code}', ProductsInfo::class)->name('productsinfo');
 
 // Auth Pages
 Route::get('/login', Login::class)->name('login')->middleware('guest');

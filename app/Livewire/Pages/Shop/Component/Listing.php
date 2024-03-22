@@ -27,7 +27,7 @@ class Listing extends Component
     public function mount(User $user = null)
     {
 
-        $this->user = $user; // Assign the user instance to the public property
+        $this->user = $user;
 
         $this->products = DB::table('products')
             ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
