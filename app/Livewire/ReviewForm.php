@@ -11,7 +11,11 @@ class ReviewForm extends Component
     public $comment;
     public $rating;
     public $product;
-
+    public function mount()
+    {
+        $this->product_id = request()->route('product_id');
+        // Alternatively, you can use $this->product_id = $this->route('product_id');
+    }
     public function submitReview()
     {
         Review::with(['user', 'product'])->get();
@@ -19,7 +23,7 @@ class ReviewForm extends Component
             'comment' => 'required',
             'rating' => 'required|integer|between:1,5',
         ]);
-        dd($this->product_id);
+
         Review::create([
             'product_id' => $this->product_id,
             'user_id' => 3,
@@ -32,6 +36,7 @@ class ReviewForm extends Component
 
     public function render()
     {
+
         return view('livewire.pages.auth.review-form');
     }
 }
