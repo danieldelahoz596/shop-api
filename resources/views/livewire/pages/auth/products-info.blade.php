@@ -10,14 +10,10 @@
                     <div class="row">
                         <!-- Thumbnails on the left -->
                         <div class="col-2 thumbnail-column">
-                            <div
-                                class="thumbnail-selector d-flex flex-column align-items-center justify-content-between h-100">
-                                <img src="{{ asset('assets/img/1-Background.png') }}" class="active w-100"
-                                    data-bs-target="#mainCarousel" data-bs-slide-to="0">
-                                <img src="{{ asset('assets/img/1-Background.png') }}" data-bs-target="#mainCarousel"
-                                    data-bs-slide-to="1" class="w-100">
-                                <img src="{{ asset('assets/img/1-Background.png') }}" data-bs-target="#mainCarousel"
-                                    data-bs-slide-to="2" class="w-100">
+                            <div class="thumbnail-selector d-flex flex-column align-items-center justify-content-between h-100">
+                                <img src="{{ asset('assets/img/1-Background.png') }}" class="active w-100" data-bs-target="#mainCarousel" data-bs-slide-to="0">
+                                <img src="{{ asset('assets/img/1-Background.png') }}" data-bs-target="#mainCarousel" data-bs-slide-to="1" class="w-100">
+                                <img src="{{ asset('assets/img/1-Background.png') }}" data-bs-target="#mainCarousel" data-bs-slide-to="2" class="w-100">
                                 <!-- Add more thumbnails as needed -->
                             </div>
                         </div>
@@ -27,27 +23,22 @@
                                 <!-- Carousel content -->
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100"
-                                            alt="...">
+                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100"
-                                            alt="...">
+                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100"
-                                            alt="...">
+                                        <img src="{{ asset('assets/img/1-Background.png') }}" class="d-block w-100" alt="...">
                                     </div>
                                     <!-- Add more carousel items as needed -->
                                 </div>
                                 <!-- Controls -->
-                                <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel"
-                                    data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel"
-                                    data-bs-slide="next">
+                                <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
@@ -121,9 +112,7 @@
         <div class="row">
             <div class="col-md-6 d-flex flex-row justify-content-center align-items-center gap-4">
                 <div class="p-2">
-                    <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg"
-                        alt="Profile Picture" class="img-fluid rounded-circle"
-                        style="width: 50px; height: 50px; object-fit: cover;">
+                    <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                 </div>
                 <div class="mt-3">
                     <h6 class="card-subtitle text-muted">Seller: {{$user->name}}</h6>
@@ -138,9 +127,9 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">Ask a Question</button>
-                    <button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">
-                        <i class="bi bi-shop"></i> Visit Shop
-                    </button>
+                    <a href="/profile/{{$user->id}}"><button class="btn btn-outline-primary px-4 my-4 btn-sm mx-1">
+                            <i class="bi bi-shop"></i> Visit Shop
+                        </button></a>
                 </div>
             </div>
             <div class="col-md-6 d-flex">
@@ -180,33 +169,33 @@
 
     @script
     <script>
-    Alpine.data('counter', () => {
-        return {
-            count: 0,
-            increment() {
-                this.count++
-            },
-        }
-    })
-    // JavaScript to synchronize thumbnails with the carousel
-    const thumbnails = document.querySelectorAll('.thumbnail-selector img');
-    const updateThumbnails = (activeIndex) => {
+        Alpine.data('counter', () => {
+            return {
+                count: 0,
+                increment() {
+                    this.count++
+                },
+            }
+        })
+        // JavaScript to synchronize thumbnails with the carousel
+        const thumbnails = document.querySelectorAll('.thumbnail-selector img');
+        const updateThumbnails = (activeIndex) => {
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.classList.toggle('active', index === activeIndex);
+            });
+        };
+
+        // When a thumbnail is clicked, update the thumbnails
         thumbnails.forEach((thumbnail, index) => {
-            thumbnail.classList.toggle('active', index === activeIndex);
+            thumbnail.addEventListener('click', () => {
+                updateThumbnails(index);
+            });
         });
-    };
 
-    // When a thumbnail is clicked, update the thumbnails
-    thumbnails.forEach((thumbnail, index) => {
-        thumbnail.addEventListener('click', () => {
-            updateThumbnails(index);
+        // Update thumbnails when the carousel changes
+        const mainCarousel = document.querySelector('#mainCarousel');
+        mainCarousel.addEventListener('slide.bs.carousel', (event) => {
+            updateThumbnails(event.to);
         });
-    });
-
-    // Update thumbnails when the carousel changes
-    const mainCarousel = document.querySelector('#mainCarousel');
-    mainCarousel.addEventListener('slide.bs.carousel', (event) => {
-        updateThumbnails(event.to);
-    });
     </script>
     @endscript
