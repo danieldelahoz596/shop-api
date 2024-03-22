@@ -18,8 +18,10 @@ return new class extends Migration
             $table->integer('item_price');
             $table->integer('item_quantity');
             $table->string('item_size')->nullable();
-            $table->integer('discount')->nullable();
-            $table->integer('total');
+            $table->decimal('discount', 8, 2)->nullable();
+            $table->string('voucher_code')->nullable();
+            $table->decimal('voucher_amount', 8, 2)->nullable();
+            $table->decimal('total', 8, 2);
             $table->string('mode_of_payment')->nullable();
             $table->timestamps();
         });
