@@ -21,14 +21,13 @@ return new class extends Migration
             $table->text('product_description')->nullable();
             $table->string('product_brand')->nullable();
             $table->string('slug');
-            $table->integer('price');
+            $table->decimal('price', 8, 2);
             $table->integer('quantity');
             $table->jsonb('size')->nullable();
             $table->string('style')->nullable();
             $table->string('color')->nullable();
             $table->jsonb('keyword')->nullable();
             $table->boolean('status')->default(1);
-            $table->integer('discount')->default(0)->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_featured')->default(0)->nullable();
             // $table->string('keyword_index')->virtualAs('json_unquote(json_extract(keyword, "$.yourKey"))')->index('keyword_index');

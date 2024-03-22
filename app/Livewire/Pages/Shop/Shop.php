@@ -17,6 +17,15 @@ class Shop extends Component
     use WithPagination;
 
     public $category;
+    public $categoryFilter;
+    public $subcategoryfilter;
+    public $brand;
+    public $style;
+    public $size;
+    public $color;
+    public $price;
+    public $sale;
+    public $sort;
 
     protected $listeners = ['searchProducts' => 'updateProducts'];
 
@@ -44,7 +53,55 @@ class Shop extends Component
             }
         }
 
-        return $products->paginate(20);
+        if ($this->categoryFilter) {
+            $query->whereHas('category', function($query) {
+                $query->where('slug', $this->categoryFilter);
+            });
+        }
+
+        if ($this->subcategoryfilter) {
+            $query->orWhereHas('subcategory', function($query) {
+                $query->where('slug', $this->subcategoryfilter);
+            });
+        }
+
+        if ($this->brand) {
+            foreach ($this->brand as $brand) {
+                $query->orWhere('product_brand', $brand);
+            }
+        }
+
+        if ($this->style) {
+            foreach ($this->style as $style) {
+                $query->orWhere('style', $style);
+            }
+        }
+
+        if ($this->size) {
+            foreach ($this->size as $size) {
+                $query->orWhereJsonContains('size', $size);
+            }
+        }
+
+        if ($this->color) {
+            foreach ($this->color as $color) {
+                $query->orWhere('color', $color);
+            }
+        }
+
+        if ($this->price) {
+            $query->whereBetween('price', [$this->price['min'], $this->price['max']]);
+        }
+
+        if ($this->sale) {
+            $query->orWhere('discount', '>', 0);
+        }
+
+        if ($this->sort) {
+            $query->orderBy('product_name', 'asc');
+        }
+
+        return $products->orderBy('created_at', 'asc')->paginate(20);
     }
 
     public function steals($query)

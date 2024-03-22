@@ -8,20 +8,33 @@ use App\Models\Product;
 class ProductsInfo extends Component
 {
     public Product $products;
+    public $category_id;
+    public $product_code;
+    public $product_id;
 
-    // Remove the public $keywords; line if you no longer need it
-
-    public function mount(Product $products)
+    public function mount(Product $products, $category_id, $product_code,  $product_id)
     {
         $this->products = $products->load('user');
+        $this->category_id = $category_id;
+        $this->product_code = $product_code;
+
+        $this->product_id = $product_id;
+
+        // Fetch the product based on the provided parameters
+        $this->products = Product::where('category_id', $this->category_id)
+            ->where('product_code', $this->product_code)
+            ->where('id', $this->product_id)
+            ->firstOrFail();
+
+        // Load additional related data
+        $this->products->load('user');
     }
 
     public function render()
     {
-        // If you have the cast set up in your model, you can just pass the attribute.
         return view('livewire.pages.auth.products-info', [
             'product' => $this->products,
-            'keywords' => $this->products->keyword, // Assuming the 'keyword' attribute is already an array
+            'keywords' => $this->products->keyword,
             'user' => $this->products->user
         ]);
     }

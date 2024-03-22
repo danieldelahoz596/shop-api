@@ -23,8 +23,8 @@
                     <div class="swiper-slide p-4">
                         <div class="d-flex flex-column overflow-hidden">
                             <div class="brandImg">
-                                <a href="/product={{$brand->id}}" class="img"><img
-                                        src="{{ asset('assets/img/brands/'.$brand->image) }}" alt=""></a>
+                                <a href="/product/{{$brand->id}}-{{$brand->category_id}}-{{$brand->product_code}}"
+                                    class="img"><img src="{{ asset('assets/img/brands/'.$brand->image) }}" alt=""></a>
                             </div>
                             <div class="imgContent text-center">
                                 <h3>{{ $brand->product_name }} from {{ $brand->product_brand }}</h3>

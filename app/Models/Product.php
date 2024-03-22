@@ -49,4 +49,13 @@ class Product extends Model
     {
         return $this->hasMany(ProductSold::class);
     }
+
+    public function discounts()
+    {
+        return $this->hasMany(Discount::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
