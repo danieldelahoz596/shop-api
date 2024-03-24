@@ -3,54 +3,51 @@
   cursor: pointer;
   max-width: 400px;
   border-radius: 11px;
-  border: 2px solid $primary;
+  border: 3px solid #F86F03;
   background: transparent;
-  color: $tertiary;
+  color: #701D00;
+  font-weight: 900;
   width: 100%;
   text-align: center;
   padding-block: 0.55rem;
+  font-size: calc(1rem + 0.5vw);
 }
 
 
 
-.spotlightWrapper{
-  display: flex;
-  justify-content: space-between;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 100%;
-  column-gap: 1rem;
-  &::-webkit-scrollbar{
-    width: 0;
-    height: 0;
-    background: transparent;
-    opacity: 0;
-  }
+.swiper-wrapper{
   .content{
     position: absolute;
-    bottom: 23px;
+    bottom: -2px;
+    height: 70px;
     left: 34%;
+  }
+  .spotLightShop{
+    max-width: 546px;
+    width: 100%;
   }
 }
 
 .sellingContainer{
-  display: flex;
-  align-items: center;
-  column-gap: 1rem;
+  display: grid;
+  grid-template-columns:1fr 1fr;
+  column-gap: 2rem;
   .right{
-    width: 50%;
-    h1{
-      font-family: $font-family-nats;
-      font-size: clamp(2.5rem, 4.5vw, 5rem);
-      color: $tertiary;
-      letter-spacing: -3px;
-    }
-    p{
-      font-family: $font-family-nats;
-      font-size: clamp(1rem, 1.5vw, 2rem);;
-      color: #701D00;
-      line-height: 1;
-      
+    .right-container{
+      column-gap: 1rem;
+      h1{
+        font-size: calc(1rem + 4vw);
+        color: $tertiary;
+        letter-spacing: -9px;
+      }
+      p{
+        font-family: $font-family-nats;
+        font-size: calc(1rem + 0.5vw);
+        color: #701D00;
+        line-height: 1;
+        width: 80%;
+        
+      }
     }
   }
 }
@@ -69,15 +66,19 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    column-gap: 2rem;
     h1{
-      font-size: 4rem;
+      font-size: calc(1rem + 3vw);
       color:$tertiary ;
-      font-family: $font-family-nats;
+      letter-spacing: -4px;
+        font-weight: 900;
     }
     p{
-      font-size: 1rem;
-      max-width: 50vw;
+      font-size: calc(1rem + 0.5vw);
+      max-width: 70vw;
       text-align: center;
+      font-weight: 700;
+      color: $tertiary;
     }
     .ctaSell{
       text-decoration: none;
@@ -85,7 +86,10 @@
       max-width: 363px;
       text-align: center;
       .info{
-        font-size: 1.5rem;
+        font-size: calc(1rem + 1vw);
+        color: $tertiary;
+        font-weight: 900;
+        letter-spacing: -1px;
       }
       .ctaIcon{
         position: relative;
@@ -131,22 +135,18 @@
 }
 
 .priceInfoContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns:1fr 1fr;
   .left{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
     h1{
-      font-family: $font-family-nats;
-      font-size: clamp(2rem, 4.5vw, 5rem);
+      font-size: calc(1rem + 3vw);
+      font-weight: 900;
       color: $tertiary;
       letter-spacing: -3px;
     }
     p{
-      font-family: $font-family-nats;
-      font-size: clamp(1rem, 1.5vw, 2rem);
+      font-size: calc(1rem + 0.5vw);
+      font-weight: 700;
       color: #701D00;
       line-height: 1;
     }

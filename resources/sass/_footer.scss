@@ -48,27 +48,76 @@ footer{
 }
 
 
+
+
+
+
 //Breakpoints
+
+
+@media( min-width: 1400px){
+  //additional default
+  h3{font-size: 2.5rem;}
+  .display-6{font-size: 3.5rem;}
+
+//Popular-item
+.swiper-wrapper{
+  .brandImg{
+    max-height: 708px;
+    height: auto;
+  }
+}
+
+
+  //Navbar
+  // nav{
+  //   height: 110px;
+  //   .navbar-nav-container{
+  //     .fa-bag-shopping{
+  //       font-size: 3rem;
+  //     }
+  //     .search{
+  //       .searchBtn{
+  //         .fa-search{
+  //           font-size: 3rem;
+  //         }
+  //       }
+  //       .input-span{
+  //         max-width: 94vh;
+  //         input{
+  //           height: 56px;
+  //           font-size: 1.5rem;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  // .navBtn{
+  //   width: 200px;
+  //   font-size: 1.5rem !important;
+  // }
+
+}
+
+
+
+
+
+
+
+
 @media (max-width: 1399.98px){
   // additional default
   .w-xl-100{ width: 100% !important;}
   .w-xl-50{width: 50% !important;}
 
-  ul{
-    margin: 0 !important;
-  }
-  h1{
-    font-size: 2rem;
-  }
-  .display-1{
-    font-size: 4rem
-  }
-  .display-6{
-    font-size: 1.5rem
-  }
-  .display-4{
-    font-size: 2.5rem
-  }
+  ul{margin: 0 !important;}
+  h1{font-size: 2rem;}
+  .display-1{font-size: 4rem}
+  .display-6{font-size: 1.5rem}
+  .display-4{font-size: 2.5rem}
+
   footer{
     .footerWrapper{
       .footerDescription{

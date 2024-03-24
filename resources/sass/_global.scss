@@ -12,11 +12,21 @@ h1, h2, h3, h4, h5{
 .w-96{
   width: 96% !important;
 }
-
-.section-landing, .section-shop{
-  max-width: 1512px;
-  margin-inline: auto ;
+.space-nowrap{
+  white-space: normal !important;
 }
+p{margin: 0;}
+
+.tertiary-color{
+  color: $tertiary;
+}
+.lt-2-spacing{
+  letter-spacing: -2px;
+}
+
+
+
+
 
 .navbar-nav-container{
   display: flex;
@@ -58,7 +68,6 @@ h1, h2, h3, h4, h5{
       max-width: 60vh;
       width: 100%;
       input {
-        max-width: 60vh;
         width: 100%;
         height: 38px;
         text-indent: 25px;

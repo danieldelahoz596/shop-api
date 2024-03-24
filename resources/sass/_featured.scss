@@ -3,11 +3,11 @@
   cursor: pointer;
   background-color:#fff;
   border-radius: 11px;
-  color: black;
-  max-width: 11.125rem;
+  color: $tertiary;
+  max-width: 238px;
   width: 100%;
   text-align: center;
-  padding-block: 5px;
+  font-size: calc(1rem + 1vw);
 }
 
 
@@ -28,7 +28,7 @@
       left: 1rem;
       h1{
         color: #fff;
-        font-size: 1.5rem;
+        font-size: calc(1rem + 3rem);
       }
     }
   }
@@ -64,12 +64,13 @@
     justify-content: center;
     align-items: center;
     h1{
-      font-size: 3rem;
+      font-size: calc(1rem + 3vw);
       color: $tertiary;
     }
     .valueGrid{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      column-gap: 1rem;
       .value{
         display: flex;
         flex-direction: column;
@@ -80,12 +81,12 @@
           font-size: 7rem;
         }
         h4{
-          font-size: 1.5rem;
+          font-size: calc(1rem + 1.5vw);
           color: $tertiary;
           
         }
         p{
-          font-size: 1rem;
+          font-size: calc(1rem + 0.5vw);
           color: $tertiary;
         }
       }

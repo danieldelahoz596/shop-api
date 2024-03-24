@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg  navbar-light bg-white shadow-sm">
-  <div class="container">
+  <div class="container-fluid w-75">
     <a class="navbar-brand" href="{{ url('/') }}">
       <img class="buudl-logo img-fluid" src="{{ asset('assets/img/buudl_brown.svg') }}" alt="logo">
     </a>
@@ -16,7 +16,7 @@
                 <input placeholder="Search" type="search" wire:model="search" name="search" id="search" class="form-control border border-black" wire:keydown.enter="submit" autofocus>
             </span>
             <span class="input-span my-2 my-lg-0" x-show="!open" style="visibility: hidden;"><input type="search" class="form-control" autofocus></span>
-            <a type="button" x-on:click="open = !open" class="searchBtn ps-2 h3 m-0"><i class="fa fa-search"></i></a>
+            <a type="button" x-on:click="open = !open" class="searchBtn ps-2 h2 m-0"><i class="fa fa-search"></i></a>
           </div>
         </div>
         <!-- Right Side Of Navbar -->
