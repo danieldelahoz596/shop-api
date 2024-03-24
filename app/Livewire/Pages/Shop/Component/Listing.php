@@ -42,7 +42,7 @@ class Listing extends Component
 
     public function render()
     {
-        // No need to check $this->user again since an exception would be thrown in mount() if it wasn't set
+
         return view('livewire.pages.shop.component.listing', [
             'user' => $this->user,
             'products' => $this->products,
