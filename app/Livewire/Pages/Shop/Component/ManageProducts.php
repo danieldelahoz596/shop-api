@@ -43,10 +43,16 @@ class ManageProducts extends Component
     public function addProduct()
     {
 
-        $path = $this->images->store('/assets/img/product-images');
-        $this->images = $path;
+        if ($this->images) {
+            $path = $this->images->store('/assets/img/product-images');
+            $imagePath = $path;
+        } else {
+            session()->flash('error', 'No image uploaded.');
+            return;
+        }
+
         Product::create([
-            'user_id' => $this->user->id, // Use the authenticated user ID
+            'user_id' => $this->user->id,
             'product_name' => $this->product_name,
             'product_description' => $this->product_description,
             'price' => $this->product_price,
@@ -58,7 +64,7 @@ class ManageProducts extends Component
             'quantity' => $this->quantity,
             'keyword' => '["dress","tops","sportswear"]',
             'status' => 1,
-            'image' => $this->images,
+            'image' =>  $imagePath,
         ]);
 
         // Handle image uploads if they are included
