@@ -13,43 +13,37 @@
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                             <div class="photo-upload">
                                 <label class="photo-upload-label">
                                     <input type="file" name="image" style="display: none;">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{ asset('assets/img/profile_listing/photo_holder.jpg') }}" alt="">
                                 </label>
                             </div>
                         </div>
@@ -75,8 +69,7 @@
                                     <a href=""> Here are some tips for making a description</a>
                                 </div>
                                 <div class="product-description-input position-relative" x-data="{text:''}">
-                                    <textarea name="textarea" x-model="text" wire:model="product_description"
-                                        maxlength="200"></textarea>
+                                    <textarea name="textarea" x-model="text" wire:model="product_description" maxlength="200"></textarea>
                                     <div class="text-limit"><span x-text="text.length"></span>/200</div>
                                 </div>
                             </div>
@@ -164,11 +157,15 @@
                         </div>
 
                         <div class="Condition-select">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected class="muted-color">Condition</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select wire:model="condition_id" class="form-select" aria-label="Default select example">
+                                <option>Condition</option>
+                                @if ($conditions)
+                                @foreach ($conditions as $condition)
+                                <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                                @endforeach
+                                @else
+                                <option value="">No conditions available</option>
+                                @endif
                             </select>
                         </div>
 
@@ -191,11 +188,15 @@
                         </h3>
 
                         <div class="Color-select">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected class="muted-color">Color</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select wire:model="product_brand" class="form-select" aria-label="Default select example">
+                                <option>Color</option>
+                                @if ($colors)
+                                @foreach ($colors as $color)
+                                <option value="{{ $color }}">{{ $color->name }}</option>
+                                @endforeach
+                                @else
+                                <option value="">No colors available</option>
+                                @endif
                             </select>
                         </div>
 
@@ -214,11 +215,15 @@
                         </div>
 
                         <div class="Style-select">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected class="muted-color">Style</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select wire:model="style_id" class="form-select" aria-label="Default select example">
+                                <option>Styles</option>
+                                @if ($styles)
+                                @foreach ($styles as $style)
+                                <option value="{{ $style->id }}">{{ $style->name }}</option>
+                                @endforeach
+                                @else
+                                <option value="">No styles available</option>
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -234,8 +239,7 @@
                             <span class="muted-color h3">(Optional)</span>
                         </div>
 
-                        <div class="guide-link"><a href="">Guide <span><i
-                                        class="fa-solid fa-arrow-right"></i></span></a></div>
+                        <div class="guide-link"><a href="">Guide <span><i class="fa-solid fa-arrow-right"></i></span></a></div>
                     </div>
                     <p>You've got a 40% better chance of selling this item if you add measurements. Include as many as
                         applicable.</p>
@@ -305,10 +309,9 @@
                     <div class="shipping-details">
                         <div class="main-info d-flex justify-content-between">
                             <p class="d-flex flex-column">
-                                <span class="muted-color fs-5 lh-1">Danielle Pestilos</span>
-                                <span class="muted-color fs-5 lh-1">+63 912 345 6780</span>
-                                <span class="muted-color fs-5 lh-1">Region, Province, City/Municipality, Barangay,
-                                    House/Building No, Zip Code</span>
+                                <span class="muted-color fs-5 lh-1">{{$user->name}}</span>
+                                <span class="muted-color fs-5 lh-1">+63{{$user->phone_number}}</span>
+                                <span class="muted-color fs-5 lh-1">{{$user->address}}</span>
                             </p>
                             <div class="shipping-icon">
                                 <a href=""><i class="fa-solid fa-chevron-right"></i></a>
@@ -409,18 +412,18 @@
         </div>
     </div>
     <div class="cta-container mt-5">
-      <div class="cta-wrapper d-flex justify-content-center">
-        <div class="draft-btn-container">
-          <button>
-            Save as draft
-          </button>
+        <div class="cta-wrapper d-flex justify-content-center">
+            <div class="draft-btn-container">
+                <button>
+                    Save as draft
+                </button>
+            </div>
+            <div class="list-btn-container">
+                <button>
+                    List item
+                </button>
+            </div>
         </div>
-        <div class="list-btn-container">
-            <button>
-              List item
-            </button>
-        </div>
-      </div>
     </div>
 
 </div>
