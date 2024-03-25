@@ -14,6 +14,58 @@ use Livewire\WithPagination;
 
 class Shop extends Component
 {
+
+    public $categoryOption = ['Women', 'Menswear', 'Kids'];
+    public $styleOption = [
+      'Retro',
+      'Vintage',
+      'Y2K',
+      'Streetwear',
+      'Athleisure',
+      'Casual',
+      'Formal',
+      'Glam',
+      'Cottage',
+      'Punk',
+      'Preppy & Chic',
+      'Utility'
+    ];
+    public $colorOption = [
+      'Black',
+      'White',
+      'Gray',
+      'Beige',
+      'Red',
+      'Blue',
+      'Green',
+      'Yellow',
+      'Purple',
+      'Pink',
+      'Orange',
+      'Brown',
+      'Navy Blue',
+      'Silver',
+      'Gold',
+      'Multicolor'
+    ];
+    public $subcategoriesOption = [
+      'Menswear' => [
+          'Tops' => ['T-shirts', 'Polos', 'Casual Shirts', 'Dress Shirts', 'Sweaters'],
+          'Bottoms' => ['Jeans', 'Chinos', 'Dress Pants', 'Shorts'],
+          'Suits and Formal Wear' => ['Suits', 'Blazers', 'Dress Shirts', 'Ties'],
+          'Activewear' => ['Athletic T-shirts', 'Sports Jerseys', 'Athletic Shorts', 'Track Pants'],
+          'Outerwear' => ['Jackets', 'Coats', 'Hoodies', 'Vests'],
+          'Casual Wear' => ['Hoodies', 'Casual Jackets', 'Casual Shirts'],
+          'Swimwear' => ['Swim Trunks', 'Board Shorts'],
+          'Underwear' => ['Boxers', 'Briefs', 'Boxer Briefs'],
+          'Sleepwear' => ['Pajamas', 'Lounge Pants'],
+          'Accessories' => ['Ties', 'Belts', 'Hats']
+        ]
+    ];
+
+    
+    
+  
     use WithPagination;
 
     public $category;
