@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use App\Enum\ColorEnum;
+use App\Enum\ConditionEnum;
 use App\Enum\StyleEnum;
+use App\Enum\TagEnum;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\SubsubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
@@ -20,6 +23,7 @@ class ProductSeeder extends Seeder
     {
         $categories = SubCategory::all()->pluck('category_id')->toArray();
         $subCategories = SubCategory::all()->pluck('id')->toArray();
+        $subSubCategories = SubsubCategory::all()->pluck('id')->toArray();
         $brands = Brand::all()->pluck('name')->toArray();
         $images = [
             'brandimg1.jpg',
@@ -28,11 +32,14 @@ class ProductSeeder extends Seeder
         ];
         $styles = StyleEnum::values();
         $colors = ColorEnum::values();
+        $tags = TagEnum::values();
+        $conditions = ConditionEnum::values();
 
         $products = [
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1001',
                 'product_name' => 'Black Dress',
@@ -44,7 +51,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'sportswear'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
                 'is_featured' => true,
@@ -52,6 +60,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1002',
                 'product_name' => 'Blue Dress',
@@ -63,7 +72,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
                 'is_featured' => true
@@ -71,6 +81,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1003',
                 'product_name' => 'Black Tees',
@@ -82,7 +93,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'garments'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
                 'is_featured' => true
@@ -90,6 +102,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1004',
                 'product_name' => 'Green Pants',
@@ -101,7 +114,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'sportswear'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
                 'is_featured' => true
@@ -109,6 +123,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1005',
                 'product_name' => 'Orange Jacket',
@@ -120,7 +135,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'garments'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
                 'is_featured' => true
@@ -128,6 +144,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1006',
                 'product_name' => 'Green Underwear',
@@ -139,13 +156,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1007',
                 'product_name' => 'Longsleeve',
@@ -157,13 +176,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'sportswear'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1008',
                 'product_name' => 'Shorts',
@@ -175,13 +196,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1009',
                 'product_name' => 'Jeans',
@@ -193,13 +216,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'garments'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1010',
                 'product_name' => 'White Sweater',
@@ -211,13 +236,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1011',
                 'product_name' => 'Pink Hat',
@@ -229,13 +256,15 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],
             [
                 'category_id' => Arr::random($categories),
                 'subcategory_id' => Arr::random($subCategories),
+                'sub_subcategory_id' => Arr::random($subSubCategories),
                 'user_id' => 3,
                 'product_code' => 'BU1012',
                 'product_name' => 'Black Pants',
@@ -247,7 +276,8 @@ class ProductSeeder extends Seeder
                 'size' => ['XS', 'S', 'M', 'L', 'XL'],
                 'style' => Arr::random($styles),
                 'color' => Arr::random($colors),
-                'keyword' => ['dress', 'tops', 'bottom'],
+                'condition' => Arr::random($conditions),
+                'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => Arr::random($images),
             ],

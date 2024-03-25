@@ -172,7 +172,7 @@ class Shop extends Component
         })->orWhere('product_brand', $this->category)
         ->orWhere('product_name', 'like', '%'.$this->category.'%')
         ->orWhereJsonContains('size', $this->category)
-        ->orWhereJsonContains('keyword', $this->category);
+        ->orWhereJsonContains('keyword', 'like', '%'.ucfirst($this->category).'%');
     }
 
     public function categories()

@@ -22,7 +22,7 @@
                         <img class="img-fluid" src="{{ asset('assets/img/public_profile/Vector.jpg') }}" alt="">
                         @endif
                         <div class="user_name ps-4">
-                            <h1>{{$user->username}}</h1>
+                            <h1>{{$user->firstname}}</h1>
                             <p><span class=" location_icon"> <i class="fa-solid fa-location-dot"></i> </span><span
                                     class="location">{{$user->address}}</span></p>
                         </div>

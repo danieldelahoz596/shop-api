@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Models\ProductSold;
+use App\Models\Sale;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 
-class ProductSoldSeeder extends Seeder
+class SaleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,17 +17,18 @@ class ProductSoldSeeder extends Seeder
         $products = Product::all();
 
         foreach ($products as $product) {
-            $size = collect($product['size'])->random();
             $quantity = rand(1, 100);
-            $total = $quantity * $product['price'];
-            ProductSold::create([
-                'product_id' => $product['id'],
-                'user_id' => $product['user_id'],
-                'item_price' => $product['price'],
+            Sale::create([
+                'product_id' => $product->id,
+                'seller_id' => $product->user->id,
+                'buyer_id' => 4,
+                'item_price' => $product->price,
                 'item_quantity' => $quantity,
-                'item_size' => $size,
                 'discount' => 0,
-                'total' => $total,
+                'voucher_code' => null,
+                'voucher_amount' => 0,
+                'total' => $quantity * $product->price,
+                'status' => 'Delivered',
                 'mode_of_payment' => 'Gcash'
             ]);
         }

@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_solds', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->integer('item_price');
+            $table->foreignId('seller_id')->constrained('users');
+            $table->foreignId('buyer_id')->constrained('users');
+            $table->decimal('item_price', 8, 2);
             $table->integer('item_quantity');
             $table->string('item_size')->nullable();
-            $table->decimal('discount', 8, 2)->nullable();
+            $table->integer('discount')->nullable();
             $table->string('voucher_code')->nullable();
             $table->decimal('voucher_amount', 8, 2)->nullable();
             $table->decimal('total', 8, 2);
+            $table->string('status')->nullable();
             $table->string('mode_of_payment')->nullable();
             $table->timestamps();
         });
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_solds');
+        Schema::dropIfExists('sales');
     }
 };
