@@ -86,26 +86,35 @@
             </div>
             <div class="col-9 col-xl-8 right p-0 m-0 py-4">
                 <ul class="nav d-flex justify-content-between w-50 w-xl-50 ms-4">
-                    <li class="nav-item h3
-    ">
-                        <button class="nav-link muted active" aria-current="page"
-                            wire:click="showListings">Selling</button>
+                    <li class="nav-item h3">
+                        <button class="nav-link muted {{ $activeTab == 1 ? 'active' : '' }}" aria-current="page"
+                            wire:click="setActiveTab(1)">Selling</button>
                     </li>
-                    <li class="nav-item h3
-    ">
-                        <button class="nav-link muted" wire:click.prevent="showSales">Likes</button>
+                    <li class="nav-item h3">
+                        <button class="nav-link muted {{ $activeTab == 2 ? 'active' : '' }}"
+                            wire:click="setActiveTab(2)">Likes</button>
                     </li>
-                    <li class="nav-item h3
-    ">
-                        <button class="nav-link muted" wire:click.prevent="showSales">Purchases</button>
+                    <li class="nav-item h3">
+                        <button class="nav-link muted {{ $activeTab == 3 ? 'active' : '' }}"
+                            wire:click="setActiveTab(3)">Purchases</button>
                     </li>
                 </ul>
-                @if ($showingSales)
-                <livewire:pages.shop.component.purchases :user="$user" />
-                @else
+                @if ($activeTab == 1)
                 <livewire:pages.shop.component.listing :user="$user" />
+                @elseif ($activeTab == 2)
+                <!-- Include a Livewire component for likes when it's available -->
+                <!-- <livewire:pages.shop.component.likes :user="$user" /> -->
+                @elseif ($activeTab == 3)
+                <livewire:pages.shop.component.purchases :user="$user" />
                 @endif
             </div>
+
+
         </div>
     </div>
 </div>
+<script>
+window.addEventListener('contentChanged', () => {
+    location.reload();
+});
+</script>

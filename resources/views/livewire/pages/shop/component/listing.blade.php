@@ -27,15 +27,15 @@
                 </div>
             </div>
             @endforeach
-          </div>
-          <div class="container text-center pt-5">
-              <a href="{{ request()->url() }}/add-product">
-                  <button class="item_btn">
-                      List an Item
-                  </button>
-              </a>
-          </div>
-      </div>
+        </div>
+        <div class="container text-center pt-5">
+            <a href="{{ request()->url() }}/add-products">
+                <button class="item_btn">
+                    List an Item
+                </button>
+            </a>
+        </div>
     </div>
+</div>
 
 </div>

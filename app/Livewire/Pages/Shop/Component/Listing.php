@@ -30,7 +30,9 @@ class Listing extends Component
 
         $this->user = $user;
 
-        $this->products = Product::with(['user', 'category', 'subcategory', 'subSubCategory'])->get();
+        $this->products = Product::with(['user', 'category', 'subcategory', 'subSubCategory'])
+            ->where('user_id', $user->id)
+            ->get();
 
         $this->productsCount = $this->products->count();
         // $this->sales = $this->user->sales;
