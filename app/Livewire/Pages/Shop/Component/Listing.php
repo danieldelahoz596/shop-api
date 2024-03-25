@@ -28,7 +28,7 @@ class Listing extends Component
     public function mount(User $user)
     {
 
-        $this->user = $user; // Assign the user instance to the public property
+        $this->user = $user;
 
         $this->products = Product::with(['user', 'category', 'subcategory', 'subSubCategory'])->get();
 
@@ -39,7 +39,7 @@ class Listing extends Component
 
     public function render()
     {
-        // No need to check $this->user again since an exception would be thrown in mount() if it wasn't set
+
         return view('livewire.pages.shop.component.listing', [
             'user' => $this->user,
             'products' => $this->products,

@@ -68,10 +68,17 @@ class User extends Authenticatable
         return $this->hasOne(UserRole::class, 'role_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+
     public function userAddress()
     {
         return $this->hasOne(UserAddress::class);
     }
+
     public function products()
     {
         return $this->hasMany(Product::class);

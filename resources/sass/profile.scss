@@ -62,3 +62,8 @@
   }
 }
 
+.product_sell_listing{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+

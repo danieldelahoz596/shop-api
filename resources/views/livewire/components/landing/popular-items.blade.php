@@ -1,34 +1,10 @@
 <div class="py-4">
-    <div class="placeItemheader container-fluid d-flex align-items-center justify-content-between pb-4">
-        <span class="h2 me-2"><strong>Popular items</strong></span>
-        <a href="/shop/all" class="text-black ms-2"><u>More</u></a>
+    <div class="placeItemheader container-fluid d-flex align-items-center justify-content-between px-5">
+        <span class="display-6 tertiary-color  fw-bold"><strong>Popular items</strong></span>
+        <a href="/shop/all" class=" tertiary-color display-6 fw-bold"><u>More</u></a>
     </div>
 
-    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">
-        <div class="position-absolute top-50 start-0 translate-middle-y z-3 d-flex align-items-center">
-            <button @click="slidePrev()"
-                class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none"
-                style="width: 2.5rem; height: 2.5rem;">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6">
-                    <path fill-rule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </div>
-
-        <div class="position-absolute top-50 end-0 translate-middle-y z-3 d-flex align-items-center">
-            <button @click="slideNext()"
-                class="btn btn-light position-relative ms-n2 ms-lg-n4 d-flex justify-content-center align-items-center rounded-circle shadow focus-outline-none"
-                style="width: 2.5rem; height: 2.5rem;">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </div>
-
+    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-5">
         <div class="swiper-container" x-ref="container">
             <div class="swiper-wrapper">
                 <!-- Slides -->
@@ -36,12 +12,13 @@
                 <div class="swiper-slide p-4">
                     <div class="d-flex flex-column overflow-hidden">
                         <div class="brandImg">
-                            <a href="/product={{$popularItem->id}}" class="img "><img class=""
-                                    src="{{ asset('assets/img/brands/'.$popularItem->image) }}" alt=""></a>
+                            <a href="/product/{{$popularItem->id}}-{{$popularItem->category_id}}-{{$popularItem->product_code}}"
+                                class="img"><img class="img-fluid" src="{{ asset('assets/img/brands/'.$popularItem->image) }}"
+                                    alt=""></a>
                         </div>
-                        <div class="imgContent text-center">
-                            <h3 class="m-0">{{ $popularItem->product_name }}</h3>
-                            <div class="price lh-1">P {{ $popularItem->price }}</div>
+                        <div class="imgContent pt-3">
+                            <h3 class="m-0 tertiary-color fw-bold">{{ $popularItem->product_name }}</h3>
+                            <h3 class="price lh-1 tertiary-color fw-bold">P {{ $popularItem->price }}</h3>
                         </div>
                     </div>
                 </div>
@@ -71,89 +48,43 @@
     </div>
 
     <div class="container-fluid">
-        <h1>People are talking about...</h1>
+      <div class="display-6 tertiary-color fw-bold ps-5">People are talking about...</div>
         <div class="catogeryList">
-            @foreach ($subCategories as $subCategory)
-            <div class="itemWrap">
-                <div class="placeItemGrid">
+          <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row ps-5">
+            <div class="swiper-container" x-ref="container">
+              <div class="swiper-wrapper position-relative">
+                @foreach ($subCategories as $subCategory)
+                <div class="swiper-slide p-4">
+                  <div class="d-flex flex-column overflow-hidden">
                     <div class="itemImg">
-                        <a href="/shop/{{ $subCategory->slug }}" class="image">
-                            <img src="{{ asset('assets/img/category/category1.png') }}" alt="">
+                        <a href="/shop/{{ $subCategory->slug }}" class="img">
+                            <img class="img-fluid" src="{{ asset('assets/img/category/category1.png') }}" alt="">
                         </a>
                     </div>
                     <div class="itemContent text-start">
-                        <h3 class="m-0">{{ $subCategory->name }}</h3>
-                        <div class="price lh-1">4.k searches this week</div>
+                      <h3 class="m-0 space-nowrap">{{ $subCategory->name }}</h3>
+                      <h3 class="price lh-1">4.k searches this week</h3>
                     </div>
-                </div>
+                  </div>
+              </div>
+              @endforeach
+              {{-- <div class="swiper-slide p-4">
+                    <div class="d-flex flex-column overflow-hidden">
+                      <div class="itemImg">
+                        <a href="" class="d-block img">
+                          <img class="img-fluid" src="{{ asset('assets/img/category/category2.png') }}" alt="">
+                        </a>
+                      </div>
+                      <div class="itemContent text-start">
+                        <h3 class="m-0"> dress </h3>
+                        <div class="price lh-1">4.k searches this week</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>--}}
             </div>
-            @endforeach
-            {{-- <div class="itemWrap">
-                <div class="placeItemGrid">
-                <div class="itemImg">
-                    <a href="" class="d-block image">
-                        <img src="{{ asset('assets/img/category/category2.png') }}" alt="">
-            </a>
+          </div>
         </div>
-        <div class="itemContent text-start">
-            <h3 class="m-0"> dress </h3>
-            <div class="price lh-1">4.k searches this week</div>
-        </div>
-    </div>
-</div>
-<div class="itemWrap">
-    <div class="placeItemGrid">
-        <div class="itemImg">
-            <a href="" class="d-block image">
-                <img src="{{ asset('assets/img/category/category1.png') }}" alt="">
-            </a>
-        </div>
-        <div class="itemContent text-start">
-            <h3 class="m-0">tops</h3>
-            <div class="price lh-1">4.k searches this week</div>
-        </div>
-    </div>
-</div>
-<div class="itemWrap">
-    <div class="placeItemGrid">
-        <div class="itemImg">
-            <a href="" class="d-block image">
-                <img src="{{ asset('assets/img/category/category2.png') }}" alt="">
-            </a>
-        </div>
-        <div class="itemContent text-start">
-            <h3 class="m-0">tops</h3>
-            <div class="price lh-1">4.k searches this week</div>
-        </div>
-    </div>
-</div>
-<div class="itemWrap">
-    <div class="placeItemGrid">
-        <div class="itemImg">
-            <a href="" class="d-block image">
-                <img src="{{ asset('assets/img/category/category1.png') }}" alt="">
-            </a>
-        </div>
-        <div class="itemContent text-start">
-            <h3 class="m-0">tops</h3>
-            <div class="price lh-1">4.k searches this week</div>
-        </div>
-    </div>
-</div>
-<div class="itemWrap">
-    <div class="placeItemGrid">
-        <div class="itemImg">
-            <img src="{{ asset('assets/img/category/category2.png') }}" alt="">
-            <img src="" alt="">
-            </a>
-        </div>
-        <div class="itemContent text-start">
-            <h3 class="m-0">tops</h3>
-            <div class="price lh-1">4.k searches this week</div>
-        </div>
-    </div>
-</div> --}}
-</div>
 </div>
 
 <script>
@@ -164,9 +95,9 @@ function swiper() {
         init() {
             swiperInstance = new Swiper(this.$refs.container, {
                 loop: true,
-                autoplay: {
-                    delay: 5000,
-                },
+                // autoplay: {
+                //     delay: 5000,
+                // },
                 parallax: true,
                 rewind: true,
                 slidesPerView: 1,

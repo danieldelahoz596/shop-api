@@ -40,6 +40,18 @@ class Product extends Model
     {
         return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
+    public function style()
+    {
+        return $this->belongsTo(Style::class, 'style_id');
+    }
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class, 'condition_id');
+    }
 
     public function subSubCategory()
     {
@@ -60,5 +72,8 @@ class Product extends Model
     {
         return $this->hasMany(Discount::class);
     }
-
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
