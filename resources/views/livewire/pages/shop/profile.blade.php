@@ -1,5 +1,5 @@
 <div>
-    <div class="container-fluid border border-black" style="height:100vh;">
+    <div class="container-fluid border border-black" style="min-height: 900px;">
         <div class="row" style="height:100vh">
             <div class="col-xxl-3 col-xl-4 left border-end">
                 <div class="container">
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="col-9 col-xl-8 right p-0 m-0 py-4">
-                <ul class="nav d-flex justify-content-between w-30 w-xl-50 ms-4">
+                <ul class="nav d-flex justify-content-between w-50 w-xl-50 ms-4">
                     <li class="nav-item h3
     ">
                         <button class="nav-link muted active" aria-current="page"

@@ -3,10 +3,10 @@
     <h4 class="ms-5 ps-3 py-4">{{ $productsCount }} listings</h4>
 
     <div class="container">
-        <div class="product_sell_listing row">
+        <div class="product_sell_listing">
             @foreach ($products as $product)
             <div class="product">
-                <div class="col-lg-3">
+                <div class="">
                     <div class="items position-relative">
                         <span class="badges position-absolute d-flex flex-column">
                             <span class="bag_icon bg-light rounded-5 px-2">
@@ -27,24 +27,15 @@
                 </div>
             </div>
             @endforeach
-
-
-
-        </div>
+          </div>
+          <div class="container text-center pt-5">
+              <a href="{{ request()->url() }}/add-product">
+                  <button class="item_btn">
+                      List an Item
+                  </button>
+              </a>
+          </div>
+      </div>
     </div>
-    <div>
 
-    </div>
-
-
-    <div class="container text-center pt-5">
-
-        <a href="{{ request()->url() }}/add-products">
-            <button class="item_btn">
-                List an Item
-            </button>
-        </a>
-
-
-
-    </div>
+</div>
