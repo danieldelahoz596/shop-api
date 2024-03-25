@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Shop\Component;
 
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -24,19 +25,15 @@ class Listing extends Component
     {
         $this->showingSales = false;
     }
-    public function mount(User $user = null)
+    public function mount(User $user)
     {
 
         $this->user = $user; // Assign the user instance to the public property
 
-        $this->products = DB::table('products')
-            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-            ->leftJoin('users', 'products.user_id', '=', 'users.id')
-            ->where('products.user_id', $this->user->id)
-            ->get();
+        $this->products = Product::with(['user', 'category', 'subcategory', 'subSubCategory'])->get();
 
         $this->productsCount = $this->products->count();
-        $this->sales = $this->user->sales;
+        // $this->sales = $this->user->sales;
     }
 
 

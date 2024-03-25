@@ -12,6 +12,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'subcategory_id',
+        'sub_subcategory_id',
         'user_id',
         'product_code',
         'product_name',
@@ -38,6 +39,11 @@ class Product extends Model
     public function subcategory()
     {
         return $this->belongsTo(SubCategory::class, 'subcategory_id');
+    }
+
+    public function subSubCategory()
+    {
+        return $this->belongsTo(SubsubCategory::class, 'sub_subcategory_id');
     }
 
     public function user()

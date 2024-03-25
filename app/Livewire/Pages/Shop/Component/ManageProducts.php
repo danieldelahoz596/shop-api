@@ -32,8 +32,9 @@ class ManageProducts extends Component
     public $product_brand;
     public $quantity;
 
-    public function mount(User $user)
+    public function mount()
     {
+        $user = auth()->user();
         $this->categories = Category::all();
         $this->subcategories = SubCategory::all();
         $this->brands = Brand::all();
@@ -45,6 +46,7 @@ class ManageProducts extends Component
 
         $path = $this->images->store('/assets/img/product-images');
         $this->images = $path;
+        $slug = strtolower(str_replace('', '-', $this->product_name));
         Product::create([
             'user_id' => $this->user->id, // Use the authenticated user ID
             'product_name' => $this->product_name,
@@ -53,7 +55,7 @@ class ManageProducts extends Component
             'category_id' => $this->category_id,
             'subcategory_id' => $this->subcategory_id,
             'product_code' => $this->product_code,
-            'slug' => $this->slug,
+            'slug' => $slug,
             'product_brand' => $this->product_brand,
             'quantity' => $this->quantity,
             'keyword' => '["dress","tops","sportswear"]',

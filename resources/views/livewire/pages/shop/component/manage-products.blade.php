@@ -96,7 +96,7 @@
     <textarea wire:model="product_description" placeholder="Product Description"></textarea>
 
     <!-- Product Name -->
-    <input type="text" wire:model="slug" placeholder="Slug">
+    {{-- <input type="text" wire:model="slug" placeholder="Slug"> --}}
 
     <!-- Product Price -->
     <input type="number" wire:model="product_price" placeholder="Product Price">

@@ -44,7 +44,7 @@
               <i class="fa fa-user"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="/user/account/profile">Profile</a></li>
               <li><a class="dropdown-item" href="#">Account Settings</a></li>
               <li>
                 <hr class="dropdown-divider">

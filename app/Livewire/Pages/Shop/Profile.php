@@ -15,13 +15,14 @@ class Profile extends Component
      */
     public User $user;
     public $showingSales = false;
+    public $products;
     // Called when the component is instantiated
-    public function profile(User $user)
+    public function profile()
     {
+        $user = auth()->user();
         $this->user = $user;
-        $products = $user->products()->with('category')->get();
-        return view('user.profile', compact('user', 'products'));
     }
+
     public function showSales()
     {
         $this->showingSales = true;
@@ -33,10 +34,15 @@ class Profile extends Component
     }
 
 
-
-
-    public function render(User $user)
+    public function mount()
     {
-        return view('livewire.pages.shop.profile', ['user' => $user]);
+        $this->profile();
+    }
+
+    public function render()
+    {
+        return view('livewire.pages.shop.profile', [
+            'user' => $this->user,
+        ]);
     }
 }
