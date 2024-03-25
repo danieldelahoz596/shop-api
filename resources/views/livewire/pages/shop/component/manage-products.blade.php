@@ -1,7 +1,5 @@
 <div>
-
-
-    <div class="container">
+    <div class="container py-5">
         <div class="display-1 tertiary-color">List an item</div>
         <div class="row">
             <div class="col-6">
@@ -94,7 +92,7 @@
                 <div class="price-container">
                     <div class="price-wrapper">
                         <div class="price-input-container">
-                            <h2 class="fw-bold">Price</h2>
+                            <h2 class="fw-bold tertiary-color">Price</h2>
                             <label class="price-label position-relative">
                                 <span class="price-icon"><i class="fa-solid fa-peso-sign"></i></span>
                                 <input type="number" wire:model="price">
@@ -108,7 +106,7 @@
                                 </label>
                             </div>
                             <div class="accept-offer-info">
-                                <h2 class="fw-bold">Accept offers</h2>
+                                <h2 class="fw-bold tertiary-color">Accept offers</h2>
                                 <p class="m-0 w-75">Let buyers make an offer at a different price in buying the product
                                 </p>
                             </div>
@@ -119,7 +117,7 @@
             <div class="col-6">
                 <div class="tags-container">
                     <div class="tags-wrapper d-flex flex-column">
-                        <h3 class="fw-bold">
+                        <h3 class="fw-bold tertiary-color">
                             Tags
                         </h3>
                         <p class="fw-medium tertiary-color">Let more people discover this!</p>
@@ -141,7 +139,7 @@
 
                         <div class="category-select">
                             <select wire:model="category_id" class="form-select" aria-label="Default select example">
-                                <option>Category</option>
+                                <option selected class="muted-color">Category</option>
                                 @if ($categories)
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -154,7 +152,7 @@
 
                         <div class="Subcategory-select">
                             <select wire:model="subcategory_id" class="form-select" aria-label="Default select example">
-                                <option>Subcategory</option>
+                                <option selected class="muted-color">Subcategory</option>
                                 @if ($subcategories)
                                 @foreach ($subcategories as $subcategory)
                                 <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
@@ -167,7 +165,7 @@
 
                         <div class="Condition-select">
                             <select class="form-select" aria-label="Default select example">
-                                <option selected>Condition</option>
+                                <option selected class="muted-color">Condition</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -176,7 +174,7 @@
 
                         <div class="Size-select">
                             <select class="form-select" aria-label="Default select example">
-                                <option selected>Size</option>
+                                <option selected class="muted-color">Size</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -194,7 +192,7 @@
 
                         <div class="Color-select">
                             <select class="form-select" aria-label="Default select example">
-                                <option selected>Color</option>
+                                <option selected class="muted-color">Color</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -204,7 +202,7 @@
                         <div class="Brand-select">
                             <!-- Product Brand -->
                             <select wire:model="product_brand" class="form-select" aria-label="Default select example">
-                                <option>Brand</option>
+                                <option selected class="muted-color">Brand</option>
                                 @if ($brands)
                                 @foreach ($brands as $brand)
                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -217,7 +215,7 @@
 
                         <div class="Style-select">
                             <select class="form-select" aria-label="Default select example">
-                                <option selected>Style</option>
+                                <option selected class="muted-color">Style</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -232,8 +230,8 @@
             <div class="measurement-wrapper">
                 <div class="measurement-heading pb-4">
                     <div class="head-wrapper d-flex justify-content-between">
-                        <div class=" h3 fw-bold tertiary-color">Measurements
-                            <span class="muted-color">(Optional)</span>
+                        <div><span class=" h3 fw-bold tertiary-color">Measurements</span>
+                            <span class="muted-color h3">(Optional)</span>
                         </div>
 
                         <div class="guide-link"><a href="">Guide <span><i
@@ -409,8 +407,20 @@
                 </div>
             </div>
         </div>
-
     </div>
-
+    <div class="cta-container mt-5">
+      <div class="cta-wrapper d-flex justify-content-center">
+        <div class="draft-btn-container">
+          <button>
+            Save as draft
+          </button>
+        </div>
+        <div class="list-btn-container">
+            <button>
+              List item
+            </button>
+        </div>
+      </div>
+    </div>
 
 </div>

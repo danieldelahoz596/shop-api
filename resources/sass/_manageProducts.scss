@@ -161,6 +161,9 @@
     grid-template-columns: repeat(3, 1fr);
     row-gap: 1rem;
     .clothe-container{
+      h3{
+        font-size: 2rem;
+      }
       max-width: 381px;
       width: 90%;
       padding: 0.75rem 0.45rem;
@@ -179,6 +182,11 @@
 }
 
 .size-container{
+  .size-wrapper{
+    h3{
+      font-size: 2rem;
+    }
+  }
   .shipping-size-style{
     row-gap: 1rem;
     .shipping-style{
@@ -281,6 +289,30 @@
 .checkbox:checked + .switch .slider {
   left: calc(50% - 27px / 2 + 10px);
   top: calc(50% - 27px / 2);
+}
+
+
+.cta-container{
+  padding: 2rem 7rem;
+  .cta-wrapper{
+    column-gap: 3rem;
+    .draft-btn-container, .list-btn-container{
+      button{
+        all: unset;
+        cursor: pointer;
+        font-size: calc(1rem + 1vw);
+        border: 1px solid;
+        padding: 0.75rem 4.5rem;
+        border-radius: 13px;
+      }
+    }
+    .list-btn-container{
+      button{
+        background-color: $primary;
+        color: #fff;
+      }
+    }
+  }
 }
 
 

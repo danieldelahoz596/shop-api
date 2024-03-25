@@ -18,10 +18,13 @@ h1, h2, h3, h4, h5{
 p{margin: 0;}
 
 .tertiary-color{
-  color: $tertiary;
+  color: $tertiary !important;
 }
 .lt-2-spacing{
   letter-spacing: -2px;
+}
+.muted-color{
+  color: #D6D2B5 !important;
 }
 
 
