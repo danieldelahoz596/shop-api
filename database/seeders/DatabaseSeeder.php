@@ -18,9 +18,12 @@ class DatabaseSeeder extends Seeder
             WebsiteGlobalSettingsSeeder::class,
             CategorySeeder::class,
             SubCategorySeeder::class,
+            WomenSubsubCategorySeeder::class,
+            MenSubsubCategorySeeder::class,
+            KidsSubsubCategorySeeder::class,
             BrandSeeder::class,
             ProductSeeder::class,
-            ProductSoldSeeder::class
+            SaleSeeder::class,
         ]);
     }
 }

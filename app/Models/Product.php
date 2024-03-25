@@ -12,9 +12,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'subcategory_id',
-        'color_id',
-        'style_id',
-        'condition_id',
+        'sub_subcategory_id',
         'user_id',
         'product_code',
         'product_name',
@@ -53,6 +51,11 @@ class Product extends Model
     public function condition()
     {
         return $this->belongsTo(Condition::class, 'condition_id');
+    }
+
+    public function subSubCategory()
+    {
+        return $this->belongsTo(SubsubCategory::class, 'sub_subcategory_id');
     }
 
     public function user()

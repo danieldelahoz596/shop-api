@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Components\Landing;
 
-use App\Models\ProductSold;
+use App\Models\Sale;
 use Livewire\Component;
 
 class Steals extends Component
@@ -11,7 +11,7 @@ class Steals extends Component
 
     public function getAllSteals()
     {
-        $this->steals = ProductSold::with('products')->where('item_quantity', '>=', 50)->limit(4)->get();
+        $this->steals = Sale::with('products')->where('item_quantity', '>=', 50)->limit(4)->get();
     }
 
     public function mount()

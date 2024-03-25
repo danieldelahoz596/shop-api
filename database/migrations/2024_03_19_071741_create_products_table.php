@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('subcategory_id')->constrained('sub_categories');
+            $table->foreignId('sub_subcategory_id')->constrained('sub_subcategories');
             $table->foreignId('user_id')->constrained();
             $table->string('product_code')->unique();
             $table->string('product_name');
@@ -26,11 +27,12 @@ return new class extends Migration
             $table->jsonb('size')->nullable();
             $table->string('style')->nullable();
             $table->string('color')->nullable();
+            $table->string('condition')->nullable();
             $table->jsonb('keyword')->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
+            $table->integer('view_count')->default(0)->nullable();
             $table->boolean('is_featured')->default(0)->nullable();
-            // $table->string('keyword_index')->virtualAs('json_unquote(json_extract(keyword, "$.yourKey"))')->index('keyword_index');
             $table->softDeletes();
             $table->timestamps();
         });

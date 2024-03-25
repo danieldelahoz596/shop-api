@@ -15,17 +15,28 @@ class SubCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $menWomenSubCats = [
+        $womenSubCats = [
             'Tops',
             'Bottoms',
             'Dresses',
             'Rompers and Bodysuits',
             'Outerwear',
             'Activewear',
-            'Casual',
-            'Formal',
             'Swimwear',
             'Undergarments',
+            'Sleepwear',
+            'Accessories'
+        ];
+
+        $menSubCats = [
+            'Tops',
+            'Bottoms',
+            'Suits and Formal Wear',
+            'Activewear',
+            'Outerwear',
+            'Casual Wear',
+            'Swimwear',
+            'Underwear',
             'Sleepwear',
             'Accessories'
         ];
@@ -41,17 +52,21 @@ class SubCategorySeeder extends Seeder
         $womenCategoryId = Category::where('slug', 'women')->first()->id;
         $kidsCategoryId = Category::where('slug', 'kids')->first()->id;
 
-        foreach ($menWomenSubCats as $subCategory) {
-            $slug = strtolower(str_replace(' ', '-', $subCategory));
+        foreach ($womenSubCats as $womenSubCategory) {
+            $slug = strtolower(str_replace(' ', '-', $womenSubCategory));
             SubCategory::create([
-                'category_id' => $menCategoryId,
-                'name' => $subCategory,
+                'category_id' => $womenCategoryId,
+                'name' => $womenSubCategory,
                 'slug' => $slug,
                 'status' => true
             ]);
+        }
+
+        foreach ($menSubCats as $menSubCategory) {
+            $slug = strtolower(str_replace(' ', '-', $menSubCategory));
             SubCategory::create([
-                'category_id' => $womenCategoryId,
-                'name' => $subCategory,
+                'category_id' => $menCategoryId,
+                'name' => $menSubCategory,
                 'slug' => $slug,
                 'status' => true
             ]);

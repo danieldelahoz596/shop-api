@@ -38,8 +38,9 @@ class ManageProducts extends Component
     public $styles;
     public $colors;
 
-    public function mount(User $user)
+    public function mount()
     {
+        $user = auth()->user();
         $this->categories = Category::all();
         $this->subcategories = SubCategory::all();
         $this->brands = Brand::all();
