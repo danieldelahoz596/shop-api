@@ -1,7 +1,7 @@
 <div class="py-5">
     <div class="container-fluid">
-        <div class="display-6 tertiary-color fw-bold ps-5">Popular Brands</div>
-        <div class="wrapperBrand py-5">
+        <div class="display-6 tertiary-color fw-bold ps-5 d-none d-md-block">Popular Brands</div>
+        <div class="wrapperBrand py-5 d-none d-md-flex">
             @foreach ($pBrands as $pBrand)
             <div class="brandLogo">
                 <a href="/shop/{{ $pBrand->name }}"><img src="{{ asset('assets/img/brands/'.$pBrand->brand_logo) }}"
