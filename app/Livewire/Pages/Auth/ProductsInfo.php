@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsInfo extends Component
 {
-    public $product; // Assuming you use route model binding or similar
-    public $quantity = 1; // Default quantity for buy now
+    public $product;
+    public $quantity = 1;
     public $total;
 
 
