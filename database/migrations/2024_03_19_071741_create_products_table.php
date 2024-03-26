@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('subcategory_id')->constrained('sub_categories');
             $table->foreignId('sub_subcategory_id')->constrained('sub_subcategories');
             $table->foreignId('user_id')->constrained();
-            $table->string('product_code')->unique();
+            $table->string('product_code')->nullable();
             $table->string('product_name');
             $table->text('product_description')->nullable();
             $table->string('product_brand')->nullable();
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->jsonb('keyword')->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
+            $table->boolean('listings')->default(0)->nullable();
             $table->integer('view_count')->default(0)->nullable();
             $table->boolean('is_featured')->default(0)->nullable();
             $table->softDeletes();

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('buyer_id')->constrained('users');
             $table->decimal('item_price', 8, 2);
             $table->integer('item_quantity');
-            $table->string('item_size')->nullable();
             $table->integer('discount')->nullable();
             $table->string('voucher_code')->nullable();
             $table->decimal('voucher_amount', 8, 2)->nullable();
