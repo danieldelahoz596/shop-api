@@ -434,7 +434,7 @@
             border-color: red !important;
         }
 
-        .tags-container input {
+        /* .tags-container input {
             border-radius: 0px !important;
             border: 1px solid transparent !important;
             padding: none !important;
@@ -460,6 +460,6 @@
         .choices__list--dropdown, .choices__list[aria-expanded]{
             border: 1px solid #701D00 !important;
             border-radius: 13px !important;
-        }
+        } */
    </style>
 </div>
