@@ -72,8 +72,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
-
-
     public function userAddress()
     {
         return $this->hasOne(UserAddress::class);
@@ -82,5 +80,13 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
