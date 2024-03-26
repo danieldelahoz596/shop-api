@@ -33,15 +33,14 @@
     }
   }
   .swiper-pagination{
-    bottom: 20px;
+    bottom: 47px;
     left: 50%;
     width: 80%;
     transform: translateX(-50%);
     .swiper-pagination-bullet{
       width: 50%;
-      margin: 0 !important;
       border-radius: 2px !important;
-
+      height: 4px;
     }
   }
   .swiper-pagination-bullet-active{
@@ -83,11 +82,13 @@
         h4{
           font-size: calc(1rem + 1.5vw);
           color: $tertiary;
+          text-align: center;
           
         }
         p{
           font-size: calc(1rem + 0.5vw);
           color: $tertiary;
+          text-align: center;
         }
       }
     }

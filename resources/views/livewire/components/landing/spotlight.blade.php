@@ -1,5 +1,5 @@
 <div>
-  <div class="container-fluid mb-4 pt-5">
+  <div class="container-fluid mb-4 pt-5  d-none d-md-block">
     <h1 class="display-6 tertiary-color fw-bold">Shop Spotlight</h1>
     <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row">
       <div class="swiper-container" x-ref="container">
@@ -39,7 +39,7 @@
     </div>
 
   </div>
-  <div class="sellingContainer">
+  <div class="sellingContainer  d-none d-md-grid">
       <div class="left">
         <img src="{{ asset('assets/img/sellingLeft.jpg') }}" class="img-fluid w-100" alt="">
       </div>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="sellingInfoContainer mb-5" style="background-image: url({{ asset('assets/img/spotlight/sellBg.png') }});">
+    <div class="sellingInfoContainer mb-5  d-none d-md-flex" style="background-image: url({{ asset('assets/img/spotlight/sellBg.png') }});">
       <div class="descriptionWrap">
         <h1>Sell anything. Sell to Anyone.</h1>
         <p>Transform clutter into cash with our thrift app! Sell now and declutter effortlessly. Turn your pre-loved items into instant money with just a few taps. Join our community of savvy sellers today!</p>
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="priceInfoContainer">
+    <div class="priceInfoContainer  d-none d-md-grid">
       <div class="left d-flex align-items-center">
           <div class="left-container d-flex flex-column px-5">
             <h1>Low prices</h1>

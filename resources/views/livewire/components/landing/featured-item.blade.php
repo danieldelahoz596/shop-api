@@ -111,23 +111,6 @@
                             return '<span class="' + className + '">' + (index + 1) + '</span>';
                         }
                     },
-                    breakpoints: {
-                        640: {
-                            slidesPerView: 1,
-                        },
-                        768: {
-                            slidesPerView: 2,
-                            spaceBetween: 30,
-                        },
-                        1024: {
-                            slidesPerView: 2,
-                            spaceBetween: 30,
-                        },
-                        1399: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        },
-                    },
                 });
             },
         };

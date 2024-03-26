@@ -9,7 +9,7 @@ footer{
   .footerWrapper{
     .footerDescription{
       .footerTitle{
-        padding: 3rem 0 0 6rem;
+        // padding: 3rem 0 0 6rem;
         h1{
           color: $tertiary !important;
           margin: 0 !important;
@@ -36,18 +36,19 @@ footer{
         }
       }
     }
-    .footerSocial{
-      .social{
-        a{
-          color: $tertiary;
-          font-size: 2rem;
-        }
-      }
-    }
   }
 }
 
-
+.footerSocial{
+  bottom: 1rem;
+  right: 1rem;
+  .social{
+    a{
+      color: $tertiary;
+      font-size: 2rem;
+    }
+  }
+}
 
 
 
@@ -68,44 +69,7 @@ footer{
   }
 }
 
-
-  //Navbar
-  // nav{
-  //   height: 110px;
-  //   .navbar-nav-container{
-  //     .fa-bag-shopping{
-  //       font-size: 3rem;
-  //     }
-  //     .search{
-  //       .searchBtn{
-  //         .fa-search{
-  //           font-size: 3rem;
-  //         }
-  //       }
-  //       .input-span{
-  //         max-width: 94vh;
-  //         input{
-  //           height: 56px;
-  //           font-size: 1.5rem;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .navBtn{
-  //   width: 200px;
-  //   font-size: 1.5rem !important;
-  // }
-
 }
-
-
-
-
-
-
-
 
 @media (max-width: 1399.98px){
   // additional default
@@ -136,5 +100,311 @@ footer{
 
 @media (max-width: 991.98px){
   //addition default
+  h1{font-size: 1.5rem !important;}
   .w-lg-50{width: 50% !important;}
+  
+  .display-1{font-size: 3rem;}
+
+  .navbar{
+    .container{
+      flex-wrap: nowrap;
+    }
+  }
+
+  #buudlCarousel{
+    .carousel-caption{
+      p{
+        font-size: 1.25rem;
+      }
+      .carouselBtn{
+        background: $tertiary !important;
+        border: none !important;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .shopByCategory{
+    .left{
+      .img{
+        top: -7rem;
+        img{
+          max-width: 100%;
+          height: auto;
+          width: 70%;
+        }
+      }
+    }
+  }
+  
+  .offcanvas-header {
+    display: block;
+  }
+
+  .mobile-offcanvas {
+    visibility: hidden;
+    transform: translateX(-100%);
+    border-radius: 0;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1200;
+    width: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    transition: visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
+    background-color: #fff !important;
+    .nav-item {
+      border-bottom: 1px solid #eaeaea;
+    }
+  }
+
+  html:lang(ar) .mobile-offcanvas {
+    transform: translateX(100%);
+  }
+
+  .mobile-offcanvas.show {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .nav-cont {
+    display: block !important;
+    padding-right: auto !important;
+    padding-left: auto !important;
+  }
+
+  .navbar2 {
+    box-shadow: 0px 3px 17px #00000047;
+  }
+  .dropdown-menu {
+    border: none;
+  }
+
+
 }
+
+
+
+@media (max-width: 767.98px) {
+
+
+  .display-1{font-size: 3rem;}
+  .display-2{font-size: 2rem;}
+  .display-6, h1, h3{font-size: 1rem !important;}
+
+  #buudlCarousel{
+    .carousel-caption{
+      width: 100%;
+      right: 0;
+      left: 0;
+      p{
+        line-height: 108% !important;
+        padding-block: 1rem !important;
+      }
+      .carouselBtn{
+        background: $tertiary !important;
+        border: none !important;
+      }
+    }
+    .carousel-image {
+      height: 100vh;
+    }
+  }
+
+  .navBtn{
+    padding: 3px 17px !important;
+  }
+
+  .carouselLinks{
+    top: 4rem;
+  }
+
+  .swiper-wrapper{
+    .itemContent{
+      right: 56%;
+    }
+  }
+
+  .sellingInfoContainer{
+    height: 40vh;
+    .descriptionWrap{
+      p{
+        font-size: 0.85rem;
+        max-width: 90vw;
+        color: black;
+      }
+      .ctaSell-mobile{
+        border-radius: 13px;
+        width: 40%;
+        background-color: #EB3D00;
+        border: none;
+        color: black;
+      }
+    }
+    .starIcon{
+      img{
+        width: 69px;
+      }
+    }
+    .buudlIcon{
+      img{
+        width: 143px;
+      }
+    }
+
+    .descriptionWrap-mobile{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      -moz-row-gap: 2rem;
+      row-gap: 2rem;
+      .ctaSell{
+        text-decoration: none;
+        width: 100%;
+        max-width: 363px;
+        .ctaIcon{
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .arrowLine{
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            height: 1px;
+            width: 62%;
+            display: inline-block;
+            background-color: red;
+          }
+          .fa-angle-right{
+            position: absolute;
+            left: 60%;
+            bottom: -6.4px;
+          }
+        }
+      }
+    }
+  }
+
+  #buudl2Carousel{
+    .carousel-image{
+      height: 50vh;
+    }
+    .carousel-caption{
+      .carouselBtn{
+        background-color: transparent;
+        border-radius: 44px;
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .createStyle-container{
+    .createStyle-wrapper{
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-auto-rows: 120px;
+      grid-auto-flow: dense;
+      a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .horizontal {
+        grid-column: span 2;
+      }
+      .vertical {
+        grid-row: span 2;
+      }
+    }
+  }
+
+  .sellingInfoContainer3{
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .descriptionWrap-mobile{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      -moz-row-gap: 2rem;
+      row-gap: 2rem;
+      .ctaSell-mobile{
+        border-radius: 44px;
+        background-color: #EB3D00;
+        border: none;
+      }
+    }
+  }
+
+  .community-wrapper{
+    .ctaSell-mobile{
+      background-color: transparent;
+      border: 1px solid $primary;
+      color: $primary;
+      width: 100%;
+      border-radius: 44px;
+    }
+  }
+
+  .footer-mobile-links{
+    li{
+      list-style: none;
+      a{
+        font-weight: 600;
+        color: $tertiary;
+        text-decoration: none;
+      }
+    }
+  }
+
+  footer{
+    .footerWrapper{
+      .footerDescription{
+        .footerTitle{
+          padding: 0;
+        }
+      }
+    }
+  }
+
+}
+
+
+@media (max-width: 575.98px) { 
+
+  .display-1{font-size: 2rem;}
+  .display-2{font-size: 1.75rem;}
+
+  #buudl2Carousel{
+    .carousel-item{
+      .carousel-caption{
+        .carouselBtn{
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+
+
+  .sellingInfoContainer{
+    .buudlIcon{
+      img{
+        width: 86px;
+      }
+    }
+  }
+
+}
+

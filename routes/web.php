@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\LandingPage;
+use App\Livewire\Pages\Auth\Cart;
 use App\Livewire\Pages\Auth\Login;
 use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\LoginPhone;
 use App\Livewire\Pages\Auth\EmailVerify;
+use App\Livewire\Pages\Auth\CheckoutProcess;
+
 use App\Livewire\Pages\Shop\Component\Listing;
 use App\Livewire\Pages\Shop\Component\ManageProducts;
 use App\Livewire\Pages\Shop\Profile;
@@ -42,12 +45,12 @@ Route::get('/register', Register::class)->name('register')->middleware('guest');
 Route::get('/verify/{token}', EmailVerify::class)->name('email-verify')->middleware('guest');
 Route::get('/register/verification-alert', VerificationAlert::class)->name('verificationalert')->middleware('guest');
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('/onboarding/preferences', Preferences::class);
     Route::get('/onboarding/styles', Styles::class);
 
     //Profile Pages
-    Route::group(['prefix' => 'user/account'], function() {
+    Route::group(['prefix' => 'user/account'], function () {
         Route::get('/profile', Profile::class)->name('profile');
         // Route::get('/profile/{user}/listing', Listing::class)->name('listing');
         Route::get('/profile/add-products', ManageProducts::class);
@@ -56,4 +59,8 @@ Route::middleware(['auth'])->group(function() {
 
     //Shop
     Route::get('/shop/{category?}', Shop::class)->name('shop');
+
+    //Cart
+    Route::get('/cart', Cart::class)->name('cart');
+    Route::get('/checkout-process', CheckoutProcess::class)->name('checkout.process');
 });

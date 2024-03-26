@@ -1,22 +1,22 @@
-<div class="py-4">
-    <div class="placeItemheader container-fluid d-flex align-items-center justify-content-between px-5">
+<div class="pt-4">
+    <div class="placeItemheader container-fluid d-flex align-items-center justify-content-between px-md-5">
         <span class="display-6 tertiary-color  fw-bold"><strong>Popular items</strong></span>
         <a href="/shop/all" class=" tertiary-color display-6 fw-bold"><u>More</u></a>
     </div>
 
-    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-5">
+    <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-md-5">
         <div class="swiper-container" x-ref="container">
             <div class="swiper-wrapper">
                 <!-- Slides -->
                 @foreach ($popularItems as $popularItem)
-                <div class="swiper-slide p-4">
+                <div class="swiper-slide p-3">
                     <div class="d-flex flex-column overflow-hidden">
                         <div class="brandImg">
                             <a href="/product/{{$popularItem->id}}-{{$popularItem->category_id}}-{{$popularItem->product_code}}"
                                 class="img"><img class="img-fluid" src="{{ asset('assets/img/brands/'.$popularItem->image) }}"
                                     alt=""></a>
                         </div>
-                        <div class="imgContent pt-3">
+                        <div class="imgContent pt-md-3">
                             <h3 class="m-0 tertiary-color fw-bold">{{ $popularItem->product_name }}</h3>
                             <h3 class="price lh-1 tertiary-color fw-bold">P {{ $popularItem->price }}</h3>
                         </div>
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="container-fluid shopByCategory mt-5">
+    <div class="container-fluid shopByCategory mt-5 d-none d-md-flex">
         <div class="left position-relative">
             <div class="img"><img src="{{ asset('assets/img/buudlSmallIcon.svg') }}" alt=""></div>
             <h1>Shop in</h1>
@@ -48,13 +48,13 @@
     </div>
 
     <div class="container-fluid">
-      <div class="display-6 tertiary-color fw-bold ps-5">People are talking about...</div>
+      <div class="display-6 pt-5 tertiary-color fw-bold ps-md-5 ps-3">People are talking about...</div>
         <div class="catogeryList">
-          <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row ps-5">
+          <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-md-3 px-1">
             <div class="swiper-container" x-ref="container">
               <div class="swiper-wrapper position-relative">
                 @foreach ($subCategories as $subCategory)
-                <div class="swiper-slide p-4">
+                <div class="swiper-slide p-3">
                   <div class="d-flex flex-column overflow-hidden">
                     <div class="itemImg">
                         <a href="/shop/{{ $subCategory->slug }}" class="img">
@@ -100,13 +100,10 @@ function swiper() {
                 // },
                 parallax: true,
                 rewind: true,
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 0,
                 breakpoints: {
-                    640: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                    },
+                    
                     768: {
                         slidesPerView: 2,
                         spaceBetween: 0,

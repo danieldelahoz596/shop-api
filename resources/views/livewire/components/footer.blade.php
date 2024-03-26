@@ -3,13 +3,22 @@
     <div class=" row footerWrapper">
       <div class="footerDescription col-12">
         <div class="row">
-          <div class="col-xxl-5 col-xl-4">
+          <div class="col-xxl-5 col-4" style="padding: 1rem 0 0 2rem;">
             <div class="footerTitle">
-              <h1 class="display-1">buudl</h1>
-              <h3 class="display-6 w-75 w-xl-100 fw-bold" >Discover your style. Share your story.</h3>
+              <div class="display-1 fw-bold tertiary-color">buudl</div>
+              <h3 class="display-6 w-75 w-xl-100 fw-bold d-none d-md-block" >Discover your style. Share your story.</h3>
             </div>
+            <ul class="m-0 p-0 d-md-none footer-mobile-links">
+                <li><a href="">Ios App</a></li>
+                <li><a href="">Sell</a></li>
+                <li><a href="">Help</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">Terms and Service</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Discover</a></li>
+              </ul>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-none d-md-inline">
             <div class="footerInfos">
               <h1 class="fw-bolder">Category</h1>
               <ul>
@@ -21,7 +30,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-none d-md-inline">
             <div class="footerInfos">
               <h1 class="fw-bolder">Sell</h1>
               <ul>
@@ -30,7 +39,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-none d-md-inline">
             <div class="footerInfos">
               <h1 class="fw-bolder">About Buudl</h1>
               <ul>
@@ -44,13 +53,11 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="footerSocial d-flex justify-content-end">
-          <div class="social"><a href=""><i class="fa-brands fa-facebook-f display-4"></i></a></div>
-          <div class="social ps-5"><a href=""><i class="fa-brands fa-twitter display-4"></i></a></div>
-          <div class="social px-5"><a href=""><i class="fa-brands fa-instagram display-4"></i></a></div>
-        </div>
-      </div>
+    </div>
+    <div class="footerSocial d-flex justify-content-end position-absolute">
+      <div class="social"><a href=""><i class="fa-brands fa-facebook-f display-4"></i></a></div>
+      <div class="social ps-5"><a href=""><i class="fa-brands fa-twitter display-4"></i></a></div>
+      <div class="social px-5"><a href=""><i class="fa-brands fa-instagram display-4"></i></a></div>
     </div>
   </div>
 </footer>
