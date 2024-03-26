@@ -21,6 +21,10 @@ class Product extends Model
         'slug',
         'price',
         'quantity',
+        'size',
+        'style',
+        'color',
+        'condition',
         'keyword',
         'status',
         'image',
@@ -58,14 +62,19 @@ class Product extends Model
         return $this->belongsTo(SubsubCategory::class, 'sub_subcategory_id');
     }
 
+    public function measurements()
+    {
+        return $this->hasMany(Measurement::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function productSold()
+    public function sale()
     {
-        return $this->hasMany(ProductSold::class);
+        return $this->hasMany(Sale::class);
     }
 
     public function discounts()
