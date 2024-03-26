@@ -69,36 +69,6 @@ footer{
   }
 }
 
-
-  //Navbar
-  // nav{
-  //   height: 110px;
-  //   .navbar-nav-container{
-  //     .fa-bag-shopping{
-  //       font-size: 3rem;
-  //     }
-  //     .search{
-  //       .searchBtn{
-  //         .fa-search{
-  //           font-size: 3rem;
-  //         }
-  //       }
-  //       .input-span{
-  //         max-width: 94vh;
-  //         input{
-  //           height: 56px;
-  //           font-size: 1.5rem;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .navBtn{
-  //   width: 200px;
-  //   font-size: 1.5rem !important;
-  // }
-
 }
 
 @media (max-width: 1399.98px){
@@ -130,7 +100,7 @@ footer{
 
 @media (max-width: 991.98px){
   //addition default
-  h1{font-size: 1.5rem;}
+  h1{font-size: 1.5rem !important;}
   .w-lg-50{width: 50% !important;}
   
   .display-1{font-size: 3rem;}

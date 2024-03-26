@@ -1,6 +1,6 @@
 <div x-data="{ offcanvasActive: false, searchOpen: false}" @click.away="offcanvasActive = false">
     <nav class="navbar2 navbar d-lg-none navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container-lg">
+        <div class="container-lg flex-nowrap">
             <div class="navbarmain-container">
                 <button @click="offcanvasActive = !offcanvasActive" class="navbar-toggler" type="button" style="border: none;"><span class="navbar-toggler-icon"></span></button>
                 <a class="navbar-brand d-none d-sm-inline" href="{{ url('/') }}">
