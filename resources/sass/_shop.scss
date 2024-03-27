@@ -147,13 +147,14 @@ select.simple::part(button){
             min-height: 42px;
             display: flex;
             align-items: center;
-            padding-left: 16px;
+            padding: 16px;
             background-color: transparent;
             border-width: 1px 0px 0px;
             cursor: pointer;
             border-top-style: solid;
             border-top-color: rgb(234, 234, 234);
             font-weight: bold;
+            justify-content: space-between;
             &:hover{
               background-color: gray;
             }
