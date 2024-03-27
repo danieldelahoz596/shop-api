@@ -9,81 +9,53 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\SubsubCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Shop extends Component
 {
-
-    public $categoryOption = ['Women', 'Menswear', 'Kids'];
-    public $styleOption = [
-      'Retro',
-      'Vintage',
-      'Y2K',
-      'Streetwear',
-      'Athleisure',
-      'Casual',
-      'Formal',
-      'Glam',
-      'Cottage',
-      'Punk',
-      'Preppy & Chic',
-      'Utility'
-    ];
-    public $colorOption = [
-      'Black',
-      'White',
-      'Gray',
-      'Beige',
-      'Red',
-      'Blue',
-      'Green',
-      'Yellow',
-      'Purple',
-      'Pink',
-      'Orange',
-      'Brown',
-      'Navy Blue',
-      'Silver',
-      'Gold',
-      'Multicolor'
-    ];
-    public $subcategoriesOption = [
-      'Menswear' => [
-          'Tops' => ['T-shirts', 'Polos', 'Casual Shirts', 'Dress Shirts', 'Sweaters'],
-          'Bottoms' => ['Jeans', 'Chinos', 'Dress Pants', 'Shorts'],
-          'Suits and Formal Wear' => ['Suits', 'Blazers', 'Dress Shirts', 'Ties'],
-          'Activewear' => ['Athletic T-shirts', 'Sports Jerseys', 'Athletic Shorts', 'Track Pants'],
-          'Outerwear' => ['Jackets', 'Coats', 'Hoodies', 'Vests'],
-          'Casual Wear' => ['Hoodies', 'Casual Jackets', 'Casual Shirts'],
-          'Swimwear' => ['Swim Trunks', 'Board Shorts'],
-          'Underwear' => ['Boxers', 'Briefs', 'Boxer Briefs'],
-          'Sleepwear' => ['Pajamas', 'Lounge Pants'],
-          'Accessories' => ['Ties', 'Belts', 'Hats']
-        ]
-    ];
-
-    
-    
-  
     use WithPagination;
 
     public $category;
     public $categoryFilter;
-    public $subcategoryfilter;
-    public $brand;
-    public $style;
-    public $size;
-    public $color;
-    public $price;
+    public $subcategoryFilter;
+    public $subsubcategoryFilter;
+    public $brandFilter;
+    public $styleFilter;
+    public $sizeFilter;
+    public $colorFilter;
+    public $priceFilter;
     public $sale;
     public $sort;
 
-    protected $listeners = ['searchProducts' => 'updateProducts'];
+    public $categories;
+    public $subcategories;
+    public $subsubcategories;
+    public $brands;
+    public $styles;
+    public $sizes;
+    public $colors;
+
+    public $filterKeywords = [];
+
+    // protected $listeners = ['fetchSubcategories', 'searchProducts' => 'updateProducts'];
+    protected $listeners = ['fetchSubcategories'];
+
+    // protected $queryString = ['categoryFilter', 'subcategoryFilter'];
 
     public function mount($category = null)
     {
         $this->category = $category ?: request('keyword');
+
+        $this->categories = Category::all();
+        $this->brands = Brand::all();
+        $this->styles = StyleEnum::values();
+        $this->sizes = SizeEnum::values();
+        $this->colors = ColorEnum::values();
+
+        $this->subcategories = collect();
+        $this->subsubcategories = collect();
     }
 
     public function updateProducts($keyword)
@@ -94,11 +66,12 @@ class Shop extends Component
     public function shopData()
     {
         $query = Product::query();
+        $products = $query;
 
         if ($this->category) {
             if ($this->category === 'all') {
                 $products = $query;
-            } else if($this->category === 'steals') {
+            } else if ($this->category === 'steals') {
                 $products = $this->steals($query);
             } else {
                 $products = $this->filteredData($query);
@@ -106,43 +79,54 @@ class Shop extends Component
         }
 
         if ($this->categoryFilter) {
-            $query->whereHas('category', function($query) {
-                $query->where('slug', $this->categoryFilter);
-            });
+            $this->filterKeywords = [];
+            $query->orWhere('category_id', $this->categoryFilter);
+            $catName = Category::find($this->categoryFilter);
+            $this->filterKeywords[] = $catName->name;
         }
 
-        if ($this->subcategoryfilter) {
-            $query->orWhereHas('subcategory', function($query) {
-                $query->where('slug', $this->subcategoryfilter);
-            });
+        if ($this->subcategoryFilter) {
+            $query->orWhere('subcategory_id', $this->subcategoryFilter);
+            $catName = SubCategory::find($this->subcategoryFilter);
+            $this->filterKeywords[] = $catName->name;
         }
 
-        if ($this->brand) {
-            foreach ($this->brand as $brand) {
-                $query->orWhere('product_brand', $brand);
+        if ($this->subsubcategoryFilter) {
+            $query->orWhere('sub_subcategory_id', $this->subsubcategoryFilter);
+            $catName = SubsubCategory::find($this->subsubcategoryFilter);
+            $this->filterKeywords[] = $catName->name;
+        }
+
+        if ($this->brandFilter) {
+            $query->orWhere('product_brand', $this->brandFilter);
+            $this->filterKeywords[] = $this->brandFilter;
+        }
+
+        if ($this->styleFilter) {
+            $query->orWhere('style', $this->styleFilter);
+            $this->filterKeywords[] = $this->styleFilter;
+        }
+
+        if ($this->sizeFilter) {
+            $query->orWhereJsonContains('size', $this->sizeFilter);
+            $this->filterKeywords[] = $this->sizeFilter;
+        }
+
+        if ($this->colorFilter) {
+            $query->orWhere('color', $this->colorFilter);
+            $this->filterKeywords[] = $this->colorFilter;
+        }
+
+        if ($this->priceFilter) {
+            $query->orderBy('price', $this->priceFilter);
+            if ($this->priceFilter === 'asc') {
+                $this->filterKeywords = [];
+                $this->filterKeywords[] = 'Low to High';
+            } else {
+                $this->filterKeywords = [];
+                $this->filterKeywords[] = 'High to Low';
             }
-        }
 
-        if ($this->style) {
-            foreach ($this->style as $style) {
-                $query->orWhere('style', $style);
-            }
-        }
-
-        if ($this->size) {
-            foreach ($this->size as $size) {
-                $query->orWhereJsonContains('size', $size);
-            }
-        }
-
-        if ($this->color) {
-            foreach ($this->color as $color) {
-                $query->orWhere('color', $color);
-            }
-        }
-
-        if ($this->price) {
-            $query->whereBetween('price', [$this->price['min'], $this->price['max']]);
         }
 
         if ($this->sale) {
@@ -153,7 +137,7 @@ class Shop extends Component
             $query->orderBy('product_name', 'asc');
         }
 
-        return $products->orderBy('created_at', 'asc')->paginate(20);
+        return $products->orderBy('created_at', 'desc')->paginate(20);
     }
 
     public function steals($query)
@@ -172,43 +156,75 @@ class Shop extends Component
         })->orWhere('product_brand', $this->category)
         ->orWhere('product_name', 'like', '%'.$this->category.'%')
         ->orWhereJsonContains('size', $this->category)
-        ->orWhereJsonContains('keyword', 'like', '%'.ucfirst($this->category).'%');
+        ->orWhereJsonContains('keyword', ucfirst($this->category));
     }
 
-    public function categories()
+    public function fetchSubcategories($value)
     {
-        return Category::all();
+        $this->categoryFilter = $value;
+        $this->subcategories = SubCategory::where('category_id', $value)->get();
+        $this->shopData();
+        $this->render();
     }
 
-    public function subcategories()
+    public function fetchSubsubCategories($value)
     {
-        return SubCategory::all();
+        $data = SubsubCategory::where('subcategory_id', $value)->get();
+
+        $this->subcategoryFilter = $value;
+        if ($data->count() > 0) {
+            $this->subsubcategories = $data;
+        } else {
+            $this->subsubcategories = collect();
+        }
+        $this->shopData();
+        $this->render();
     }
 
-    public function brands()
+    public function fetchDataSubsubCategory($value)
     {
-        return Brand::all();
+        return $this->subsubcategoryFilter = $value;
+    }
+
+    public function fetchDataBrands($value)
+    {
+        return $this->brandFilter = $value;
+    }
+
+    public function fetchDataStye($value)
+    {
+        return $this->styleFilter = $value;
+    }
+
+    public function fetchDataSize($value)
+    {
+        return $this->sizeFilter = $value;
+    }
+
+    public function fetchDataColor($value)
+    {
+        return $this->colorFilter = $value;
+    }
+
+    public function fetchDataPrice($value)
+    {
+        return $this->priceFilter = $value;
     }
 
     public function render()
     {
         $products = $this->shopData();
-        $categories = $this->categories();
-        $subcategories = $this->subcategories();
-        $brands = $this->brands();
-
-        $styles = StyleEnum::values();
-        $colors = ColorEnum::values();
-        $sizes = SizeEnum::values();
 
         return view('livewire.pages.shop.shop', [
             'products' => $products,
-            'categories' => $categories,
-            'subcategories' => $subcategories,
-            'brands' => $brands,
-            'styles' => $styles,
-            'colors' => $colors,
-            'sizes' => $sizes
+            'categories' => $this->categories,
+            'subcategories' => $this->subcategories,
+            'subsubcategories' => $this->subsubcategories,
+            'brands' => $this->brands,
+            'styles' => $this->styles,
+            'colors' => $this->colors,
+            'sizes' => $this->sizes,
+            'filterKeywords' => $this->filterKeywords
         ]);
     }
 }

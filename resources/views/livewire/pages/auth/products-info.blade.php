@@ -4,23 +4,21 @@
 <div class="container-fluid my-4">
     <div class="card mb-3" style="border: none;">
         <div class="row">
-          <div class="col-md-6 col-12">
+          <div class="col-lg-6 col-12">
             <div class="row" x-data="{ swiperThumb: null, swiperLargePreview: null}">
-              <div class="col-12 col-md-4 px-0 py-2">
+              <div class="col-12 col-lg-4 px-0 py-2">
                 <div class=" overflow-hidden "   x-init="
                     swiperThumb = new Swiper($refs.swiperThumb, {
                       speed: 300,
+                      spaceBetween: 10,
+                      slidesPerView: 1,
+                      direction: 'horizontal',
+                      pagination: {
+                        el: $refs.pagination,
+                        clickable: true,
+                      },
                       breakpoints: {
-                        0:{
-                          spaceBetween: 10,
-                          slidesPerView: 1,
-                          direction: 'horizontal',
-                          pagination: {
-                            el: $refs.pagination,
-                            clickable: true,
-                          },
-                        },
-                        768: {
+                        789: {
                           spaceBetween: 10,
                           slidesPerView: 6,
                           direction: 'vertical',
@@ -28,8 +26,12 @@
                         },
                       },
                     });
+                    swiperThumb.on('slideChange', function() {
+                      swiperThumb.pagination.render();
+                      swiperThumb.pagination.update();
+                      });
                   ">
-                  <div thumbsSlider="" class="swiper swiper_thumb" x-ref="swiperThumb">
+                  <div thumbsSlider="" class="swiper swiper_thumb position-relative" x-ref="swiperThumb">
                       <div class="swiper-wrapper" >
                         <div class="swiper-slide" x-on:mouseenter="swiperLargePreview.slideTo(1);">
                           <div class="zoom_img">
@@ -68,7 +70,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-7 py-2 d-none d-md-block">
+              <div class="col-md-7 py-2 d-none d-lg-block">
                 <div class="overflow-hidden" x-init="swiperLargePreview = new Swiper($refs.swiperLargePreview, {
                 spaceBetween: 10,
                 slidesPerView: 1,
@@ -116,8 +118,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
-
+          <div class="col-12 col-lg-6">
           <div class="product-detail-container h-100" style="border-bottom: 1px solid ;">
             <div class="product-detail-wrapper h-100 d-flex flex-column" style="row-gap:1.5rem;">
               <div class="product-heading">
@@ -127,7 +128,7 @@
                   <span class="fs-heading-sm">P<span class="text-danger">200</span></span> <span class="fs-heading-xsm muted-color"><del>250</del></span><span class="fs-heading-xsm"> 20% off</span>
                 </div>
               </div>
-              <div class="product-buttons d-flex flex-column align-items-center">
+              <div class="product-buttons d-none d-lg-flex flex-column align-items-center">
                 <button class="btn btn-secondary">Buy now</button>
                 <button class="btn btn-secondary">Add to bag</button>
                 <button class="btn btn-secondary">Make an offer</button>

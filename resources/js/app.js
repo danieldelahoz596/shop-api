@@ -6,5 +6,7 @@
 
 import './bootstrap';
 import './sweetalert';
+// import './choices';
+import './images';
 
 

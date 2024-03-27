@@ -16,7 +16,10 @@ class Sale extends Model
         'item_price',
         'item_quantity',
         'discount',
+        'voucher_code',
+        'voucher_amount',
         'total',
+        'status',
         'mode_of_payment'
     ];
 

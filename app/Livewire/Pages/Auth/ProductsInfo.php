@@ -15,14 +15,15 @@ class ProductsInfo extends Component
     public $product;
     public $quantity = 1;
     public $total;
-
+    public $currentProduct;
+    public $showRecommendations = false;
 
     public function mount(Product $product, $category_id, $product_code, $product_id)
     {
         // Load the product
         $this->product = Product::where('category_id', $category_id)->where('product_code', $product_code)->where('id', $product_id)->with('user')->firstOrFail();
-        // Initialize the total with product price
         $this->total = $this->product->price;
+        $this->currentProduct = Product::find($product_id);
     }
 
     public function addToCart()
@@ -41,6 +42,8 @@ class ProductsInfo extends Component
                 'price' => $this->product->price,
             ]
         );
+        $this->showRecommendations = true;
+        $this->dispatch('pages.auth.recommendations', 'loadRecommendations', $this->product->id);
     }
 
     public function buyNow()
