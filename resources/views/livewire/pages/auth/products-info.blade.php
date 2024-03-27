@@ -89,12 +89,6 @@
                             </div>
                         </div>
 
-                        <script>
-                        Livewire.on('productAddedToCart', () => {
-                            alert('Product added to cart!');
-                            // You could expand this to show a modal or a toast instead of an alert
-                        });
-                        </script>
                     </div>
                     <p class="card-text">
                     <div class="mb-2">
@@ -184,6 +178,11 @@
             @livewire('product-reviews', ['product' => $product])
 
         </div>
+        <!-- Recommendations Component -->
+        @if($showRecommendations)
+        @livewire('pages.auth.recommendations', ['product' => $currentProduct])
+        @endif
+
 
         @script
         <script>
@@ -195,7 +194,7 @@
                 },
             }
         })
-        // JavaScript to synchronize thumbnails with the carousel
+
         const thumbnails = document.querySelectorAll('.thumbnail-selector img');
         const updateThumbnails = (activeIndex) => {
             thumbnails.forEach((thumbnail, index) => {
@@ -203,7 +202,6 @@
             });
         };
 
-        // When a thumbnail is clicked, update the thumbnails
         thumbnails.forEach((thumbnail, index) => {
             thumbnail.addEventListener('click', () => {
                 updateThumbnails(index);
@@ -215,5 +213,10 @@
         mainCarousel.addEventListener('slide.bs.carousel', (event) => {
             updateThumbnails(event.to);
         });
+        window.addEventListener('show-add-to-bag-modal', () => {
+            document.getElementById('add-to-bag-modal').style.display = 'block';
+        });
         </script>
+
+
         @endscript
