@@ -1,6 +1,7 @@
-body {
+body, html {
     overflow-x: hidden;
 }
+
 
 
 //Additional default
@@ -20,12 +21,24 @@ p{margin: 0;}
 .tertiary-color{
   color: $tertiary !important;
 }
-.lt-2-spacing{
-  letter-spacing: -2px;
-}
+
+//Text
+.lt-2-spacing{letter-spacing: -2px;}
+.lt-3-spacing{letter-spacing: -3px;}
+
+
+//Color
 .muted-color{
   color: #D6D2B5 !important;
 }
+
+//Fontsizes
+.fs-heading-lg{font-size: calc(4.5rem + 1vw);}
+.fs-heading-md{font-size: calc(1.25rem + 1vw);}
+.fs-heading-sm{font-size: calc(1.25rem + 0.65vw);}
+.fs-heading-xsm{font-size: calc(1rem + 0.65vw);}
+.fs-xxsm{font-size: calc(1rem + 0.05vw);}
+
 
 
 
