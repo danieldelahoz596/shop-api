@@ -16,7 +16,11 @@ class CategorySeeder extends Seeder
         $categories = [
             ['name' => 'Men'],
             ['name' => 'Women'],
-            ['name' => 'Kids']
+            ['name' => 'Kids'],
+            ['name' => 'Tops'],
+            ['name' => 'Bottoms'],
+            ['name' => 'Shoes'],
+            ['name' => 'Shorts'],
         ];
 
         foreach ($categories as $category) {

@@ -30,6 +30,8 @@ class User extends Authenticatable
         'address',
         'is_deleted',
         'email_verified_at',
+        'style_id',
+        'category_id',
         'otp_code',
         'otp_sent_time',
         'username',
@@ -88,5 +90,13 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function styles()
+    {
+        return $this->hasMany(Style::class, 'style_id');
+    }
+    public function category()
+    {
+        return $this->hasMany(Category::class, 'category_id');
     }
 }

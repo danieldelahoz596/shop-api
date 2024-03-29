@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Style extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

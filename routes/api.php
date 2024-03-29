@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\LandingPageQueryController;
+
 // Auth Controller
 use App\Http\Controllers\Auth\AuthController;
 
@@ -18,6 +20,11 @@ use App\Http\Controllers\Auth\AuthController;
 */
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'landing-page'], function () {
+        Route::post('exploreStyles', [LandingPageQueryController::class, 'exploreStyles']);
+        Route::post('shopCategory', [LandingPageQueryController::class, 'shopCategory']);
+    });
+
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
