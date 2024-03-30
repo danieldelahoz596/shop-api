@@ -10,9 +10,10 @@ h1, h2, h3, h4, h5{
   padding: 0 !important;
 }
 .w-30{width: 30% !important;}
-.w-96{
-  width: 96% !important;
-}
+.w-96{width: 96% !important;}
+.w-90{width: 90% !important;}
+.wm-100{width: 100% !important;}
+
 .space-nowrap{
   white-space: normal !important;
 }
@@ -33,11 +34,19 @@ p{margin: 0;}
 }
 
 //Fontsizes
-.fs-heading-lg{font-size: calc(4.5rem + 1vw);}
-.fs-heading-md{font-size: calc(1.25rem + 1vw);}
-.fs-heading-sm{font-size: calc(1.25rem + 0.65vw);}
-.fs-heading-xsm{font-size: calc(1rem + 0.65vw);}
-.fs-xxsm{font-size: calc(1rem + 0.05vw);}
+.fs-default-xxl{font-size: 6.726vw;} // 128
+.fs-default-xl{font-size: 3.363vw;} //64
+.fs-default-mmd{font-size:1.576vw;}
+.fs-heading-lg{font-size: 2.522vw;} // 48px
+.fs-heading-md{font-size: 1.576vw;} // 30px
+.fs-heading-highlight{font-size: 2.102vw;} //40px
+.fs-heading-sm{font-size: 1.682vw !important;} //32px
+.fs-xmd{font-size: 1.366vw;} // 26px
+.fs-default-md{font-size: 1.892vw;} // 36px
+.fs-default-lg{font-size: 2.522vw;}
+.fs-default{font-size: 1.261vw;}
+.fs-default-sm{font-size: 0.841vw !important;}
+.fs-default-xsm{font-size: 0.736vw !important;}
 
 
 
@@ -107,7 +116,7 @@ p{margin: 0;}
       background: transparent;
       border: 1px solid white;
       border-radius: 11px;
-      font-size: 2rem;
+      font-size: 1.682vw;
       transition: all 0.3s ease;
       margin-bottom: 3rem !important;
       &:hover{
@@ -160,4 +169,8 @@ top: 5%;
   text-align: center;
   color: white !important;
   padding: 7px 47px !important;
+}
+
+.swiper-img{
+  aspect-ratio: 1;
 }
