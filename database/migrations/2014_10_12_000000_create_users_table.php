@@ -28,6 +28,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('forgot_password_token')->nullable();
             $table->integer('otp_code')->nullable();
+            $table->text('style_id')->nullable();
+            $table->text('category_id')->nullable();
             $table->timestamp('otp_sent_time')->nullable();
             $table->text('username')->nullable();
             $table->boolean('ftl')->default(1)->nullable();
