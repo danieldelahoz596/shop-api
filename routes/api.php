@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LandingPageQueryController;
+use App\Http\Controllers\ProductDetailsContontroller;
+use App\Http\Controllers\SearchController;
 
 // Auth Controller
 use App\Http\Controllers\Auth\AuthController;
@@ -21,8 +23,22 @@ use App\Http\Controllers\Auth\AuthController;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'landing-page'], function () {
-        Route::post('exploreStyles', [LandingPageQueryController::class, 'exploreStyles']);
-        Route::post('shopCategory', [LandingPageQueryController::class, 'shopCategory']);
+        Route::get('exploreStyles', [LandingPageQueryController::class, 'exploreStyles']);
+        Route::get('shopCategory', [LandingPageQueryController::class, 'shopCategory']);
+        Route::get('getNewArrivals', [LandingPageQueryController::class, 'getNewArrivals']);
+        Route::get('getOurPicks', [LandingPageQueryController::class, 'getOurPicks']);
+        Route::get('getPopularItem', [LandingPageQueryController::class, 'getPopularItem']);
+        Route::get('getMoreItemsForYou', [LandingPageQueryController::class, 'getMoreItemsForYou']);
+        Route::get('shopSpotlight', [LandingPageQueryController::class, 'shopSpotlight']);
+        Route::get('shopsToWatch', [LandingPageQueryController::class, 'shopsToWatch']);
+
+    });
+    Route::group(['prefix' => 'product-details'], function () {
+        Route::get('moreFromSeller/{user_id}', [ProductDetailsContontroller::class, 'moreFromSeller']);
+        Route::get('relatedProducts/{product_code}', [ProductDetailsContontroller::class, 'relatedProducts']);
+    });
+    Route::group(['prefix' => 'search'], function () {
+        Route::get('searchHandle/{search_query}', [SearchController::class, 'searchHandle']);
     });
 
     // Auth Route

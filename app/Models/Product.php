@@ -14,6 +14,7 @@ class Product extends Model
         'subcategory_id',
         'sub_subcategory_id',
         'user_id',
+        'shop_id',
         'product_code',
         'product_name',
         'product_description',
@@ -70,6 +71,10 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function shop()
+    {
+        return $this->belongsTo(SellerShop::class, 'shop_id');
     }
 
     public function sale()
