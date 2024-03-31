@@ -1,7 +1,7 @@
 <div class="pt-4">
     <div class="placeItemheader container-fluid d-flex align-items-center justify-content-between px-md-5">
-        <span class="display-6 tertiary-color  fw-bold"><strong>Popular items</strong></span>
-        <a href="/shop/all" class=" tertiary-color display-6 fw-bold"><u>More</u></a>
+        <span class="fs-default-xl tertiary-color  fw-bold"><strong>Popular items</strong></span>
+        <a href="/shop/all" class=" tertiary-color fs-heading-highlight fw-bold"><u>More</u></a>
     </div>
 
     <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-md-5">
@@ -13,12 +13,12 @@
                     <div class="d-flex flex-column overflow-hidden">
                         <div class="brandImg">
                             <a href="/product/{{$popularItem->id}}-{{$popularItem->category_id}}-{{$popularItem->product_code}}"
-                                class="img"><img class="img-fluid" src="{{ asset('assets/img/brands/'.$popularItem->image) }}"
+                                class="img"><img class="img-fluid w-100" src="{{ asset('assets/img/brands/'.$popularItem->image) }}"
                                     alt=""></a>
                         </div>
                         <div class="imgContent pt-md-3">
-                            <h3 class="m-0 tertiary-color fw-bold">{{ $popularItem->product_name }}</h3>
-                            <h3 class="price lh-1 tertiary-color fw-bold">P {{ $popularItem->price }}</h3>
+                            <div class="fs-default-md m-0 tertiary-color fw-bold">{{ $popularItem->product_name }}</div>
+                            <div class="fs-default-md price lh-1 tertiary-color fw-bold">P {{ $popularItem->price }}</div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
     </div>
 
     <div class="container-fluid">
-      <div class="display-6 pt-5 tertiary-color fw-bold ps-md-5 ps-3">People are talking about...</div>
+      <div class="fs-default-xl pt-5 tertiary-color fw-bold ps-md-5 ps-3">People are talking about...</div>
         <div class="catogeryList">
           <div x-data="swiper()" x-init="init()" class="position-relative mx-auto d-flex flex-row px-md-3 px-1">
             <div class="swiper-container" x-ref="container">
