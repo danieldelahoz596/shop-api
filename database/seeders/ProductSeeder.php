@@ -54,7 +54,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 80,
                 'is_featured' => true,
             ],
             [
@@ -75,7 +76,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_2.jpg',
+                'view_count' => 100,
                 'is_featured' => true
             ],
             [
@@ -96,7 +98,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_3.jpg',
+                'view_count' => 70,
                 'is_featured' => true
             ],
             [
@@ -117,7 +120,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_4.jpg',
+                'view_count' => 100,
                 'is_featured' => true
             ],
             [
@@ -138,7 +142,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_5.jpg',
+                'view_count' => 100,
                 'is_featured' => true
             ],
             [
@@ -159,7 +164,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_6.jpg',
+                'view_count' => 100,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -179,7 +185,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_7.jpg',
+                'view_count' => 30,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -199,7 +206,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 20,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -219,7 +227,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 100,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -239,7 +248,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 40,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -259,7 +269,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 100,
             ],
             [
                 'category_id' => Arr::random($categories),
@@ -279,7 +290,8 @@ class ProductSeeder extends Seeder
                 'condition' => Arr::random($conditions),
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
-                'image' => Arr::random($images),
+                'image' => '/storage/product_image/product_1.png',
+                'view_count' => 100,
             ],
         ];
 

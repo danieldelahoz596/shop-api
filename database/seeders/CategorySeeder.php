@@ -14,22 +14,52 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Men'],
-            ['name' => 'Women'],
-            ['name' => 'Kids'],
-            ['name' => 'Tops'],
-            ['name' => 'Bottoms'],
-            ['name' => 'Shoes'],
-            ['name' => 'Shorts'],
+            [
+                'name' => 'Men', 
+                'image_url' => '/storage/landing_category/cat_1.png',
+                'slug' => 'Men',
+                'status' => 1
+            ],
+            [
+                'name' => 'Women',
+                'image_url' => '/storage/landing_category/cat_1.png',
+                'slug' => 'Women',
+                'status' => 1
+            ],
+            [
+                'name' => 'Kids',
+                'image_url' => '/storage/landing_category/cat_1.png',
+                'slug' => 'Kids',
+                'status' => 1
+            ],
+            [
+                'name' => 'Tops',
+                'image_url' => '/storage/landing_category/cat_1.png',
+                'slug' => 'Tops',
+                'status' => 1
+            ],
+            [
+                'name' => 'Bottoms',
+                'image_url' => '/storage/landing_category/cat_2.png',
+                'slug' => 'Bottoms',
+                'status' => 1
+            ],
+            [
+                'name' => 'Shoes',
+                'image_url' => '/storage/landing_category/cat_3.png',
+                'slug' => 'Shoes',
+                'status' => 1
+            ],
+            [
+                'name' => 'Shorts',
+                'image_url' => '/storage/landing_category/cat_4.png',
+                'slug' => 'Shorts',
+                'status' => 1
+            ],
         ];
 
         foreach ($categories as $category) {
-            $slug = strtolower(str_replace(' ', '-', $category['name']));
-            Category::create([
-                'name' => $category['name'],
-                'slug' => $slug,
-                'status' => true
-            ]);
+            Category::create($category);
         }
     }
 }

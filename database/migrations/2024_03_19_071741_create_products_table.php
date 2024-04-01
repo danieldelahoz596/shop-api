@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('subcategory_id')->constrained('sub_categories');
             $table->foreignId('sub_subcategory_id')->constrained('sub_subcategories');
             $table->foreignId('user_id')->constrained();
+            $table->integer('shop_id')->nullable();
             $table->string('product_code')->nullable();
             $table->string('product_name');
             $table->text('product_description')->nullable();
