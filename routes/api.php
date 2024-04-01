@@ -11,6 +11,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\ProfilePageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
+
+            Route::get('wishlist/{user_id}', [ProfilePageController::class, 'wishlist']);
+
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
             Route::post('changePassword', [AuthController::class, 'changePassword']);
