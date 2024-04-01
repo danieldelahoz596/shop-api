@@ -238,7 +238,7 @@
             <li class="product-container">
                 <div>
                 <div class="product-img-container">
-                    <a href="" class="product-card">
+                    <a href="/product/{{ $product->id }}-{{ $product->category_id }}-{{ $product->product_code }}" class="product-card">
                         @php
                             $image = $product->images->first();
                         @endphp

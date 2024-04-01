@@ -36,7 +36,6 @@ use App\Livewire\Styles;
 Route::get('/', LandingPage::class)->name('/');
 Route::get('/index', LandingPage::class)->name('index');
 Route::get('/landingpage', LandingPage::class)->name('landingpage');
-Route::get('/product/{product_id}-{category_id}-{product_code}', ProductsInfo::class)->name('productsinfo');
 
 // Auth Pages
 Route::get('/login', Login::class)->name('login')->middleware('guest');
@@ -56,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profile/add-products', ManageProducts::class);
         Route::get('/profile/{user}/purchases', Purchases::class);
     });
+
+    Route::get('/product/{product_id}-{category_id}-{product_code}', ProductsInfo::class)->name('productsinfo');
 
     //Shop
     Route::get('/shop/{category?}', Shop::class)->name('shop');

@@ -32,6 +32,7 @@ class User extends Authenticatable
         'email_verified_at',
         'style_id',
         'category_id',
+        'item_id',
         'otp_code',
         'otp_sent_time',
         'username',
@@ -76,7 +77,7 @@ class User extends Authenticatable
     }
     public function userAddress()
     {
-        return $this->hasOne(UserAddress::class);
+        return $this->hasMany(UserAddress::class);
     }
 
     public function products()
