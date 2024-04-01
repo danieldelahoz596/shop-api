@@ -12,6 +12,9 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfilePageController;
+use App\Http\Controllers\CartPageQueryController;
+use App\Http\Controllers\UserProfilePageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +37,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('getMoreItemsForYou', [LandingPageQueryController::class, 'getMoreItemsForYou']);
         Route::get('shopSpotlight', [LandingPageQueryController::class, 'shopSpotlight']);
         Route::get('shopsToWatch', [LandingPageQueryController::class, 'shopsToWatch']);
-
     });
     Route::group(['prefix' => 'product-details'], function () {
         Route::get('moreFromSeller/{user_id}', [ProductDetailsContontroller::class, 'moreFromSeller']);
@@ -75,6 +77,14 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allStyles', [OnboardingController::class, 'fetchAllStyles']);
             Route::get('allCategories', [OnboardingController::class, 'fetchAllCategories']);
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
+
+            //cart
+            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
+            Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
+            Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
+            //userprofile
+            Route::get('/user/profile', [UserProfilePageController::class, 'getProfile']);
+            Route::post('/user/profile', [UserProfilePageController::class, 'updateProfile']);
         });
     });
 });

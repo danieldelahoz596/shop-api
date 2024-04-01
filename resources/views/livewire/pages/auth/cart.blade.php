@@ -1,60 +1,58 @@
-<div class="w-75 mx-auto mt-3">
+<div class="container mt-3">
+    <h2 class="mb-4">Bag</h2>
     @if($cartItems->count() > 0)
-    <h2>Bag</h2>
     @foreach($cartItems as $sellerId => $items)
     <div class="card mb-4">
-        <div class="card-header">
+        <div class="card-header bg-light">
             <div class="d-flex align-items-center">
-                @if($items->first()->product->user->profile_picture)
                 <img class="rounded-circle me-3"
-                    src="{{ Storage::url($items->first()->product->user->profile_picture)}}" alt=""
-                    style="width: 50px; height: 50px;">
-                @else
-                <img class="rounded-circle me-3" src="{{ asset('assets/img/public_profile/Vector.jpg') }}" alt=""
-                    style="width: 50px; height: 50px;">
-                @endif
+                    src="{{ $items->first()->product->user->profile_picture ? Storage::url($items->first()->product->user->profile_picture) : asset('assets/img/public_profile/Vector.jpg') }}"
+                    alt="Profile Picture" style="width: 50px; height: 50px; object-fit: cover;">
                 <h4 class="mb-0">{{ $items->first()->product->user->name }}</h4>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col">
+                <div class="col-md-4">
+                    img
+                </div>
+                <div class="col-md-4">
                     @foreach($items as $item)
-                    <div class="d-flex flex-column  mb-2">
-                        <div class="me-2"><strong>{{ $item->product->product_name }}</strong></div>
-                        <div class="me-2 muted">{{ $item->product->product_description }}</div>
-                        <div>${{ number_format($item->product->price, 2) }}</div>
-                        <div>${{ number_format($item->quantity * $item->product->price, 2) }}</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-heart"></i>
-                            <button wire:click="deleteItem({{ $item->id }})" class="border-0"
-                                style=" all: unset; cursor:pointer;">
-                                <i class=" fa fa-trash" aria-hidden="true"></i>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="flex-grow-1">
+                            <strong>{{ $item->product->product_name }}</strong>
+                            <p class="text-muted mb-1">{{ $item->product->product_description }}</p>
+                            <div>${{ number_format($item->product->price, 2) }} each</div>
+                            <button wire:click="toggleFavorite({{ $item->product->id }})" class="btn p-0 text-danger">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                            <button wire:click="deleteItem({{ $item->id }})" class="btn p-0 text-muted">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
                     @endforeach
                 </div>
-                <div class="col">
-                    <div class=" d-flex justify-content-between">
-                        <span><strong>Subtotal:</strong></span>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
                         <strong>${{ number_format($totalsPerSeller[$sellerId], 2) }}</strong>
                     </div>
-                    <div>Shipping calculated at checkout</div>
-                    <div class="text-center mb-4">
-                        <button wire:click="checkout" class="btn font-weight-bold text-white btn-primary">Checkout
-                            {{ $items->count() }}
-                            item(s)</button>
+                    <p class="text-muted">Shipping calculated at checkout</p>
+                    <div class="text-center mt-4">
+                        <button wire:click="checkout" class="btn btn-primary text-white">Checkout
+                            {{ $items->count() }} item(s)</button>
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
-    <div class="d-flex justify-content-end mt-4">
-        <strong>Grand Total: ${{ number_format($total, 2) }}</strong>
-    </div>
+    @endforeach
     @else
     <p class="text-center">Your cart is empty.</p>
     @endif
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div></div>
+        <strong>Grand Total: ${{ number_format($total, 2) }}</strong>
+    </div>
 </div>

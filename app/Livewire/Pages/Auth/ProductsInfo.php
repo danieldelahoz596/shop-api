@@ -17,6 +17,7 @@ class ProductsInfo extends Component
     public $total;
     public $currentProduct;
     public $showRecommendations = false;
+    public $lastAddedItem = null;
 
     public function mount(Product $product, $category_id, $product_code, $product_id)
     {
@@ -42,6 +43,15 @@ class ProductsInfo extends Component
                 'price' => $this->product->price,
             ]
         );
+        $this->lastAddedItem = [
+            'name' => $this->product->product_name,
+            'price' => $this->product->price,
+            'image' => $this->product->image, // Assuming there is an image attribute
+        ];
+
+        // Emit an event with the last added item details
+        $this->dispatch('itemAddedToCart', $this->lastAddedItem);
+
         $this->showRecommendations = true;
         $this->dispatch('pages.auth.recommendations', 'loadRecommendations', $this->product->id);
     }
