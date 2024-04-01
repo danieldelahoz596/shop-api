@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Components\Download;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\LandingPage;
@@ -37,6 +38,8 @@ Route::get('/', LandingPage::class)->name('/');
 Route::get('/index', LandingPage::class)->name('index');
 Route::get('/landingpage', LandingPage::class)->name('landingpage');
 Route::get('/product/{product_id}-{category_id}-{product_code}', ProductsInfo::class)->name('productsinfo');
+
+Route::get('/download', Download::class)->name('download');
 
 // Auth Pages
 Route::get('/login', Login::class)->name('login')->middleware('guest');
