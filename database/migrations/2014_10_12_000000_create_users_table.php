@@ -28,8 +28,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('forgot_password_token')->nullable();
             $table->integer('otp_code')->nullable();
-            $table->text('style_id')->nullable();
-            $table->text('category_id')->nullable();
+            $table->jsonb('style_id')->nullable();
+            $table->jsonb('category_id')->nullable();
+            $table->jsonb('item_id')->nullable(); // these are for the onboarding, based on the UI, there are 3 preferences to be selected
             $table->timestamp('otp_sent_time')->nullable();
             $table->text('username')->nullable();
             $table->boolean('ftl')->default(1)->nullable();

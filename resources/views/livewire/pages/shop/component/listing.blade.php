@@ -19,9 +19,11 @@
                             </span>
                         </span>
                         <img class="img img-fluid" src="" alt="" style="object-fit: contain;">
-                        <div class="item_description pt-3">
-                            <h4>{{$product->product_name}}</h4>
-                            <h4><span>₱ </span>{{$product->price}}</h4>
+                        <div class="item_description pt-3" >
+                            <a href="/product/{{ $product->id }}-{{ $product->category_id }}-{{ $product->product_code }}">
+                                <h4>{{$product->product_name}}</h4>
+                                <h4><span>₱ </span>{{$product->price}}</h4>
+                            </a>
                         </div>
                     </div>
                 </div>

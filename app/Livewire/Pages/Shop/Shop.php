@@ -142,7 +142,7 @@ class Shop extends Component
 
     public function steals($query)
     {
-        return $query->whereHas('productSold', function($query) {
+        return $query->whereHas('sales', function($query) {
             $query->where('item_quantity', '>=', 50);
         });
     }

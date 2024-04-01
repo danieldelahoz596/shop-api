@@ -10,19 +10,27 @@ use App\Models\Product;
 use App\Models\SellerShop;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class LandingPageQueryController extends Controller
 {
-    public function exploreStyles()
+    public function exploreStyles(Request $request)
     {
+        $token = $request->bearerToken();
+        if ($token) {
+            $accessToken = PersonalAccessToken::findToken($token);
+            if ($accessToken && $accessToken->tokenable) {
+                auth()->setUser($accessToken->tokenable);
+            }
+        }
+
         $styleData = '';
 
-        if(isset(auth()->user()->id)){
+        if(auth()->check()){
             $styleData = [];
-            foreach(auth()->user()->style_id as $userStyle){
-                $userStyleData = Style::where('id', $userStyle);
-                array_push($styleData, $userStyleData);
-            }
+            $userStyles = json_decode(auth()->user()->style_id, true);
+            $userStyleData = Style::whereIn('id', $userStyles)->get();
+            array_push($styleData, $userStyleData);
         }else{
             $styleData = Style::all();
         }
@@ -36,14 +44,21 @@ class LandingPageQueryController extends Controller
 
     public function shopCategory(Request $request)
     {
+        $token = $request->bearerToken();
+        if ($token) {
+            $accessToken = PersonalAccessToken::findToken($token);
+            if ($accessToken && $accessToken->tokenable) {
+                auth()->setUser($accessToken->tokenable);
+            }
+        }
+
         $categoryData = '';
 
-        if(isset(auth()->user()->id)){
+        if(auth()->check()){
             $categoryData = [];
-            foreach(auth()->user()->style_id as $userStyle){
-                $userCategoryData = Category::where('id', $userStyle)->skip(3)->take(4)->get();
-                array_push($categoryData, $userCategoryData);
-            }
+            $userCategories = json_decode(auth()->user()->category_id, true);
+            $userCategoryData = Category::whereIn('id', $userCategories)->get();
+            array_push($categoryData, $userCategoryData);
         }else{
             $categoryData = Category::skip(3)->take(4)->get();
         }
@@ -57,9 +72,9 @@ class LandingPageQueryController extends Controller
 
     public function getNewArrivals() {
         $oneWeekAgo = Carbon::now()->subWeek();
+        $now = Carbon::now();
 
-        $data = Product::where('created_at', '>=', $oneWeekAgo)
-                        ->where('created_at', '<=', Carbon::now())
+        $data = Product::whereBetween('created_at', [$oneWeekAgo, $now])
                         ->with('user')
                         ->take(4)
                         ->get();

@@ -29,3 +29,16 @@ window.addEventListener('logout_swal',function(e){
         window.location = "/login"
     });
 });
+
+window.addEventListener('success_add_product',function(e){
+    Swal.fire({
+        title: e.detail[0].title,
+        timer: e.detail[0].timer,
+        icon: e.detail[0].icon,
+        toast: e.detail[0].toast,
+        position: e.detail[0].position,
+        text: e.detail[0].text
+    }).then(function() {
+        window.location = "/user/account/profile/"
+    });
+});

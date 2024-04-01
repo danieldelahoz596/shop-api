@@ -9,6 +9,8 @@ use App\Http\Controllers\SearchController;
 
 // Auth Controller
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfilePageController;
 
 /*
@@ -42,8 +44,17 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('searchHandle/{search_query}', [SearchController::class, 'searchHandle']);
     });
 
+    Route::get('provinces', [RegistrationController::class, 'fetchProvinces']);
+    Route::get('cities/{provinceCode}', [RegistrationController::class, 'fetchCities']);
+    Route::get('countryCodes', [RegistrationController::class, 'fetchCountryCodes']);
+
+    Route::get('phoneOtp/{phoneNumber}', [RegistrationController::class, 'phoneSend']);
+    Route::get('emailOtp/{email}', [RegistrationController::class, 'emailSend']);
+    Route::get('verifyOtp/{otpCode}', [RegistrationController::class, 'verifyCode']);
+
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {
+        Route::post('register', [RegistrationController::class, 'registration']);
         Route::post('login', [AuthController::class, 'login']);
         Route::post('registerEmailChecker', [AuthController::class, 'registerEmailChecker']);
         Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
@@ -56,6 +67,14 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
             Route::post('changePassword', [AuthController::class, 'changePassword']);
             Route::get('logout', [AuthController::class, 'logout']);
+
+            Route::patch('onboardStyles', [OnboardingController::class, 'onboardStyles']);
+            Route::patch('onboardCategories', [OnboardingController::class, 'onboardCategories']);
+            Route::patch('onboardItems', [OnboardingController::class, 'onboardItems']);
+
+            Route::get('allStyles', [OnboardingController::class, 'fetchAllStyles']);
+            Route::get('allCategories', [OnboardingController::class, 'fetchAllCategories']);
+            Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
         });
     });
 });
