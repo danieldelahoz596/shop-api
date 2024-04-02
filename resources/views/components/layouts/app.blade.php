@@ -31,31 +31,15 @@
 <body>
 
   <div id="app">
-    <livewire:components.nav>
+    {{-- <livewire:components.nav> --}}
       <main>
-        @if(request()->path() != 'download')
-            <div x-data="{ open: true }" x-init="setTimeout(() => open = true, 50)">
-          @else
-            <div x-data="{ open: false }">
-          @endif
-          <!-- Modal Background -->
-          <div x-show="open" @click.away="open = false" style="background-color: rgba(0,0,0,.5); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index:999;">
-              <!-- Modal -->
-              <div style="background-color: white; padding: 20px; border-radius: 5px; position:absolute; top:50%; left:50%; transform:translateX(-50%); height:200px">
-                  <h2 class="mt-3">Download the App</h2>
-                  <p>Get our app for the best experience</p>
-                  <!-- Close Button -->
-                  <button @click="open = false" style="border:none !important; position:absolute; top: 10px; right:10px;"><i class="fa-solid fa-xmark"></i></button>
-                  <a href="/download" class="d-block text-center" x-on:click="open = false">Click me</a>
-              </div>
-          </div>
-      </div>
 
-        {{ $slot }}
+        <livewire:components.download>
+        {{-- {{ $slot }} --}}
       </main>
   </div>
   @livewireScripts
 </body>
-<livewire:components.footer>
+{{-- <livewire:components.footer> --}}
 
 </html>

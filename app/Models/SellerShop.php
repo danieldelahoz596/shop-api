@@ -28,4 +28,8 @@ class SellerShop extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
 }

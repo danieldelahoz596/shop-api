@@ -13,8 +13,8 @@ use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserProfilePageController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +63,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
 
-            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
-            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
-            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
-
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
             Route::post('changePassword', [AuthController::class, 'changePassword']);
@@ -87,6 +83,18 @@ Route::group(['prefix' => 'v1'], function () {
             //userprofile
             Route::get('/user/profile', [UserProfilePageController::class, 'getProfile']);
             Route::post('/user/profile', [UserProfilePageController::class, 'updateProfile']);
+
+            //wishlist
+            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
+            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
+            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
+
+            //reviews
+            //type = product or seller
+            Route::post('reviews/{type}/{user_id}', [ReviewController::class, 'addReview']);
+            Route::get('reviews/{type}/{user_id}', [ReviewController::class, 'getReviews']);
+            Route::put('reviews/{review_id}', [ReviewController::class, 'updateReview']);
+            Route::get('reviewsHistory/{review_id}', [ReviewController::class, 'getHistoryReview']);
         });
     });
 });

@@ -10,18 +10,21 @@ class Review extends Model
 
     use HasFactory;
     protected $fillable = [
-        'product_id',
         'user_id',
         'comment',
         'rating',
+        'reviewable_id',
+        'reviewable_type'
     ];
+
+    public function reviewable()
+    {
+        return $this->morphTo('reviewable', 'reviewable_type', 'reviewable_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }
