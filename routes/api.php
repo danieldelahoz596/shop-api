@@ -14,6 +14,8 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
 use App\Http\Controllers\UserProfilePageController;
+use App\Http\Controllers\ProductListingPageController;
+use App\Http\Controllers\ImageController;
 
 
 /*
@@ -87,6 +89,18 @@ Route::group(['prefix' => 'v1'], function () {
             //userprofile
             Route::get('/user/profile', [UserProfilePageController::class, 'getProfile']);
             Route::post('/user/profile', [UserProfilePageController::class, 'updateProfile']);
+            //product listing
+            Route::get('/products', [ProductListingPageController::class, 'listProducts']);
+            Route::post('/products', [ProductListingPageController::class, 'addProduct']);
+            Route::put('/products/{productId}', [ProductListingPageController::class, 'editProduct']);
+            Route::delete('/products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+            //measurement
+            Route::post('/products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
+            //shipping
+            Route::post('/products/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
+            // Image upload routes
+            Route::post('/products/{productId}/images', [ImageController::class, 'uploadImage']);
+            Route::delete('/products/{productId}/images', [ImageController::class, 'deleteImage']);
         });
     });
 });
