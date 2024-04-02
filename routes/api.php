@@ -11,7 +11,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\OnboardingController;
-use App\Http\Controllers\ProfilePageController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
 use App\Http\Controllers\UserProfilePageController;
 
@@ -63,7 +63,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
 
-            Route::get('wishlist/{user_id}', [ProfilePageController::class, 'wishlist']);
+            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
+            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
+            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
 
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);

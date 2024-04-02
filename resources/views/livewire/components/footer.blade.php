@@ -6,7 +6,7 @@
           <div class="col-xxl-5 col-4" style="padding: 1rem 0 0 2rem;">
             <div class="footerTitle">
               <div class="display-1 fw-bold tertiary-color">buudl</div>
-              <h3 class="display-6 w-75 w-xl-100 fw-bold d-none d-md-block" >Discover your style. Share your story.</h3>
+              <h3 class="fs-xmd w-75 w-xl-100 fw-bold d-none d-md-block" >Discover your style. Share your story.</h3>
             </div>
             <ul class="m-0 p-0 d-md-none footer-mobile-links">
                 <li><a href="">Ios App</a></li>

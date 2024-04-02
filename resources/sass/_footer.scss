@@ -4,7 +4,7 @@ footer{
   bottom: 0;
   background-size: contain;
   background-position: center center;
-  height: 40vh;
+  height: 55vh;
   background-color: $primary;
   .footerWrapper{
     .footerDescription{
@@ -268,7 +268,15 @@ footer{
     }
   }
 
-
+  footer{
+    .footerWrapper{
+      .footerDescription{
+        .footerTitle{
+          padding: 0;
+        }
+      }
+    }
+  }
 
 
 }

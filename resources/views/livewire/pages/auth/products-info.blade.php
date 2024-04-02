@@ -90,36 +90,54 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                        <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category2.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/featured/communityImg1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/featured/communityImg2.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category2.png') }}" />
                                         </div>
