@@ -29,6 +29,7 @@ class Product extends Model
         'keyword',
         'status',
         'image',
+        'like',
     ];
 
     protected $casts = [
@@ -100,5 +101,18 @@ class Product extends Model
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function likers()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'product_id', 'user_id')->withTimestamps();
+    }
+
+    public function markAsSold()
+    {
+        $this->status = true;
+        $this->save();
+
+        return $this;
     }
 }

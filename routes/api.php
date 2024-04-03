@@ -102,6 +102,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/products', [ProductListingPageController::class, 'addProduct']);
             Route::put('/products/{productId}', [ProductListingPageController::class, 'editProduct']);
             Route::delete('/products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+            Route::patch('/products/{productId}/manage', [ProductListingPageController::class, 'manageListing']);
             //measurement
             Route::post('/products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
             //shipping

@@ -104,4 +104,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wishlist::class);
     }
+    public function likedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'likes', 'user_id', 'product_id')->withTimestamps();
+    }
 }

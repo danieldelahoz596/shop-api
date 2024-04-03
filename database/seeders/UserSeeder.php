@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         $users = [
             [
                 'role_id' => 1,

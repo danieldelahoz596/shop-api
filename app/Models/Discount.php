@@ -12,8 +12,9 @@ class Discount extends Model
     protected $fillable = [
         'product_id',
         'name',
-        'discount_symbol',
-        'discount_value',
+        'symbol',
+        'value',
+        'quantity_applicable',
         'start_date',
         'end_date',
         'status'
