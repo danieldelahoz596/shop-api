@@ -23,6 +23,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserProfilePageController;
 use App\Http\Controllers\ProductListingPageController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SellerRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         // Make Offer
-        Route::group(['prefix' => 'makeOffer'], function() {
+        Route::group(['prefix' => 'makeOffer'], function () {
             Route::get('/{product_id}', [MakeOfferController::class, 'index']);
             Route::post('/', [MakeOfferController::class, 'store']);
             Route::patch('/{makeOffer}', [MakeOfferController::class, 'update']);
@@ -72,27 +73,27 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         // User Address
-        Route::group(['prefix' => 'userAddress'], function() {
+        Route::group(['prefix' => 'userAddress'], function () {
             Route::post('/', [UserAddressController::class, 'addAddress']);
             Route::put('/{userAddress}', [UserAddressController::class, 'updateAddress']);
             Route::patch('/{userAddress}', [UserAddressController::class, 'selectAddress']);
         });
 
         // Cart
-        Route::group(['prefix' => 'cart'], function() {
+        Route::group(['prefix' => 'cart'], function () {
             Route::get('/items', [CartController::class, 'cartItems']);
             Route::post('/{product_id}', [CartController::class, 'addToCart']);
         });
 
         // Checkout
-        Route::group(['prefix' => 'checkout'], function() {
+        Route::group(['prefix' => 'checkout'], function () {
             Route::post('/{cartItem}', [CheckoutAndBuyNowController::class, 'checkout']);
             Route::patch('/buynow/{sale}/{cartItem}', [CheckoutAndBuyNowController::class, 'buynow']);
             Route::get('/dragonpay', [CheckoutAndBuyNowController::class, 'dragonpay']);
         });
 
         // Voucher
-        Route::group(['prefix' => 'voucher'], function() {
+        Route::group(['prefix' => 'voucher'], function () {
             Route::get('/{code}', [VoucherController::class, 'getVoucher']);
         });
     });
@@ -124,8 +125,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
             Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
             //userprofile
-            Route::get('/user/profile', [UserProfilePageController::class, 'getProfile']);
-            Route::post('/user/profile', [UserProfilePageController::class, 'updateProfile']);
+            Route::get('user/profile', [UserProfilePageController::class, 'getProfile']);
+            Route::post('user/profile', [UserProfilePageController::class, 'updateProfile']);
 
             //wishlist
             Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
@@ -139,17 +140,23 @@ Route::group(['prefix' => 'v1'], function () {
             Route::put('reviews/{review_id}', [ReviewController::class, 'updateReview']);
             Route::get('reviewsHistory/{review_id}', [ReviewController::class, 'getHistoryReview']);
             //product listing
-            Route::get('/products', [ProductListingPageController::class, 'listProducts']);
-            Route::post('/products', [ProductListingPageController::class, 'addProduct']);
-            Route::put('/products/{productId}', [ProductListingPageController::class, 'editProduct']);
-            Route::delete('/products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+            Route::get('products', [ProductListingPageController::class, 'listProducts']);
+            Route::post('products', [ProductListingPageController::class, 'addProduct']);
+            Route::put('products/{productId}', [ProductListingPageController::class, 'editProduct']);
+            Route::delete('products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
             //measurement
-            Route::post('/products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
+            Route::post('products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
             //shipping
-            Route::post('/products/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
+            Route::post('products/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
             // Image upload routes
-            Route::post('/products/{productId}/images', [ImageController::class, 'uploadImage']);
-            Route::delete('/products/{productId}/images', [ImageController::class, 'deleteImage']);
+            Route::post('products/{productId}/images', [ImageController::class, 'uploadImage']);
+            Route::delete('products/{productId}/images', [ImageController::class, 'deleteImage']);
+            //seller
+            Route::post('seller/register', [SellerRegistrationController::class, 'register']);
+            Route::post('seller/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
+            Route::post('seller/submit-id', [SellerRegistrationController::class, 'submitId']);
+            Route::post('seller/review-application', [SellerRegistrationController::class, 'reviewApplication']);
+            Route::post('seller/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
         });
     });
 });
