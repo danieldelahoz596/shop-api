@@ -55,6 +55,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 80,
                 'is_featured' => true,
             ],
@@ -77,6 +78,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_2.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 100,
                 'is_featured' => true
             ],
@@ -99,6 +101,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_3.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 70,
                 'is_featured' => true
             ],
@@ -121,6 +124,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_4.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 100,
                 'is_featured' => true
             ],
@@ -143,6 +147,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_5.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 100,
                 'is_featured' => true
             ],
@@ -165,6 +170,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_6.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 100,
             ],
             [
@@ -186,6 +192,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_7.jpg',
+                'shipping_fee' => 35,
                 'view_count' => 30,
             ],
             [
@@ -207,6 +214,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 20,
             ],
             [
@@ -228,6 +236,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 100,
             ],
             [
@@ -249,6 +258,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 40,
             ],
             [
@@ -270,6 +280,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 100,
             ],
             [
@@ -291,6 +302,7 @@ class ProductSeeder extends Seeder
                 'keyword' => [Arr::random($tags), Arr::random($tags), Arr::random($tags)],
                 'status' => true,
                 'image' => '/storage/product_image/product_1.png',
+                'shipping_fee' => 35,
                 'view_count' => 100,
             ],
         ];

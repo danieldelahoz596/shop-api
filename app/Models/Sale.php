@@ -4,22 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'product_id',
         'seller_id',
         'buyer_id',
+        'address_id',
         'item_price',
         'item_quantity',
-        'discount',
         'voucher_code',
         'voucher_amount',
+        'shipping_fee',
         'total',
         'status',
+        'payment_status',
         'mode_of_payment'
     ];
 

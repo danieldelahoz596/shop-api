@@ -16,14 +16,17 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained();
             $table->foreignId('seller_id')->constrained('users');
             $table->foreignId('buyer_id')->constrained('users');
+            $table->foreignId('address_id')->constrained('user_addresses');
             $table->decimal('item_price', 8, 2);
             $table->integer('item_quantity');
-            $table->integer('discount')->nullable();
             $table->string('voucher_code')->nullable();
             $table->decimal('voucher_amount', 8, 2)->nullable();
-            $table->decimal('total', 8, 2);
+            $table->decimal('shipping_fee', 8, 2)->nullable();
+            $table->decimal('total', 8, 2)->nullable();
+            $table->string('payment_status')->nullable();
             $table->string('status')->nullable();
             $table->string('mode_of_payment')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

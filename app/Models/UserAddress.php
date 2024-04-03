@@ -19,8 +19,10 @@ class UserAddress extends Model
         'street',
         'city',
         'province',
+        'region',
         'zip_code',
         'is_deleted',
+        'is_selected'
     ];
 
     public function user()

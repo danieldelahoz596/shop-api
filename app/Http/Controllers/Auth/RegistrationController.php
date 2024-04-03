@@ -51,7 +51,8 @@ class RegistrationController extends Controller
             'city' => $request->city,
             'province' => $request->province,
             'region' => $request->region,
-            'zip_code' => $request->zip_code
+            'zip_code' => $request->zip_code,
+            'is_default' => 1
         ]);
 
         Mail::to($user->email)->send(new RegisterMail($user->email_verify_token, $user->email, $user->name));

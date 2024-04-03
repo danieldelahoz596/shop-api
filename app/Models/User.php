@@ -100,6 +100,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class, 'category_id');
     }
+
+    public function offers()
+    {
+        return $this->hasMany(MakeOffer::class);
+    }
+
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
