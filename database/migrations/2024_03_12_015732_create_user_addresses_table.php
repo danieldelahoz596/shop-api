@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('province')->nullable();
             $table->text('region')->nullable();
             $table->text('zip_code')->nullable();
+            $table->boolean('is_default')->default(0)->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();

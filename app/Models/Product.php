@@ -30,6 +30,7 @@ class Product extends Model
         'status',
         'image',
         'like',
+        'shipping_fee'
     ];
 
     protected $casts = [
@@ -91,6 +92,11 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(MakeOffer::class);
     }
 
     public function wishlists()

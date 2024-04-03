@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('condition')->nullable();
             $table->jsonb('keyword')->nullable();
+            $table->decimal('shipping_fee', 8, 2)->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
             $table->boolean('listings')->default(0)->nullable();
