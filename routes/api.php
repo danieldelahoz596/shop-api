@@ -17,6 +17,12 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfilePageController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartPageQueryController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserProfilePageController;
+use App\Http\Controllers\ProductListingPageController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +45,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('getMoreItemsForYou', [LandingPageQueryController::class, 'getMoreItemsForYou']);
         Route::get('shopSpotlight', [LandingPageQueryController::class, 'shopSpotlight']);
         Route::get('shopsToWatch', [LandingPageQueryController::class, 'shopsToWatch']);
-
     });
     Route::group(['prefix' => 'product-details'], function () {
         Route::get('moreFromSeller/{user_id}', [ProductDetailsContontroller::class, 'moreFromSeller']);
@@ -101,8 +106,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
 
-            Route::get('wishlist/{user_id}', [ProfilePageController::class, 'wishlist']);
-
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
             Route::post('changePassword', [AuthController::class, 'changePassword']);
@@ -115,6 +118,38 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allStyles', [OnboardingController::class, 'fetchAllStyles']);
             Route::get('allCategories', [OnboardingController::class, 'fetchAllCategories']);
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
+
+            //cart
+            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
+            Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
+            Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
+            //userprofile
+            Route::get('/user/profile', [UserProfilePageController::class, 'getProfile']);
+            Route::post('/user/profile', [UserProfilePageController::class, 'updateProfile']);
+
+            //wishlist
+            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
+            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
+            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
+
+            //reviews
+            //type = product or seller
+            Route::post('reviews/{type}/{user_id}', [ReviewController::class, 'addReview']);
+            Route::get('reviews/{type}/{user_id}', [ReviewController::class, 'getReviews']);
+            Route::put('reviews/{review_id}', [ReviewController::class, 'updateReview']);
+            Route::get('reviewsHistory/{review_id}', [ReviewController::class, 'getHistoryReview']);
+            //product listing
+            Route::get('/products', [ProductListingPageController::class, 'listProducts']);
+            Route::post('/products', [ProductListingPageController::class, 'addProduct']);
+            Route::put('/products/{productId}', [ProductListingPageController::class, 'editProduct']);
+            Route::delete('/products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+            //measurement
+            Route::post('/products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
+            //shipping
+            Route::post('/products/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
+            // Image upload routes
+            Route::post('/products/{productId}/images', [ImageController::class, 'uploadImage']);
+            Route::delete('/products/{productId}/images', [ImageController::class, 'deleteImage']);
         });
     });
 });

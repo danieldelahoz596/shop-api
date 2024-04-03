@@ -17,6 +17,18 @@
         object-fit: cover;
         user-select: none;
       }
+      .zoom_img{
+        position: relative;
+        .heart-icon{
+          position: absolute;
+          top: 2rem;
+          right: 1.5rem;
+          z-index: 999;
+          a{
+            font-size: 2.667vw;
+          }
+        }
+      }
     }
   }
 }

@@ -87,10 +87,6 @@ class Product extends Model
     {
         return $this->hasMany(Discount::class);
     }
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
 
     public function images()
     {
@@ -100,5 +96,15 @@ class Product extends Model
     public function offers()
     {
         return $this->hasMany(MakeOffer::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class, 'product_wishlist');
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
     }
 }

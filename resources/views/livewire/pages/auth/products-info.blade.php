@@ -90,36 +90,54 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                        <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category2.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/featured/communityImg1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/featured/communityImg2.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category1.png') }}" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="zoom_img">
+                                            <div class="heart-icon">
+                                              <a href=""><i class="fa-regular fa-heart"></i></a>
+                                            </div>
                                             <img class="img-fluid"
                                                 src="{{ asset('assets/img/category/category2.png') }}" />
                                         </div>
@@ -280,4 +298,38 @@
     @if($showRecommendations)
     @livewire('pages.auth.recommendations', ['product' => $currentProduct])
     @endif
+    <div x-data="{  open: false,
+    lastAddedItem: null,
+    init() {
+        Livewire.on('itemAddedToCart', (item) => {
+            console.log('Item added to cart', item);
+            this.lastAddedItem = Array.isArray(item) ? item[0] : item;
+            this.open = true;
+            setTimeout(() => { this.open = false; }, 15000);
+        });
+    }
+}" x-init="init()" x-show.transition="open" style="display: none; z-index: 9999; position: fixed; top: 0; right: 0; margin: 1rem; padding: 1rem;
+        background-color: white; border: 1px solid black; border-radius: 5px;"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform"
+        x-transition:enter-end="opacity-100 transform" x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform" x-transition:leave-end="opacity-0 transform">
+
+        <template x-if="lastAddedItem">
+            <div>
+                <img x-bind:src="lastAddedItem.image" alt="Product Image" class="h-16 w-16 object-cover rounded">
+                <h2 x-text="'Product: ' + lastAddedItem.name"></h2>
+                <p x-text="'Price: $' + lastAddedItem.price.toFixed(2)"></p>
+                <button @click="window.location.href='/checkout-process'"
+                    class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Checkout
+                </button>
+                <button @click="window.location.href='/cart'"
+                    class="bg-primary hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    View Bag
+                </button>
+            </div>
+        </template>
+    </div>
+
+
 </div>
