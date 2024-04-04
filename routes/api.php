@@ -26,6 +26,7 @@ use App\Http\Controllers\ProductListingPageController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SellerRegistrationController;
+use App\Http\Controllers\UserSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,6 +172,13 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
             Route::get('/conversations/{conversation}/messages/{message}', [MessageController::class, 'show']);
 
+            //user settings
+            Route::patch('/settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
+            Route::patch('/settings/notifications/email', [UserSettingsController::class, 'updateEmailNotificationSettings']);
+            Route::patch('/settings/notifications/buying', [UserSettingsController::class, 'updateBuyingNotificationSettings']);
+            Route::patch('/settings/notifications/selling', [UserSettingsController::class, 'updateSellingNotificationSettings']);
+            Route::patch('/settings/privacy', [UserSettingsController::class, 'updatePrivacySettings']);
+            Route::patch('/settings/blocked-users', [UserSettingsController::class, 'updateBlockedUsers']);
         });
     });
 });
