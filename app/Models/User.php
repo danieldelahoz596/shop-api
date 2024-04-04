@@ -114,4 +114,20 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Product::class, 'likes', 'user_id', 'product_id')->withTimestamps();
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'user_one')
+                    ->orWhere('user_two', $this->id);
+    }
+    
+    public function isPartOfConversation(Conversation $conversation)
+    {
+        return $this->id === $conversation->user_one || $this->id === $conversation->user_two;
+    }
 }

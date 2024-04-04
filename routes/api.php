@@ -19,10 +19,12 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserProfilePageController;
 use App\Http\Controllers\ProductListingPageController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SellerRegistrationController;
 
 /*
@@ -158,6 +160,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('seller/submit-id', [SellerRegistrationController::class, 'submitId']);
             Route::post('seller/review-application', [SellerRegistrationController::class, 'reviewApplication']);
             Route::post('seller/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
+
+
+            //Conversations
+            Route::get('/conversations', [ConversationController::class, 'index']);
+            Route::post('/conversations', [ConversationController::class, 'store']);
+            Route::get('/conversations/{conversation}', [ConversationController::class, 'show']);
+                // Messages
+            Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
+            Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
+            Route::get('/conversations/{conversation}/messages/{message}', [MessageController::class, 'show']);
+
         });
     });
 });
