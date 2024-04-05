@@ -8,10 +8,41 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 
 class SellerRegistrationController extends Controller
 {
     // Inside SellerRegistrationController.php
+    public function getSellerProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $profileData = [
+            'id' => $user->id,
+            'shop_name' => $user->name,
+            'email' => $user->email,
+            'is_verified' => $user->is_verified,
+
+        ];
+
+        return response()->json($profileData, 200);
+    }
+
+    public function getSellerProducts(Request $request)
+    {
+        $seller = Auth::user();
+
+
+        if ($seller->role_id != 4 || !$seller->is_verified) {
+            return Response::json(['error' => 'Unauthorized - User is not a verified seller'], 403);
+        }
+
+
+        $products = $seller->products()->get();
+
+
+        return Response::json($products, 200);
+    }
 
     public function register(Request $request)
     {
@@ -28,7 +59,7 @@ class SellerRegistrationController extends Controller
 
         $user = Auth::user();
         $user->fill($request->only('seller_type', 'shop_name', 'registered_name', 'tin'));
-        $user->role_id = 2; // Assuming role_id for seller is 2
+        $user->role_id = 4;
         $user->save();
 
         return response()->json(['message' => 'Seller registration successful.']);

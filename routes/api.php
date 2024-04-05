@@ -14,7 +14,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutAndBuyNowController;
 use App\Http\Controllers\MakeOfferController;
 use App\Http\Controllers\OnboardingController;
-use App\Http\Controllers\ProfilePageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WishlistController;
@@ -143,11 +143,11 @@ Route::group(['prefix' => 'v1'], function () {
             Route::put('reviews/{review_id}', [ReviewController::class, 'updateReview']);
             Route::get('reviewsHistory/{review_id}', [ReviewController::class, 'getHistoryReview']);
             //product listing
-            Route::get('/products', [ProductListingPageController::class, 'listProducts']);
-            Route::post('/products', [ProductListingPageController::class, 'addProduct']);
-            Route::put('/products/{productId}', [ProductListingPageController::class, 'editProduct']);
-            Route::delete('/products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
-            Route::patch('/products/{productId}/manage', [ProductListingPageController::class, 'manageListing']);
+            Route::get('products', [ProductListingPageController::class, 'listProducts']);
+            Route::post('products', [ProductListingPageController::class, 'addProduct']);
+            Route::put('products/{productId}', [ProductListingPageController::class, 'editProduct']);
+            Route::delete('products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+            Route::patch('products/{productId}/manage', [ProductListingPageController::class, 'manageListing']);
             //measurement
             Route::post('products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
             //shipping
@@ -155,30 +155,35 @@ Route::group(['prefix' => 'v1'], function () {
             // Image upload routes
             Route::post('products/{productId}/images', [ImageController::class, 'uploadImage']);
             Route::delete('products/{productId}/images', [ImageController::class, 'deleteImage']);
-            //seller
+            //seller  idk if i will group this into a middleware
+            Route::get('seller/profile', [SellerRegistrationController::class, 'getSellerProfile']);
+            Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
             Route::post('seller/register', [SellerRegistrationController::class, 'register']);
             Route::post('seller/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
             Route::post('seller/submit-id', [SellerRegistrationController::class, 'submitId']);
             Route::post('seller/review-application', [SellerRegistrationController::class, 'reviewApplication']);
             Route::post('seller/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
-
+            //order
+            Route::get('orders', [OrderController::class, 'getAllOrders']);
+            Route::get('order/{orderId}', [OrderController::class, 'getOrderDetails']);
+            Route::get('user/orders', [OrderController::class, 'getAllOrdersBySeller']);
 
             //Conversations
             Route::get('/conversations', [ConversationController::class, 'index']);
             Route::post('/conversations', [ConversationController::class, 'store']);
             Route::get('/conversations/{conversation}', [ConversationController::class, 'show']);
-                // Messages
+            // Messages
             Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
             Route::get('/conversations/{conversation}/messages/{message}', [MessageController::class, 'show']);
 
             //user settings
-            Route::patch('/settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
-            Route::patch('/settings/notifications/email', [UserSettingsController::class, 'updateEmailNotificationSettings']);
-            Route::patch('/settings/notifications/buying', [UserSettingsController::class, 'updateBuyingNotificationSettings']);
-            Route::patch('/settings/notifications/selling', [UserSettingsController::class, 'updateSellingNotificationSettings']);
-            Route::patch('/settings/privacy', [UserSettingsController::class, 'updatePrivacySettings']);
-            Route::patch('/settings/blocked-users', [UserSettingsController::class, 'updateBlockedUsers']);
+            Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
+            Route::patch('settings/notifications/email', [UserSettingsController::class, 'updateEmailNotificationSettings']);
+            Route::patch('settings/notifications/buying', [UserSettingsController::class, 'updateBuyingNotificationSettings']);
+            Route::patch('settings/notifications/selling', [UserSettingsController::class, 'updateSellingNotificationSettings']);
+            Route::patch('settings/privacy', [UserSettingsController::class, 'updatePrivacySettings']);
+            Route::patch('settings/blocked-users', [UserSettingsController::class, 'updateBlockedUsers']);
         });
     });
 });
