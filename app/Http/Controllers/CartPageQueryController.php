@@ -11,48 +11,41 @@ class CartPageQueryController extends Controller
 {
     public function loadCart(Request $request)
     {
-        $cartData = CartItem::where('user_id', auth()->user()->id)->with('product')->get();
 
-        return response()->json([
-            'status' => 200,
-            'data' => $cartData,
-            'message' => 'User not authenticated'
-        ], 401);
+        if (Auth::check()) {
+            $cartItems = Auth::user()->cartItems()->with('product')->get();
+            $cartItemsGroupedBySeller = $cartItems->groupBy('product.user_id')->map(function ($group) {
+                return collect($group)->map(function ($item) {
+                    return [
+                        'item_id' => $item->id,
+                        'product_name' => $item->product->name,
+                        'quantity' => $item->quantity, //idk if the size is included
+                        'price' => $item->product->price,
+                    ];
+                });
+            });
 
-        // if (Auth::check()) {
-        //     $cartItems = Auth::user()->cartItems()->with('product')->get();
-        //     $cartItemsGroupedBySeller = $cartItems->groupBy('product.user_id')->map(function ($group) {
-        //         return collect($group)->map(function ($item) {
-        //             return [
-        //                 'item_id' => $item->id,
-        //                 'product_name' => $item->product->name,
-        //                 'quantity' => $item->quantity, //idk if the size is included
-        //                 'price' => $item->product->price,
-        //             ];
-        //         });
-        //     });
+            $totalsPerSeller = $cartItemsGroupedBySeller->mapWithKeys(function ($items, $sellerId) {
+                $total = $items->reduce(function ($carry, $item) {
+                    return $carry + ($item['quantity'] * $item['price']);
+                }, 0);
+                return [$sellerId => $total];
+            });
 
-        //     $totalsPerSeller = $cartItemsGroupedBySeller->mapWithKeys(function ($items, $sellerId) {
-        //         $total = $items->reduce(function ($carry, $item) {
-        //             return $carry + ($item['quantity'] * $item['price']);
-        //         }, 0);
-        //         return [$sellerId => $total];
-        //     });
+            $total = $totalsPerSeller->sum();
 
-        //     $total = $totalsPerSeller->sum();
-
-        //     return response()->json([
-        //         'status' => 200,
-        //         'cartItems' => $cartItemsGroupedBySeller,
-        //         'totalsPerSeller' => $totalsPerSeller,
-        //         'total' => $total
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status' => 401,
-        //         'message' => 'User not authenticated'
-        //     ], 401);
-        // }
+            return response()->json([
+                'status' => 200,
+                'cartItems' => $cartItemsGroupedBySeller,
+                'totalsPerSeller' => $totalsPerSeller,
+                'total' => $total
+            ]);
+        } else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'User not authenticated'
+            ], 401);
+        }
     }
 
     public function deleteItem(Request $request, $itemId)

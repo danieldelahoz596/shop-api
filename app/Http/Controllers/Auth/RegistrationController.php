@@ -17,21 +17,21 @@ use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
-    public function registration(RegistrationRequest $request)
+    public function registration(Request $request)
     {
-        $date = Carbon::now();
-        $birthdate = Carbon::parse($request->birthday);
-        $yearsDifference = $date->diffInYears($birthdate);
+        // $date = Carbon::now();
+        // $birthdate = Carbon::parse($request->birthday);
+        // $yearsDifference = $date->diffInYears($birthdate);
 
-        if ($yearsDifference < 18) {
-            return response()->json([
-                'status' => false,
-                'message' => 'You must be 18 years old to register.'
-            ], 400);
-        }
+        // if ($yearsDifference < 18) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'You must be 18 years old to register.'
+        //     ], 400);
+        // }
 
         $user = User::create([
-            'role_id' => $request->role_id,
+            'role_id' => 4,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'name' => $request->firstname .' '. $request->lastname,
@@ -60,7 +60,32 @@ class RegistrationController extends Controller
         return response()->json([
             'status' => true,
             'data' => $user
-        ], 201);
+        ], 200);
+    }
+
+    public function registrationEmailCheck(Request $request){
+        $validatedData = $request->validate([
+            'email' => 'required|string|email',
+        ]);
+
+        $emailChecker = User::where('email', $validatedData['email'])->count();
+
+        if($emailChecker <= 0){
+            return response()->json([
+                'status' => 200,
+                'data' => $emailChecker,
+                'message' => 'Does not exist'
+            ], 200);
+        }
+
+        if($emailChecker >= 0){
+            return response()->json([
+                'status' => 200,
+                'data' => $emailChecker,
+                'message' => 'User exist'
+            ], 200);
+        }
+
     }
 
     public function fetchProvinces()

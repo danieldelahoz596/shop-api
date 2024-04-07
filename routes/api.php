@@ -85,6 +85,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Cart
         Route::group(['prefix' => 'cart'], function () {
             Route::get('items', [CartController::class, 'cartItems']);
+            Route::post('cartData', [CartController::class, 'cartData']);
             Route::get('cartCounter', [CartController::class, 'cartCounter']);
             Route::post('/{product_id}', [CartController::class, 'addToCart']);
         });
@@ -105,8 +106,8 @@ Route::group(['prefix' => 'v1'], function () {
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {
         Route::post('register', [RegistrationController::class, 'registration']);
+        Route::post('registrationEmailCheck', [RegistrationController::class, 'registrationEmailCheck']);
         Route::post('login', [AuthController::class, 'login']);
-        Route::post('registerEmailChecker', [AuthController::class, 'registerEmailChecker']);
         Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
