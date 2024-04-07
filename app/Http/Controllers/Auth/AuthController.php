@@ -104,4 +104,13 @@ class AuthController extends Controller
             'message' => 'Email not yet taken'
         ], 200);
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'logout successfully',
+        ], 200);
+    }
 }

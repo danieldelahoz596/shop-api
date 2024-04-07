@@ -36,4 +36,15 @@ class CartController extends Controller
             'data' => $data
         ], 201);
     }
+
+    public function cartCounter(Request $request)
+    {
+        $data = CartItem::where('user_id', auth()->user()->id)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Item added to cart.',
+            'data' => count($data)
+        ], 201);
+    }
 }

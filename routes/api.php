@@ -84,7 +84,8 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Cart
         Route::group(['prefix' => 'cart'], function () {
-            Route::get('/items', [CartController::class, 'cartItems']);
+            Route::get('items', [CartController::class, 'cartItems']);
+            Route::get('cartCounter', [CartController::class, 'cartCounter']);
             Route::post('/{product_id}', [CartController::class, 'addToCart']);
         });
 
@@ -113,7 +114,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
             Route::post('getVerifiedEmailToken', [AuthController::class, 'getVerifiedEmailToken']);
             Route::post('changePassword', [AuthController::class, 'changePassword']);
-            Route::get('logout', [AuthController::class, 'logout']);
+            Route::post('logout', [AuthController::class, 'logout']);
 
             Route::patch('onboardStyles', [OnboardingController::class, 'onboardStyles']);
             Route::patch('onboardCategories', [OnboardingController::class, 'onboardCategories']);
@@ -124,7 +125,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
 
             //cart
-            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
+            Route::post('cart', [CartPageQueryController::class, 'loadCart']);
             Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
             Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
             //userprofile
