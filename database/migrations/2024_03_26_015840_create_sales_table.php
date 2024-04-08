@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('users');
             $table->foreignId('buyer_id')->constrained('users');
             $table->foreignId('address_id')->constrained('user_addresses');
+            $table->string('transaction_id')->unique()->nullable();
             $table->decimal('item_price', 8, 2);
             $table->integer('item_quantity');
             $table->string('voucher_code')->nullable();

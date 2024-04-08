@@ -94,14 +94,17 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'checkout'], function () {
             Route::post('/{cartItem}', [CheckoutAndBuyNowController::class, 'checkout']);
             Route::patch('/buynow/{sale}/{cartItem}', [CheckoutAndBuyNowController::class, 'buynow']);
-            Route::get('/dragonpay', [CheckoutAndBuyNowController::class, 'dragonpay']);
         });
 
         // Voucher
         Route::group(['prefix' => 'voucher'], function () {
             Route::get('/{code}', [VoucherController::class, 'getVoucher']);
+            Route::post('/', [VoucherController::class, 'addVoucher']);
+            Route::put('/{voucher}', [VoucherController::class, 'editVoucher']);
         });
     });
+
+    Route::get('/dragonpay', [CheckoutAndBuyNowController::class, 'dragonpay']);
 
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {

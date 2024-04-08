@@ -6,6 +6,8 @@ use App\Http\Requests\SaleRequest;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Sale;
+use Crazymeeks\Foundation\PaymentGateway\Dragonpay;
+use Crazymeeks\Foundation\PaymentGateway\DragonPay\Action\CancelTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -13,7 +15,17 @@ class CheckoutAndBuyNowController extends Controller
 {
     public function checkout(SaleRequest $request, CartItem $cartItem)
     {
+        $sale = Sale::select('transaction_id')->orderBy('transaction_id', 'desc')->first();
+
+        if (!is_null($sale->transaction_id)) {
+            $number = intval(substr($sale->transaction_id, 5));
+            $trNum = 'TRID-'.$number + 1;
+        } else {
+            $trNum = 'TRID-1';
+        }
+
         $data = Sale::create([
+            'transaction_id' => $trNum,
             'product_id' => $cartItem->product_id,
             'seller_id' => $cartItem->product->user->id,
             'buyer_id' => $cartItem->user_id,
@@ -61,38 +73,27 @@ class CheckoutAndBuyNowController extends Controller
 
     public function dragonpay()
     {
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            // Add any other headers required by the API
-        ])->post('https://test.dragonpay.ph/api/payout/merchant/v1/BUUDLKCMSO/post', [
-            // "TxnId" => "20190225008",
-            // "FirstName" => "Robertson",
-            // "MiddleName" => "Sy",
-            // "LastName" => "Chiang",
-            // "Amount" => "1000",
-            // "Currency" => "PHP",
-            // "Description" => "Testing JSON payout",
-            // "ProcId" => "CEBL",
-            // "ProcDetail" => "sample@dragonpay.ph",
-            // "RunDate" => "2019-02-26",
-            // "Email" => "sample@dragonpay.ph",
-            // "MobileNo" => "09175281679",
-            // "BirthDate" => "1970-11-17",
-            // "Nationality" => "Philippines",
-            // "Address" => [
-            //     "Street1" => "123 Sesame Street",
-            //     "Street2" => "Childrens Television Workshop",
-            //     "Barangay" => "Ugong",
-            //     "City" => "Pasig",
-            //     "Province" => "Metro Manila",
-            //     "Country" => "PH"
-            // ]
-        ]);
+        $parameters = [
+            'txnid' => 'TXNID3',
+            'amount' => 100,
+            'ccy' => 'PHP',
+            'description' => 'Test',
+            'email' => 'some@merchant.ph',
+            'param1' => 'param1',
+            'param2' => 'param2',
+        ];
 
-        dd($response);
 
-        $body = $response->body();
+        $merchant_account = [
+            'merchantid' => 'BUUDLKCMSO',
+            'password'   => 'ak8TRcQXHeEopQx'
+        ];
+        // Initialize Dragonpay
+        $txnid = 'TXNID3';
+        $dragonpay = new Dragonpay($merchant_account);
+        $dragonpay->action(new \Crazymeeks\Foundation\PaymentGateway\Dragonpay\Action\CheckTransactionStatus($txnid));
 
-        return $body;
+        // Set parameters, then redirect to dragonpay
+        // $dragonpay->setParameters($parameters)->away();
     }
 }
