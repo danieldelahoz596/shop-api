@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendOfferMail;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Measurement;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ProductListingPageController extends Controller
@@ -157,4 +159,70 @@ class ProductListingPageController extends Controller
 
         return response()->json(['message' => 'Shipping details added/updated successfully!', 'shippingDetails' => $shippingDetails]);
     }
+
+    public function manageListing(Request $request, $productId)
+    {
+        $product = Product::with('likers')->findOrFail($productId);
+        $user = auth()->user();
+
+        if($product->user_id !== $user->id){
+            return response()->json([
+                'status'=>false,
+                'message'=>"Unauthorized"
+            ],403);
+        }
+
+        if($request->has('send_offers') && $request->get('send_offers')){
+            $this->sendOffers($product);
+            $data = "Offers sent!";
+        }
+
+        if($request->has('set_discount') && $request->get('set_discount')){
+            $discountData = $request->get('set_discount');
+            $discount = $this->manageDiscount($product, $discountData);
+            $data = $discount;
+        }
+
+        if ($request->has('mark_as_sold')) {
+            $data = $product->markAsSold();
+        }
+
+        return response()->json([
+            'status'=>true,
+            'message'=>"Listing managed successfully",
+            'data'=> $data
+        ], 200);
+    }
+
+
+
+    //Helpers
+    protected function sendOffers(Product $product)
+    {
+        $likes = $product->likers;
+
+        //Todo: Run php artisan
+        foreach($likes as $liker){
+            Mail::to($liker->email)->send(new SendOfferMail($product));
+        }
+    }
+
+    protected function  manageDiscount($product, $discountData)
+    {
+        $discount = $product->discounts()->updateOrCreate(
+            [
+                'name'=>$discountData['name']
+            ],
+            [
+                'symbol' => $discountData['symbol'],
+                'value' => $discountData['value'],
+                'start_date' => $discountData['start_date'] ?? null,
+                'end_date' => $discountData['end_date'] ?? null,
+                'quantity_applicable' => $discountData['quantity_applicable'] ?? 1,
+                'status' => false,
+            ]);
+
+            return $discount;
+    }
+
 }

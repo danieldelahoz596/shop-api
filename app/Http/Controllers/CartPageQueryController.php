@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CartPageQueryController extends Controller
 {
-    public function loadCart()
+    public function loadCart(Request $request)
     {
+
         if (Auth::check()) {
-            $cartItems = Auth::user()->cartItems()->with('product.user')->get();
+            $cartItems = Auth::user()->cartItems()->with('product')->get();
             $cartItemsGroupedBySeller = $cartItems->groupBy('product.user_id')->map(function ($group) {
                 return collect($group)->map(function ($item) {
                     return [

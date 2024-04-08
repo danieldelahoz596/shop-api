@@ -150,7 +150,6 @@ class LandingPageQueryController extends Controller
                             ->orderBy('rating', 'asc')
                             ->take(4)
                             ->with('user')
-                            ->with('shop')
                             ->get();
 
         return response()->json([

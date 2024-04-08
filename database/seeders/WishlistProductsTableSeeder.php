@@ -17,7 +17,6 @@ class WishlistProductsTableSeeder extends Seeder
     {
         $users = User::all();
 
-        // Iterate over each user
         $users->each(function ($user) {
             $wishlist = $user->wishlists()->first();
 
