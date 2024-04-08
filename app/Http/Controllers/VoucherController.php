@@ -16,4 +16,36 @@ class VoucherController extends Controller
             'data' => $data
         ], $data ? 200 : 404);
     }
+
+    public function addVoucher(Request $request)
+    {
+        $data = Voucher::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'amount' => $request->amount,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'data' => $data
+        ], 201);
+    }
+
+    public function editVoucher(Request $request, Voucher $voucher)
+    {
+        $voucher->update([
+            'name' => $request->name,
+            'çode' => $request->code,
+            'amount' => $request->amount,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'data' => $voucher
+        ], 200);
+    }
 }
