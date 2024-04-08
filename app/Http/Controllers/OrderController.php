@@ -84,7 +84,7 @@ class OrderController extends Controller
         $seller = Auth::user();
 
 
-        if ($seller->role_id != 4 || !$seller->is_verified) {
+        if ($seller->role_id != 4 || !$seller->is_seller) {
             return response()->json(['error' => 'Unauthorized!'], 403);
         }
 
