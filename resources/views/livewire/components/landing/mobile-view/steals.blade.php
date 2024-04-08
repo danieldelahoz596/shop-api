@@ -15,7 +15,7 @@
                     <div class="d-flex flex-column overflow-hidden">
                         <div class="brandImg">
                             <a href="/product/{{$popularItem->id}}-{{$popularItem->category_id}}-{{$popularItem->product_code}}"
-                                class="img"><img class="img-fluid" src="{{ asset('assets/img/brands/'.$popularItem->image) }}"
+                                class="img"><img class="img-fluid" src="{{ asset($popularItem->image) }}"
                                     alt=""></a>
                         </div>
                         <div class="imgContent pt-md-3">
