@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "492433ec1cb7d4b384dbcc7700c53185",
+    "content-hash": "825a86db4de0c63cbfef8b2dc9fcfe5b",
     "packages": [
         {
             "name": "brick/math",
@@ -205,6 +205,64 @@
                 }
             ],
             "time": "2024-03-15T14:00:32+00:00"
+        },
+        {
+            "name": "crazymeeks/dragonpay",
+            "version": "v3.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazymeeks/dragonpay.git",
+                "reference": "027722e2c2c3686084e30187c3e3abab1ea5550d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crazymeeks/dragonpay/zipball/027722e2c2c3686084e30187c3e3abab1ea5550d",
+                "reference": "027722e2c2c3686084e30187c3e3abab1ea5550d",
+                "shasum": ""
+            },
+            "require": {
+                "ixudra/curl": "^6.16"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan": "^0.12.92",
+                "phpunit/phpunit": "5.5.6",
+                "vlucas/phpdotenv": "^2.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v3.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tests\\": "tests",
+                    "Crazymeeks\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jclaud",
+                    "email": "jeffclaud17@gmail.com"
+                }
+            ],
+            "description": "A PHP library for Dragonpay payment gateway",
+            "homepage": "https://github.com/crazymeeks/dragonpay",
+            "keywords": [
+                "Dragonpay PHP",
+                "Dragonpay PHP library",
+                "Dragonpay library"
+            ],
+            "support": {
+                "issues": "https://github.com/crazymeeks/dragonpay/issues",
+                "source": "https://github.com/crazymeeks/dragonpay/tree/v3.2.9"
+            },
+            "time": "2021-07-17T02:44:51+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1250,6 +1308,64 @@
                 "source": "https://github.com/hisorange/browser-detect/tree/5.0.3"
             },
             "time": "2024-02-05T08:21:06+00:00"
+        },
+        {
+            "name": "ixudra/curl",
+            "version": "6.22.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixudra/curl.git",
+                "reference": "0b2cc89ed5eb91d617295e7e745f3acd3ab47180"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixudra/curl/zipball/0b2cc89ed5eb91d617295e7e745f3acd3ab47180",
+                "reference": "0b2cc89ed5eb91d617295e7e745f3acd3ab47180",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "illuminate/support": ">=4.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ixudra\\Curl\\CurlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Curl": "Ixudra\\Curl\\Facades\\Curl"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ixudra\\Curl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Oris",
+                    "email": "jan.oris@ixudra.be"
+                }
+            ],
+            "description": "Custom PHP Curl library for the Laravel framework - developed by Ixudra",
+            "homepage": "http://ixudra.be",
+            "keywords": [
+                "Ixudra",
+                "curl",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ixudra/curl/issues",
+                "source": "https://github.com/ixudra/curl/tree/6.22.1"
+            },
+            "time": "2022-07-31T09:58:52+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
@@ -9014,5 +9130,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

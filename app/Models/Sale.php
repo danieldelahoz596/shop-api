@@ -15,6 +15,7 @@ class Sale extends Model
         'seller_id',
         'buyer_id',
         'address_id',
+        'transaction_id',
         'item_price',
         'item_quantity',
         'voucher_code',
