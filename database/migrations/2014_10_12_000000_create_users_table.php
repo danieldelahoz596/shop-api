@@ -13,11 +13,33 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->integer('role_id')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('name')->nullable();
+            $table->enum('gender', array('male', 'female', 'prefer not to say'));
+            $table->date('birthday')->nullable();
+            $table->integer('phone_area_code')->nullable();
+            $table->bigInteger('phone_number')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('address')->nullable();
+            $table->boolean('is_deleted')->default(0)->nullable();
+            $table->text('email_verify_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->text('forgot_password_token')->nullable();
+            $table->integer('otp_code')->nullable();
+            $table->jsonb('style_id')->nullable();
+            $table->jsonb('category_id')->nullable();
+            $table->jsonb('item_id')->nullable(); // these are for the onboarding, based on the UI, there are 3 preferences to be selected
+            $table->timestamp('otp_sent_time')->nullable();
+            $table->text('username')->nullable();
+            $table->boolean('ftl')->default(1)->nullable();
+            $table->text('profile_picture')->nullable();
+            $table->timestamp('lastlogin')->nullable();
             $table->string('password');
+            $table->integer('is_online')->default(1)->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

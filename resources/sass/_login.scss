@@ -1,0 +1,74 @@
+#loginPage{
+  background-position:center; 
+  background-repeat:no-repeat;
+  background-size:cover;
+  width: 100vw; 
+  height: 100vh;
+}
+
+
+.numberContainer{
+  #number{
+    -moz-appearance: textfield;
+  } 
+  #number::-webkit-outer-spin-button,
+  #number::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.otp-input {
+  width: 1.5em;
+  height: 100%;
+  margin: 0 5px;
+  text-align: center;
+  border: 1px solid #fff;
+  font-size: 2.65em;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#resendButton, #emailSendButton{
+  all: unset;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: right;
+}
+.socialLink{
+  display: flex; justify-content: space-between; column-gap: 20px;
+  .socialLinkButton{
+   display: block;
+   position: relative;
+   margin-top: 10px;
+   width: 100%;
+   a{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    padding: 12px 40px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    max-width: 200px;
+    margin-bottom: 1rem;
+    max-width: 360px;
+    border-radius: 10px !important;
+    border: 2px solid white;
+    width: 100%; 
+   }
+  }
+}
+
+.toggleButton{
+  background:transparent ;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}

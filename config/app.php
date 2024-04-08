@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://buudl.test'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -184,5 +184,17 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
+    /*
+|--------------------------------------------------------------------------
+| Default Date Format
+|--------------------------------------------------------------------------
+|
+| This is the default date format that will be used by the framework
+| when converting dates to strings. It's recommended that you keep
+| the format set to 'Y-m-d' unless you have specific needs.
+|
+*/
+
+    'date_format' => 'd-m-Y',
 
 ];

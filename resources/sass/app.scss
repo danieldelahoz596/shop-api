@@ -1,0 +1,47 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Global Styles
+@import 'global';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Login
+@import 'login';
+@import 'loginPhone';
+
+//landing
+@import 'popularItems';
+@import 'steals';
+@import 'brands';
+@import 'spotlight';
+@import 'featured';
+@import 'emailSubscribe';
+@import 'shopPrice';
+
+//profile
+@import 'profile';
+@import 'manageProducts';
+@import 'productInfo';
+
+//footer
+@import 'footer';
+
+//carousel
+@import 'carousel';
+
+//register
+@import 'register';
+
+//shop
+@import 'shop';
+
+//cart
+@import 'cart';
+
+// onboarding
+@import 'onboarding';

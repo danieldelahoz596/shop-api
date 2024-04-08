@@ -18,9 +18,31 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
+        'firstname',
+        'lastname',
         'name',
+        'gender',
+        'birthday',
+        'phone_area_code',
+        'phone_number',
         'email',
+        'address',
+        'is_deleted',
+        'email_verified_at',
+        'style_id',
+        'category_id',
+        'item_id',
+        'otp_code',
+        'otp_sent_time',
+        'username',
+        'ftl',
+        'profile_picture',
+        'lastlogin',
         'password',
+        'is_online',
+        'email_verify_token',
+        'forgot_password_token',
     ];
 
     /**
@@ -31,6 +53,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verify_token',
+        'forgot_password_token',
     ];
 
     /**
@@ -39,7 +63,75 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->hasOne(UserRole::class, 'role_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function userAddress()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function styles()
+    {
+        return $this->hasMany(Style::class, 'style_id');
+    }
+    public function category()
+    {
+        return $this->hasMany(Category::class, 'category_id');
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(MakeOffer::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+    public function likedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'likes', 'user_id', 'product_id')->withTimestamps();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'user_one')
+                    ->orWhere('user_two', $this->id);
+    }
+
+    public function isPartOfConversation(Conversation $conversation)
+    {
+        return $this->id === $conversation->user_one || $this->id === $conversation->user_two;
+    }
+    public function shopPerformance()
+    {
+        return $this->hasMany(ShopPerformance::class);
+    }
 }
