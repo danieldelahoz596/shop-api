@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             LikesTableSeeder::class,
             ConversationsTableSeeder::class,
             MessagesTableSeeder::class,
+            ShopPerformanceSeeder::class,
         ]);
     }
 }

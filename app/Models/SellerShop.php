@@ -17,6 +17,8 @@ class SellerShop extends Model
         'view_count',
         'user_id',
         'rating',
+        'like',
+        'share',
         'status',
     ];
 
@@ -32,4 +34,5 @@ class SellerShop extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+    
 }

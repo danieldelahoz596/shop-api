@@ -31,15 +31,15 @@
 <body>
 
   <div id="app">
-    {{-- <livewire:components.nav> --}}
+    <livewire:components.nav>
       <main>
 
-        <livewire:components.download>
-        {{-- {{ $slot }} --}}
+        {{-- <livewire:components.download> --}}
+        {{ $slot }}
       </main>
   </div>
   @livewireScripts
 </body>
-{{-- <livewire:components.footer> --}}
+<livewire:components.footer>
 
 </html>

@@ -26,7 +26,9 @@ use App\Http\Controllers\ProductListingPageController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SellerRegistrationController;
+use App\Http\Controllers\ShopPerformanceController;
 use App\Http\Controllers\UserSettingsController;
+use App\Models\ShopPerformance;
 
 /*
 |--------------------------------------------------------------------------
@@ -162,6 +164,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('seller/review-application', [SellerRegistrationController::class, 'reviewApplication']);
             Route::post('seller/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
 
+            //sellerAccount management
+            //Shop Performance
+            Route::get('account/shopPerformance', [ShopPerformanceController::class,'show']);
 
             //Conversations
             Route::get('/conversations', [ConversationController::class, 'index']);

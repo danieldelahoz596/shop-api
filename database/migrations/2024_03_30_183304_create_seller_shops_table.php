@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('shop_tag');
             $table->text('shop_image');
             $table->integer('rating');
+            $table->integer('like')->default(0);
+            $table->integer('share')->default(0);
             $table->integer('view_count');
             $table->integer('user_id');
             $table->boolean('status');
