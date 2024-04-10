@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CartPageQueryController extends Controller
 {
+    use SoftDeletes;
     public function loadCart(Request $request)
     {
+
 
         if (Auth::check()) {
             $cartItems = Auth::user()->cartItems()->with('product')->get();
@@ -19,7 +23,7 @@ class CartPageQueryController extends Controller
                     return [
                         'item_id' => $item->id,
                         'product_name' => $item->product->name,
-                        'quantity' => $item->quantity, //idk if the size is included
+                        'quantity' => $item->quantity, //idk if the quantity is included
                         'price' => $item->product->price,
                     ];
                 });

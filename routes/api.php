@@ -131,6 +131,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
 
             //cart
+            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
             Route::post('cart', [CartPageQueryController::class, 'loadCart']);
             Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
             Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
@@ -176,7 +177,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('user/orders', [OrderController::class, 'getAllOrdersBySeller']);
             //sellerAccount management
             //Shop Performance
-            Route::get('account/shopPerformance', [ShopPerformanceController::class,'show']);
+            Route::get('account/shopPerformance', [ShopPerformanceController::class, 'show']);
 
             //Conversations
             Route::get('/conversations', [ConversationController::class, 'index']);

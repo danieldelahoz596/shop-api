@@ -21,7 +21,7 @@ class SellerRegistrationController extends Controller
             'id' => $user->id,
             'shop_name' => $user->name,
             'email' => $user->email,
-            'is_verified' => $user->is_verified,
+            'is_seller' => $user->is_seller,
 
         ];
 
@@ -33,7 +33,7 @@ class SellerRegistrationController extends Controller
         $seller = Auth::user();
 
 
-        if ($seller->role_id != 4 || !$seller->is_verified) {
+        if ($seller->role_id != 4 || !$seller->is_seller) {
             return Response::json(['error' => 'Unauthorized - User is not a verified seller'], 403);
         }
 
@@ -153,7 +153,7 @@ class SellerRegistrationController extends Controller
     public function completeVerification(Request $request)
     {
         $user = Auth::user();
-        $user->is_verified = true; // is_verified should be in the database
+        $user->is_seller = true; // is_verified should be in the database
         $user->save();
 
         return response()->json(['message' => 'Verification complete']);
