@@ -9,20 +9,20 @@ class Conversation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_one', 'user_two'];
+    protected $fillable = [
+        'sender_id',
+        'receiver_id',
+        'last_time_message'
+    ];
 
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
-    public function userOne()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_one');
+        return $this->belongsTo(User::class);
     }
 
-    public function userTwo()
-    {
-        return $this->belongsTo(User::class, 'user_two');
-    }
 }
