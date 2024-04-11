@@ -26,7 +26,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            // Remove the is_seller column if it exists
             $table->dropColumn('is_seller');
         });
     }

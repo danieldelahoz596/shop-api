@@ -12,7 +12,7 @@ use Livewire\Component;
 class SendMessage extends Component
 {
 
-    public $text ='';
+    public $text = '';
     public $selectedConversation;
     public $receiverInstance;
     public $createdMessage;
@@ -26,32 +26,36 @@ class SendMessage extends Component
 
     public function sendMessage()
     {
-        if($this->text == null){
-            return null;
+        if ($this->text === null || $this->text === '') {
+            // You could also consider giving the user feedback that their message cannot be empty.
+            return;
         }
 
-        
-
         $this->createdMessage = Message::create([
-            'conversation_id'=>$this->selectedConversation->id,
-            'sender_id'=> auth()->id(),
-            'receiver_id'=>$this->receiverInstance->id,
-            'text'=>$this->text,
+            'conversation_id' => $this->selectedConversation->id,
+            'sender_id' => auth()->id(),
+            'receiver_id' => $this->receiverInstance->id,
+            'text' => $this->text,
         ]);
 
-        $this->selectedConversation->last_time_message =$this->createdMessage->created_at;
+        $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
         $this->selectedConversation->save();
 
-        $this->dispatch('pushMessage',$this->createdMessage->id)->to(ChatBox::class);
-        $this->dispatch('refresh',$this->createdMessage->id)->to(ChatList::class);
+        $this->dispatch('pushMessage', $this->createdMessage->id); // Emit to ChatBox.
+        $this->dispatch('refresh', $this->createdMessage->id); // Emit to ChatList.
 
-        $this->reset('text');
+        // Use emitUp if the SendMessage component is nested within ChatBox.
+        $this->dispatch('dispatchMessageSent');
 
-        $this->dispatch('dispatchMessageSent')->self();
+        $this->text = ''; // Manually clear the text property.
+
+        // If you have a listener for `messageSent` event in your component, you can dispatch it here.
+        // This should ensure the message list is updated before the input is cleared.
+        $this->dispatch('messageSent');
     }
 
     public function dispatchMessageSent()
-    {   
+    {
         broadcast(new MessageSent(Auth()->user(), $this->createdMessage, $this->selectedConversation, $this->receiverInstance));
     }
 
