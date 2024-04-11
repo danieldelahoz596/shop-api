@@ -56,7 +56,7 @@ class CheckoutAndBuyNowController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Congratulation on your purchase!',
+            'message' => 'Congratulations on your purchase!',
             'data' => $sale
         ], 200);
     }

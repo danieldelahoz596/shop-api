@@ -20,12 +20,14 @@ use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserProfilePageController;
 use App\Http\Controllers\ProductListingPageController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SellerRegistrationController;
+use App\Http\Controllers\SellerShopController;
 use App\Http\Controllers\ShopPerformanceController;
 use App\Http\Controllers\UserSettingsController;
 use App\Models\ShopPerformance;
@@ -69,6 +71,13 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('verifyOtp/{otpCode}', [RegistrationController::class, 'verifyCode']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        // Seller Shop
+        Route::group(['prefix' => 'seller'], function() {
+            Route::get('/shop', [SellerShopController::class, 'getSellerShop']);
+            Route::post('/shopName', [SellerShopController::class, 'addSellerShop']);
+        });
+
+
         // Make Offer
         Route::group(['prefix' => 'makeOffer'], function () {
             Route::get('/{product_id}', [MakeOfferController::class, 'index']);
@@ -103,6 +112,13 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/{code}', [VoucherController::class, 'getVoucher']);
             Route::post('/', [VoucherController::class, 'addVoucher']);
             Route::put('/{voucher}', [VoucherController::class, 'editVoucher']);
+        });
+
+        // Discount
+        Route::group(['prefix' => 'discount'], function() {
+            Route::get('/{product_id}', [DiscountController::class, 'getDiscount']);
+            Route::post('/', [DiscountController::class, 'addDiscount']);
+            Route::patch('/{discount}', [DiscountController::class, 'editDiscount']);
         });
     });
 
