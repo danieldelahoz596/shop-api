@@ -9,23 +9,72 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
+use App\Models\Order;
+use App\Models\Product;
 
 class SellerRegistrationController extends Controller
 {
-    // Inside SellerRegistrationController.php
+
     public function getSellerProfile(Request $request)
     {
         $user = Auth::user();
 
-        $profileData = [
-            'id' => $user->id,
-            'shop_name' => $user->name,
-            'email' => $user->email,
-            'is_seller' => $user->is_seller,
 
-        ];
+        if ($user->role_id == 4 && $user->is_seller == 1) {
+            $profileData = [
+                'id' => $user->id,
+                'shop_name' => $user->name,
+                'email' => $user->email,
+                'is_seller' => $user->is_seller,
+            ];
 
-        return response()->json($profileData, 200);
+            return response()->json($profileData, 200);
+        }
+
+
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
+
+    public function getSellerOrders(Request $request)
+    {
+        $user = Auth::user();
+
+        // Check if the authenticated user is a seller with a role_id of 4 and is_seller true
+        if ($user->role_id !== 4 || !$user->is_seller) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        // Get the seller's products IDs
+        $productIds = Product::where('user_id', $user->id)->pluck('id');
+
+        // Now get all orders that include these product IDs in their order items
+        $orders = Order::whereHas('orderItems', function ($query) use ($productIds) {
+            $query->whereIn('product_id', $productIds);
+        })
+            ->with(['orderItems' => function ($query) use ($productIds) {
+                $query->whereIn('product_id', $productIds)
+                    ->with('product');
+            }])
+            ->get();
+
+        // Transform the orders for the API response
+        $ordersData = $orders->map(function ($order) {
+            return [
+                'order_id' => $order->id,
+                'total' => $order->total,
+                'created_at' => $order->created_at->toDateTimeString(),
+                'items' => $order->orderItems->map(function ($item) {
+                    return [
+                        'product_id' => $item->product_id,
+                        'product_name' => $item->product->name,
+                        'quantity' => $item->quantity,
+                        'price' => $item->price,
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json($ordersData, 200);
     }
 
     public function getSellerProducts(Request $request)
@@ -146,8 +195,6 @@ class SellerRegistrationController extends Controller
         $user->save();
         return response()->json(['message' => 'Your application is under review.']);
     }
-
-
 
 
     public function completeVerification(Request $request)

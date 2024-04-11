@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('share')->default(0);
             $table->integer('view_count');
             $table->integer('user_id');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

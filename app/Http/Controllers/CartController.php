@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Notification;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Traits\NotificationTrait;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -11,7 +13,7 @@ class CartController extends Controller
     public function cartItems()
     {
         $data = CartItem::with('product')
-            ->where('user_id', 2)
+            ->where('user_id', auth()->user()->id)
             ->get()
             ->groupBy('product.user_id');
 
@@ -39,12 +41,12 @@ class CartController extends Controller
 
     public function cartCounter(Request $request)
     {
-        $data = CartItem::where('user_id', auth()->user()->id)->get();
+        $data = CartItem::where('user_id', auth()->user()->id)->count();
 
         return response()->json([
             'status' => true,
             'message' => 'Item added to cart.',
-            'data' => count($data)
+            'data' => $data
         ], 201);
     }
 
