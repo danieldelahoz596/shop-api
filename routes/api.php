@@ -186,7 +186,6 @@ Route::group(['prefix' => 'v1'], function () {
             // Messages
             Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
-            Route::get('/conversations/{conversation}/messages/{message}', [MessageController::class, 'show']);
 
             //user settings
             Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);

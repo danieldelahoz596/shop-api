@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    //Sending a message
     public function store(Request $request, $conversationId)
     {
         $conversation = Conversation::findOrFail($conversationId);
@@ -19,12 +21,13 @@ class MessageController extends Controller
 
         $message = $conversation->messages()->create([
             'text' => $request->text,
-            'user_id' => Auth::id(),
+            'sender_id' => Auth::id(),
+            'receiver_id'=> $conversation->receiver_id,
             'read' => false,
         ]);
 
         //TODO: For realtime
-
+        event(new MessageSent(auth()->user(), $message, $conversation, auth()->user()));
 
 
         return response()->json([
@@ -52,21 +55,6 @@ class MessageController extends Controller
         ], 200);
     }
 
-    // Show a specific message
-    public function show(Request $request,$conversationId, $messageId)
-    {
-        $message = Message::where('conversation_id', $conversationId)
-                            ->findOrFail($messageId);
-
-        if (!$request->user()->isPartOfConversation($message->conversation)) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        return response()->json([
-            'status'=>true,
-            'message'=>$message
-        ], 201);
-    }
 
 
 }

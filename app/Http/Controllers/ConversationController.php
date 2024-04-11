@@ -11,9 +11,8 @@ class ConversationController extends Controller
     public function index(Request $request)
     {
         $userId = $request->user()->id;
-        $conversations = Conversation::where('user_one', $userId)
-                                     ->orWhere('user_two', $userId)
-                                     ->with(['userOne', 'userTwo'])
+        $conversations = Conversation::where('sender_id', $userId)
+                                     ->orWhere('receiver_id', $userId)
                                      ->get();
 
         return response()->json([
@@ -25,30 +24,28 @@ class ConversationController extends Controller
     //Store a newly created conversation in storage.
     public function store(Request $request)
     {
-
-
         $userId = $request->user()->id;
 
         // Prevent a user from creating a conversation with themselves
-        if ($request->user_two == $userId) {
+        if ($request->receiver_id == $userId) {
             return response()->json(['status'=>false,'message' => 'Cannot create a conversation with yourself'], 422);
         }
 
         // Check if the conversation already exists
         $conversation = Conversation::where(function ($query) use ($userId, $request) {
-            $query->where('user_one', $userId)
-                  ->where('user_two', $request->user_two);
+            $query->where('sender_id', $userId)
+                  ->where('receiver_id', $request->receiver_id);
         })->orWhere(function ($query) use ($userId, $request) {
-            $query->where('user_one', $request->user_two)
-                  ->where('user_two', $userId);
+            $query->where('sender_id', $request->receiver_id)
+                  ->where('receiver_id', $userId);
         })->first();
 
         if ($conversation) {
             return response()->json(['message' => 'Conversation already exists', 'conversation' => $conversation], 409);
         }
         $conversation = new Conversation([
-            'user_one' => $userId,
-            'user_two' => $request->user_two,
+            'sender_id' => $userId,
+            'receiver_id' => $request->receiver_id,
         ]);
 
         $conversation->save();
@@ -61,7 +58,7 @@ class ConversationController extends Controller
 
     public function show(Request $request, $id)
     {
-        $conversation = Conversation::with(['messages', 'userOne', 'userTwo'])->findOrFail($id);
+        $conversation = Conversation::with(['messages'])->findOrFail($id);
 
         // Ensure the authenticated user is part of the conversation
         if (!$request->user()->isPartOfConversation($conversation)) {

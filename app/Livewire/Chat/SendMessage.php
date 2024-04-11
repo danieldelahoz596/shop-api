@@ -12,11 +12,19 @@ use Livewire\Component;
 class SendMessage extends Component
 {
 
-    public $text ='';
+    public $text = '';
     public $selectedConversation;
     public $receiverInstance;
     public $createdMessage;
-    protected $listeners = ['updateSendMessage', 'dispatchMessageSent'];
+    protected $listeners = ['updateSendMessage', 'dispatchMessageSent', 'resetComponent'];
+
+
+    public function resetComponent()
+    {
+        $this->selectedConversation = null;
+        $this->receiverInstance = null;
+
+    } 
 
     public function updateSendMessage(Conversation $conversation, User $receiver)
     {
@@ -29,8 +37,6 @@ class SendMessage extends Component
         if($this->text == null){
             return null;
         }
-
-        
 
         $this->createdMessage = Message::create([
             'conversation_id'=>$this->selectedConversation->id,

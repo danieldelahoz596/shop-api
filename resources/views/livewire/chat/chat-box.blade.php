@@ -34,7 +34,7 @@
     <div class="chatbox_body">
         @foreach ($messages as $message )
 
-        <div wire:key='{{$message->id}}' class="msg_body {{auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver'}}" style="width:80%; max-width:max-content;">
+        <div class="msg_body {{auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver'}}" style="width:80%; max-width:max-content;">
 
                 {{$message->text}}
 
@@ -43,7 +43,16 @@
                     {{$message->created_at->format('m: i a')}}
                 </div>
                 <div class="read">
-                    <i class="fa-solid fa-check"></i>
+                    
+                    @php
+                        if($message->user->id === auth()->id()){
+                            if($message->read == 0){
+                                echo '<i class="fa-solid fa-check status_tick"></i>';
+                            } else {
+                                echo '<i class="fa-solid fa-check-double status_tick" style="color: #0d6efd"></i>';
+                            }
+                        }
+                    @endphp
                 </div>
             </div>
         </div>
@@ -98,6 +107,12 @@
                     Livewire.dispatch('updateHeight', {height: myheight[0]['offsetHeight']});
 
             });
+        })
+    </script>
+
+    <script>
+        $(document).on('click', ".return", () => {
+            window.Livewire.dispatch('resetComponent')
         })
     </script>
 
