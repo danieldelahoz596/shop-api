@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->text('shop_name');
             $table->text('slug');
-            $table->text('shop_tag');
-            $table->text('shop_image');
-            $table->integer('rating');
-            $table->integer('view_count');
+            $table->text('shop_tag')->nullable();
+            $table->text('shop_image')->nullable();
+            $table->integer('rating')->default(0)->nullable();
+            $table->integer('view_count')->default(0)->nullable();
             $table->integer('user_id');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
