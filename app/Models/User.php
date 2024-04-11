@@ -125,9 +125,13 @@ class User extends Authenticatable
         return $this->hasMany(Conversation::class, 'user_one')
                     ->orWhere('user_two', $this->id);
     }
-    
+
     public function isPartOfConversation(Conversation $conversation)
     {
         return $this->id === $conversation->user_one || $this->id === $conversation->user_two;
+    }
+    public function shopPerformance()
+    {
+        return $this->hasMany(ShopPerformance::class);
     }
 }

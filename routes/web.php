@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Chat\CreateChat;
+use App\Livewire\Chat\Main;
 use App\Livewire\Components\Download;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +41,10 @@ Route::get('/index', LandingPage::class)->name('index');
 Route::get('/landingpage', LandingPage::class)->name('landingpage');
 
 Route::get('/download', Download::class)->name('download');
+
+//For testing chats
+Route::get('/users', CreateChat::class)->name('users');
+Route::get('/chat', Main::class)->name('chat');
 
 // Auth Pages
 Route::get('/login', Login::class)->name('login')->middleware('guest');

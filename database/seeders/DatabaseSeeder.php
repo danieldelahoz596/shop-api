@@ -31,8 +31,9 @@ class DatabaseSeeder extends Seeder
             WishlistProductsTableSeeder::class,
             ReviewsSeeder::class,
             LikesTableSeeder::class,
-            ConversationsTableSeeder::class,
-            MessagesTableSeeder::class,
+            // ConversationsTableSeeder::class,
+            // MessagesTableSeeder::class,
+            // ShopPerformanceSeeder::class,
         ]);
     }
 }
