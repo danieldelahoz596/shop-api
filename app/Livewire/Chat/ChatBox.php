@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use App\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
@@ -16,7 +17,22 @@ class ChatBox extends Component
     public $messages;
     public $height;
     public $paginateVar = 10;
-    protected $listeners=['loadConversation', 'pushMessage', 'loadmore', 'updateHeight'];
+    // protected $listeners=['loadConversation', 'pushMessage', 'loadmore', 'updateHeight'];
+
+
+    public function getListeners()
+    {   
+        $auth_id = auth()->user()->id;
+        return [
+            "echo-private:chat.{$auth_id}, MessageSent"=>'broadcastedMessageRecieved',
+            'loadConversation', 'pushMessage', 'loadmore', 'updateHeight',
+        ];
+    }
+
+    public function broadcastedMessageRecieved($event)
+    {
+        dd($event);
+    }
 
     public function pushMessage($messageId)
     {

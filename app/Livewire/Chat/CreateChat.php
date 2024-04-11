@@ -32,8 +32,6 @@ class CreateChat extends Component
             $createdConversation->last_time_message = $createdMessage->created_at;
             $createdConversation->save();
 
-            dd($createdMessage);
-            dd('saved');
 
         } else if(count($checkedConversation) >= 1){
             dd('conversation exists');
