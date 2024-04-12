@@ -14,12 +14,12 @@ class ConversationsTableSeeder extends Seeder
     public function run(): void
     {
         Conversation::create([
-            'user_one' => 1,
-            'user_two' => 2
+            'sender_id' => 1,
+            'receiver_id' => 2
         ]);
         Conversation::create([
-            'user_one' => 1,
-            'user_two' => 3
+            'sender_id' => 1,
+            'receiver_id' => 3
         ]);
     }
 }

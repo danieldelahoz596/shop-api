@@ -122,13 +122,13 @@ class User extends Authenticatable
 
     public function conversations()
     {
-        return $this->hasMany(Conversation::class, 'user_one')
-                    ->orWhere('user_two', $this->id);
+        return $this->hasMany(Conversation::class, 'sender_id')
+                    ->orWhere('receiver_id', $this->id);
     }
 
     public function isPartOfConversation(Conversation $conversation)
     {
-        return $this->id === $conversation->user_one || $this->id === $conversation->user_two;
+        return $this->id === $conversation->sender_id || $this->id === $conversation->receiver_id;
     }
     public function shopPerformance()
     {

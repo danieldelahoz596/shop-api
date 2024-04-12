@@ -74,7 +74,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         // Seller Shop
-        Route::group(['prefix' => 'seller'], function() {
+        Route::group(['prefix' => 'seller'], function () {
             Route::get('/shop', [SellerShopController::class, 'getSellerShop']);
             Route::post('/shopName', [SellerShopController::class, 'addSellerShop']);
         });
@@ -116,7 +116,7 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         // Discount
-        Route::group(['prefix' => 'discount'], function() {
+        Route::group(['prefix' => 'discount'], function () {
             Route::get('/{product_id}', [DiscountController::class, 'getDiscount']);
             Route::post('/', [DiscountController::class, 'addDiscount']);
             Route::patch('/{discount}', [DiscountController::class, 'editDiscount']);
@@ -193,8 +193,10 @@ Route::group(['prefix' => 'v1'], function () {
             // Image upload routes
             Route::post('products/{productId}/images', [ImageController::class, 'uploadImage']);
             Route::delete('products/{productId}/images', [ImageController::class, 'deleteImage']);
-            //seller  idk if i will group this into a middleware
+            //seller
             Route::get('seller/profile', [SellerRegistrationController::class, 'getSellerProfile']);
+            Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
+            Route::get('/seller/orders', [SellerRegistrationController::class, 'getSellerOrders']);
             Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
             Route::post('seller/register', [SellerRegistrationController::class, 'register']);
             Route::post('seller/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
@@ -216,7 +218,6 @@ Route::group(['prefix' => 'v1'], function () {
             // Messages
             Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
-            Route::get('/conversations/{conversation}/messages/{message}', [MessageController::class, 'show']);
 
             //user settings
             Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
