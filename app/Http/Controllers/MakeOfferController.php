@@ -12,7 +12,10 @@ class MakeOfferController extends Controller
      */
     public function index($product_id)
     {
-        $data = MakeOffer::with('product')->where('product_id', $product_id)->get();
+        $data = MakeOffer::with('product')
+            ->where('product_id', $product_id)
+            ->where('user_id', auth()->user()->id)
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -26,7 +29,7 @@ class MakeOfferController extends Controller
     public function store(Request $request)
     {
         $offer = MakeOffer::create([
-            'user_id' => $request->user_id,
+            'user_id' => auth()->user()->id,
             'product_id' => $request->product_id,
             'amount' => $request->amount
         ]);

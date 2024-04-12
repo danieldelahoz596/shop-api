@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('user_verifications', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->text('photo')->nullable();
+            $table->string('identification_type');
+            $table->string('photo_front');
+            $table->string('photo_back');
+            $table->string('selfie_photo');
             $table->text('video')->nullable();
             $table->text('status')->nullable();
             $table->boolean('is_deleted')->default(0)->nullable();
