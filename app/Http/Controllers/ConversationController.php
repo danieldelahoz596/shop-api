@@ -53,7 +53,7 @@ class ConversationController extends Controller
         return response()->json([
             'status'=>true,
             'data'=>$conversation
-        ], 201);
+        ], 200);
     }
 
     public function show(Request $request, $id)

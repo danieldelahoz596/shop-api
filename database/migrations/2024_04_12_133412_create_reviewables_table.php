@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_wishlist', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('wishlist_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::create('reviewables', function (Blueprint $table) {
+            $table->bigInteger('review_id');
+            $table->bigInteger('reviewable_id');
+            $table->string('reviewable_type');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_wishlist');
+        Schema::dropIfExists('reviewables');
     }
 };

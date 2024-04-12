@@ -8,31 +8,47 @@ use App\Models\ReviewHistory;
 use App\Models\SellerShop;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Ui\Presets\React;
 
 class ReviewController extends Controller
 {
+    
+    public function getHistoryReview($review_id)
+    {
+        $review = ReviewHistory::where('review_id', $review_id)->orderBy('created_at', 'desc')->get();
+        return response()->json([
+            'status'=>true,
+            'data' => $review
+        ],200);
+    }
+    
     public function addReview(Request $request, $type, $id)
     {
         $reviewable = $this->findReviewable($type, $id);
-        $review = new Review([
+        $review = Review::create([
             'comment' => $request->comment,
             'rating' => $request->rating,
+            'image'=>$request->image,
             'user_id' => auth()->id(),
         ]);
-
-        $reviewable->reviews()->save($review);
-
-        return response()->json(['status' => true, 'message' => "Comment has been added"], 200);
+        
+        $reviewable->reviews()->attach($review);
+        return response()->json([
+            'status' => true, 
+            'data' => $review,
+            'message' => "Comment has been added"
+        ], 200);
     }
 
     public function getReviews($type, $id)
     {
         $reviewable = $this->findReviewable($type, $id);
-        $reviews = $reviewable->reviews()->get();
-        return response()->json(['status' => true, 'data' => $reviews], 200);
-    }
 
+        $reviews = $reviewable->reviews()->get();
+        return response()->json([
+            'status' => true, 
+            'data' => $reviews
+        ], 200);
+    }
 
     public function updateReview(Request $request, $review_id)
     {
@@ -44,13 +60,14 @@ class ReviewController extends Controller
                 'user_id'=>auth()->id(),
                 'review_id'=>$review->user_id,
                 'message'=> "Unauthorized to update this comment"
-            ], 403);
+            ], 401);
         }
 
         ReviewHistory::create([
             'review_id'=> $review->id,
             'user_id'=>$review->user_id,
             'comment'=>$request->comment,
+            'image'=>$request->image,
             'rating'=>$request->rating,
         ]);
 
@@ -62,20 +79,12 @@ class ReviewController extends Controller
         ],200);
     }
 
-    public function getHistoryReview($review_id)
-    {
-        $review = ReviewHistory::where('review_id', $review_id)->orderBy('created_at', 'desc')->get();
-
-        return response()->json([
-            'status'=>true,
-            'data' => $review
-        ],200);
-    }
 
 
     //Helper
     protected function findReviewable($type, $id)
     {
+        
         if ($type === 'product') {
             return Product::findOrFail($id);
         } else if ($type === 'seller') {

@@ -156,29 +156,35 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('user/profile', [UserProfilePageController::class, 'updateProfile']);
 
             //wishlist
-            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
-            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
-            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
+            Route::group(['prefix'=>'wishlist'], function(){
+                Route::get('/', [WishlistController::class, 'wishlist']);
+                Route::post('/{product_id}', [WishlistController::class, 'addProductToWishlist']);
+                Route::delete('/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
+            });
 
             //reviews
-            //type = product or seller
-            Route::post('reviews/{type}/{user_id}', [ReviewController::class, 'addReview']);
-            Route::get('reviews/{type}/{user_id}', [ReviewController::class, 'getReviews']);
-            Route::put('reviews/{review_id}', [ReviewController::class, 'updateReview']);
-            Route::get('reviewsHistory/{review_id}', [ReviewController::class, 'getHistoryReview']);
+            Route::group(['prefix' => 'reviews'], function() {
+                Route::get('/history/{review_id}', [ReviewController::class, 'getHistoryReview']);
+                Route::post('/{type}/{type_id}', [ReviewController::class, 'addReview']);
+                Route::get('/{type}/{type_id}', [ReviewController::class, 'getReviews']);
+                Route::put('/{review_id}', [ReviewController::class, 'updateReview']);
+            });
             //product listing
-            Route::get('products', [ProductListingPageController::class, 'listProducts']);
-            Route::post('products', [ProductListingPageController::class, 'addProduct']);
-            Route::put('products/{productId}', [ProductListingPageController::class, 'editProduct']);
-            Route::delete('products/{productId}', [ProductListingPageController::class, 'deleteProduct']);
-            Route::patch('products/{productId}/manage', [ProductListingPageController::class, 'manageListing']);
-            //measurement
-            Route::post('products/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
-            //shipping
-            Route::post('products/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
-            // Image upload routes
-            Route::post('products/{productId}/images', [ImageController::class, 'uploadImage']);
-            Route::delete('products/{productId}/images', [ImageController::class, 'deleteImage']);
+            Route::group(['prefix'=>'products'], function (){
+                //Manage Listing
+                Route::get('/', [ProductListingPageController::class, 'listProducts']);
+                Route::post('/', [ProductListingPageController::class, 'addProduct']);
+                Route::put('/{productId}', [ProductListingPageController::class, 'editProduct']);
+                Route::delete('/{productId}', [ProductListingPageController::class, 'deleteProduct']);
+                Route::patch('/{productId}/manage', [ProductListingPageController::class, 'manageListing']);
+                //measurement
+                Route::post('/{productId}/measurements', [ProductListingPageController::class, 'addMeasurements']);
+                //shipping
+                Route::post('/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
+                // Image upload routes
+                Route::post('/{productId}/images', [ImageController::class, 'uploadImage']);
+                Route::delete('/{productId}/images', [ImageController::class, 'deleteImage']);
+            });
             //seller
             Route::get('seller/profile', [SellerRegistrationController::class, 'getSellerProfile']);
             Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
@@ -194,16 +200,19 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('order/{orderId}', [OrderController::class, 'getOrderDetails']);
             Route::get('user/orders', [OrderController::class, 'getAllOrdersBySeller']);
             //sellerAccount management
+
             //Shop Performance
             Route::get('account/shopPerformance', [ShopPerformanceController::class, 'show']);
 
             //Conversations
-            Route::get('/conversations', [ConversationController::class, 'index']);
-            Route::post('/conversations', [ConversationController::class, 'store']);
-            Route::get('/conversations/{conversation}', [ConversationController::class, 'show']);
-            // Messages
-            Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
-            Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
+            Route::group(['prefix' => 'conversations'], function () {
+                Route::get('/', [ConversationController::class, 'index']);
+                Route::post('/', [ConversationController::class, 'store']);
+                Route::get('/{conversation_id}', [ConversationController::class, 'show']);
+                // Messages
+                Route::get('/{conversation_id}/messages', [MessageController::class, 'index']);
+                Route::post('/{conversation_id}/messages', [MessageController::class, 'store']);
+            });
 
             //user settings
             Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);

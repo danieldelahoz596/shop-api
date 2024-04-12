@@ -101,12 +101,12 @@ class Product extends Model
 
     public function wishlists()
     {
-        return $this->belongsToMany(Wishlist::class, 'product_wishlist');
+        return $this->belongsToMany(User::class, 'wishlists')->withTimestamps();;
     }
 
     public function reviews()
     {
-        return $this->morphMany(Review::class, 'reviewable');
+        return $this->morphToMany(Review::class, 'reviewable');
     }
 
     public function likers()
