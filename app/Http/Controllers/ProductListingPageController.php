@@ -18,10 +18,12 @@ class ProductListingPageController extends Controller
         $validated = $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description' => 'required|string',
+            'product_code' => 'required|string',
+            'quantity' => 'required|numeric',
             'price' => 'required|numeric',
             'category_id' => 'required|integer',
             'subcategory_id' => 'required|integer',
-            'sub_subcategory_id' => 'required|integer',
+            'status' => 'required|boolean',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -31,8 +33,10 @@ class ProductListingPageController extends Controller
 
         $product = Product::create([
             'category_id' => $validated['category_id'],
+            'product_code' => $validated['product_code'],
             'subcategory_id' => $validated['subcategory_id'],
-            'sub_subcategory_id' => $validated['sub_subcategory_id'],
+            'quantity' => $validated['quantity'],
+            'status' => $validated['status'],
             'user_id' => Auth::id(),
             'product_name' => $validated['product_name'],
             'product_description' => $validated['product_description'],
@@ -41,6 +45,7 @@ class ProductListingPageController extends Controller
             'keyword' => $tags,
 
         ]);
+
         if ($request->filled(['chest', 'shoulders', 'sleeve_length', 'length', 'hem'])) {
             Measurement::create([
                 'product_id' => $product->id,
@@ -68,9 +73,10 @@ class ProductListingPageController extends Controller
 
         return response()->json([
             'message' => 'Product added successfully',
-            'product' => $product->load(['images', 'measurements']), // Assuming you have these relationships
+            'product' => $product->load(['images', 'measurements']),
         ], 201);
     }
+
     public function editProduct(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
@@ -79,20 +85,24 @@ class ProductListingPageController extends Controller
         $validated = $request->validate([
             'product_name' => 'required|string|max:255',
             'product_description' => 'required|string',
+            'product_code' => 'required|string',
+            'quantity' => 'required|numeric',
             'price' => 'required|numeric',
             'category_id' => 'required|integer',
             'subcategory_id' => 'required|integer',
-            'sub_subcategory_id' => 'required|integer',
+            'status' => 'required|boolean',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
 
         $product->update($validated);
 
 
 
-        return response()->json(['message' => 'Product updated successfully!', 'product' => $product]);
+        return response()->json([
+            'message' => 'Product updated successfully!',
+            'product' => $product
+        ]);
     }
 
     public function deleteProduct($productId)
@@ -113,6 +123,7 @@ class ProductListingPageController extends Controller
 
         return response()->json($products);
     }
+
     public function addMeasurements(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
@@ -165,19 +176,19 @@ class ProductListingPageController extends Controller
         $product = Product::with('likers')->findOrFail($productId);
         $user = auth()->user();
 
-        if($product->user_id !== $user->id){
+        if ($product->user_id !== $user->id) {
             return response()->json([
-                'status'=>false,
-                'message'=>"Unauthorized"
-            ],403);
+                'status' => false,
+                'message' => "Unauthorized"
+            ], 403);
         }
 
-        if($request->has('send_offers') && $request->get('send_offers')){
+        if ($request->has('send_offers') && $request->get('send_offers')) {
             $this->sendOffers($product);
             $data = "Offers sent!";
         }
 
-        if($request->has('set_discount') && $request->get('set_discount')){
+        if ($request->has('set_discount') && $request->get('set_discount')) {
             $discountData = $request->get('set_discount');
             $discount = $this->manageDiscount($product, $discountData);
             $data = $discount;
@@ -188,9 +199,9 @@ class ProductListingPageController extends Controller
         }
 
         return response()->json([
-            'status'=>true,
-            'message'=>"Listing managed successfully",
-            'data'=> $data
+            'status' => true,
+            'message' => "Listing managed successfully",
+            'data' => $data
         ], 200);
     }
 
@@ -202,7 +213,7 @@ class ProductListingPageController extends Controller
         $likes = $product->likers;
 
         //Todo: Run php artisan
-        foreach($likes as $liker){
+        foreach ($likes as $liker) {
             Mail::to($liker->email)->send(new SendOfferMail($product));
         }
     }
@@ -211,7 +222,7 @@ class ProductListingPageController extends Controller
     {
         $discount = $product->discounts()->updateOrCreate(
             [
-                'name'=>$discountData['name']
+                'name' => $discountData['name']
             ],
             [
                 'symbol' => $discountData['symbol'],
@@ -220,9 +231,9 @@ class ProductListingPageController extends Controller
                 'end_date' => $discountData['end_date'] ?? null,
                 'quantity_applicable' => $discountData['quantity_applicable'] ?? 1,
                 'status' => false,
-            ]);
+            ]
+        );
 
-            return $discount;
+        return $discount;
     }
-
 }

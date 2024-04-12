@@ -123,7 +123,7 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         // Categories
-        Route::group(['prefix' => 'categories'], function() {
+        Route::group(['prefix' => 'categories'], function () {
             Route::get('/filters', [CategoryController::class, 'productFilter']);
             Route::get('/', [CategoryController::class, 'categories']);
             Route::get('subCategories/{category_id}', [CategoryController::class, 'subCategories']);
@@ -161,13 +161,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
 
             //cart
-            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
-            Route::post('cart', [CartPageQueryController::class, 'loadCart']);
-            Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
-            Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
-            //userprofile
-            Route::get('user/profile', [UserProfilePageController::class, 'getProfile']);
-            Route::post('user/profile', [UserProfilePageController::class, 'updateProfile']);
+            Route::prefix('cart')->group(function () {
+                Route::get('/', [CartPageQueryController::class, 'loadCart']);
+                Route::post('/', [CartPageQueryController::class, 'loadCart']);
+                Route::delete('/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
+                Route::post('/checkout', [CartPageQueryController::class, 'checkout']);
+            });
+            // user
+            Route::prefix('user')->group(function () {
+                Route::get('/profile', [UserProfilePageController::class, 'getProfile']);
+                Route::post('/profile', [UserProfilePageController::class, 'updateProfile']);
+            });
 
             //wishlist
             Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
