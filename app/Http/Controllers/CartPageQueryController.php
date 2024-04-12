@@ -11,64 +11,43 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartPageQueryController extends Controller
 {
-    use SoftDeletes;
-    public function loadCart(Request $request)
+
+    public function loadCart()
     {
-
-
-        if (Auth::check()) {
-            $cartItems = Auth::user()->cartItems()->with('product')->get();
-            $cartItemsGroupedBySeller = $cartItems->groupBy('product.user_id')->map(function ($group) {
-                return collect($group)->map(function ($item) {
-                    return [
-                        'item_id' => $item->id,
-                        'product_name' => $item->product->name,
-                        'quantity' => $item->quantity, //idk if the quantity is included
-                        'price' => $item->product->price,
-                    ];
-                });
-            });
-
-            $totalsPerSeller = $cartItemsGroupedBySeller->mapWithKeys(function ($items, $sellerId) {
-                $total = $items->reduce(function ($carry, $item) {
-                    return $carry + ($item['quantity'] * $item['price']);
-                }, 0);
-                return [$sellerId => $total];
-            });
-
-            $total = $totalsPerSeller->sum();
-
-            return response()->json([
-                'status' => 200,
-                'cartItems' => $cartItemsGroupedBySeller,
-                'totalsPerSeller' => $totalsPerSeller,
-                'total' => $total
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'User not authenticated'
-            ], 401);
-        }
+        $user = Auth::user();
+        $cartItems = $user->cartItems()->with('product')->get();
+        return response()->json([
+            'status' => 200,
+            'data' => $cartItems,
+        ]);
     }
 
-    public function deleteItem(Request $request, $itemId)
+    public function deleteItem($itemId)
     {
         $item = CartItem::where('id', $itemId)
             ->where('user_id', Auth::id())->first();
 
         if ($item) {
             $item->delete();
-            return response()->json(['status' => 200, 'message' => 'Item removed from cart.']);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Item removed from cart.'
+            ]);
         } else {
-            return response()->json(['status' => 404, 'message' => 'Item not found.'], 404);
+            return response()->json([
+                'status' => 404,
+                'message' => 'Item not found.'
+            ]);
         }
     }
 
     public function checkout()
     {
         if (!Auth::check()) {
-            return response()->json(['status' => 401, 'message' => 'You must be logged in to checkout.'], 401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'You must be logged in to checkout.'
+            ]);
         }
 
         $cartItems = Auth::user()->cartItems()->with('product')->get();

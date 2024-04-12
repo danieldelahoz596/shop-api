@@ -40,10 +40,18 @@ class UserAddressController extends Controller
         ], 200);
     }
 
-    public function selectAddress(Request $request, UserAddress $userAddress)
+    public function selectAddress(UserAddress $userAddress)
     {
+        $prevDefault = UserAddress::where('user_id', auth()->user()->id)
+            ->where('is_default', true)
+            ->first();
+
+        $prevDefault->update([
+            'is_default' => false
+        ]);
+
         $userAddress->update([
-            'is_selected' => $request->selected
+            'is_default' => true
         ]);
 
         return response()->json([

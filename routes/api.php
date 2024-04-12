@@ -19,6 +19,7 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartPageQueryController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ReviewController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\SellerRegistrationController;
 use App\Http\Controllers\SellerShopController;
 use App\Http\Controllers\ShopPerformanceController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\UserVerificationController;
 use App\Models\ShopPerformance;
 
 /*
@@ -77,7 +79,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/shopName', [SellerShopController::class, 'addSellerShop']);
         });
 
-
         // Make Offer
         Route::group(['prefix' => 'makeOffer'], function () {
             Route::get('/{product_id}', [MakeOfferController::class, 'index']);
@@ -120,6 +121,18 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/', [DiscountController::class, 'addDiscount']);
             Route::patch('/{discount}', [DiscountController::class, 'editDiscount']);
         });
+
+        // Categories
+        Route::group(['prefix' => 'categories'], function () {
+            Route::get('/filters', [CategoryController::class, 'productFilter']);
+            Route::get('/', [CategoryController::class, 'categories']);
+            Route::get('subCategories/{category_id}', [CategoryController::class, 'subCategories']);
+            Route::get('subSubCategories/{subcategory_id}', [CategoryController::class, 'subSubCategories']);
+            Route::get('brands', [CategoryController::class, 'brands']);
+            Route::get('styles', [CategoryController::class, 'styles']);
+            Route::get('sizes', [CategoryController::class, 'sizes']);
+            Route::get('colors', [CategoryController::class, 'colors']);
+        });
     });
 
     Route::get('/dragonpay', [CheckoutAndBuyNowController::class, 'dragonpay']);
@@ -131,6 +144,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('forgotPassword', [AuthController::class, 'forgotPassword']);
         Route::post('forgotChangePassword', [AuthController::class, 'forgotChangePassword']);
+        Route::post('sellerVerification/{user}', [UserVerificationController::class, 'addSellerVerification']);
         Route::group(['middleware' => 'auth:sanctum'], function () {
 
             Route::post('resendEmailVerification', [AuthController::class, 'resendEmailVerification']);
@@ -147,13 +161,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
 
             //cart
-            Route::get('cart', [CartPageQueryController::class, 'loadCart']);
-            Route::post('cart', [CartPageQueryController::class, 'loadCart']);
-            Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
-            Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
-            //userprofile
-            Route::get('user/profile', [UserProfilePageController::class, 'getProfile']);
-            Route::post('user/profile', [UserProfilePageController::class, 'updateProfile']);
+            Route::prefix('cart')->group(function () {
+                Route::get('/', [CartPageQueryController::class, 'loadCart']);
+                Route::post('/', [CartPageQueryController::class, 'loadCart']);
+                Route::delete('/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
+                Route::post('/checkout', [CartPageQueryController::class, 'checkout']);
+            });
+            // user
+            Route::prefix('user')->group(function () {
+                Route::get('/profile', [UserProfilePageController::class, 'getProfile']);
+                Route::post('/profile', [UserProfilePageController::class, 'updateProfile']);
+            });
 
             //wishlist
             Route::group(['prefix'=>'wishlist'], function(){

@@ -73,27 +73,37 @@ class CheckoutAndBuyNowController extends Controller
 
     public function dragonpay()
     {
-        $parameters = [
-            'txnid' => 'TXNID3',
-            'amount' => 100,
-            'ccy' => 'PHP',
-            'description' => 'Test',
-            'email' => 'some@merchant.ph',
-            'param1' => 'param1',
-            'param2' => 'param2',
-        ];
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post('https://secure.dragonpay.ph/DragonpayWebService/MerchantService.asmx/GetTxnStatus', [
+            'merchantId' => 'BUUDLKCMSO',
+            'password' => 'ak8TRcQXHeEopQx',
+            'txnId' => 'TXNID1',
+        ]);
+
+        return response()->json($response->json());
+
+        // $parameters = [
+        //     'txnid' => 'TXNID1',
+        //     'amount' => 100,
+        //     'ccy' => 'PHP',
+        //     'description' => 'Test',
+        //     'email' => 'some@merchant.ph',
+        //     'param1' => 'param1',
+        //     'param2' => 'param2',
+        // ];
 
 
-        $merchant_account = [
-            'merchantid' => 'BUUDLKCMSO',
-            'password'   => 'ak8TRcQXHeEopQx'
-        ];
-        // Initialize Dragonpay
-        $txnid = 'TXNID3';
-        $dragonpay = new Dragonpay($merchant_account);
-        $dragonpay->action(new \Crazymeeks\Foundation\PaymentGateway\Dragonpay\Action\CheckTransactionStatus($txnid));
+        // $merchant_account = [
+        //     'merchantid' => 'BUUDLKCMSO',
+        //     'password'   => 'ak8TRcQXHeEopQx'
+        // ];
+        // // Initialize Dragonpay
+        // // $txnid = 'TXNID3';
+        // $dragonpay = new Dragonpay($merchant_account);
+        // // $dragonpay->action(new \Crazymeeks\Foundation\PaymentGateway\Dragonpay\Action\CheckTransactionStatus($txnid));
 
-        // Set parameters, then redirect to dragonpay
+        // // Set parameters, then redirect to dragonpay
         // $dragonpay->setParameters($parameters)->away();
     }
 }
