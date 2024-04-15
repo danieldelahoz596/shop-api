@@ -17,7 +17,8 @@ class Message extends Model
         'last_time_message',
         'read',
         'type',
-        'text'
+        'text',
+        'image'
     ];
 
     public function conversation()

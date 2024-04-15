@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('listings')->default(0)->nullable();
             $table->integer('like')->default(0);
+            $table->integer('share')->default(0);
             $table->integer('view_count')->default(0)->nullable();
             $table->boolean('is_featured')->default(0)->nullable();
             $table->softDeletes();

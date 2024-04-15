@@ -21,12 +21,18 @@ class WishlistController extends Controller
         $user = User::find(auth()->user()->id);
         $product = Product::find($product_id);
 
-        $user->wishlists()->attach($product);
+        if(!$user->wishlists()->where('product_id', $product_id)->exists()){
+            $user->wishlists()->attach($product);
 
-        return response()->json([
-            'status'=>true,
-            'message'=>"Product added to wishlist successfully"
-        ],200);
+            $product->increment('like');
+
+            return response()->json([
+                'status'=>true,
+                'message'=>"Product added to wishlist successfully"
+            ],200);
+        }
+
+
     }
 
     public function removeProductFromWishlist($product_id)
@@ -37,6 +43,7 @@ class WishlistController extends Controller
 
         if($wishlist){
             $wishlist->detach($product);
+            $product->decrement('like');
             return response()->json([
                 'status'=>true,
                 'message'=>"Product removed from wishlist successfully"

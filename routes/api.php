@@ -204,34 +204,34 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::delete('/{productId}/images', [ImageController::class, 'deleteImage']);
             });
             //seller
-            Route::get('seller/profile', [SellerRegistrationController::class, 'getSellerProfile']);
-            Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
-            Route::get('/seller/orders', [SellerRegistrationController::class, 'getSellerOrders']);
-            Route::get('seller/products', [SellerRegistrationController::class, 'getSellerProducts']);
-            Route::post('seller/register', [SellerRegistrationController::class, 'register']);
-            Route::post('seller/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
-            Route::post('seller/submit-id', [SellerRegistrationController::class, 'submitId']);
-            Route::post('seller/review-application', [SellerRegistrationController::class, 'reviewApplication']);
-            Route::post('seller/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
+            Route::group(['prefix'=>'seller'], function(){
+                Route::get('/profile', [SellerRegistrationController::class, 'getSellerProfile']);
+                Route::get('/products', [SellerRegistrationController::class, 'getSellerProducts']);
+                Route::get('/orders', [SellerRegistrationController::class, 'getSellerOrders']);
+                Route::get('/products', [SellerRegistrationController::class, 'getSellerProducts']);
+                Route::post('/register', [SellerRegistrationController::class, 'register']);
+                Route::post('/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
+                Route::post('/submit-id', [SellerRegistrationController::class, 'submitId']);
+                Route::post('/review-application', [SellerRegistrationController::class, 'reviewApplication']);
+                Route::post('/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
+                //Shop Performance
+                Route::get('/shop-performance', [ShopPerformanceController::class, 'show']);
+            });
+            
             //order
             Route::get('orders', [OrderController::class, 'getAllOrders']);
             Route::get('order/{orderId}', [OrderController::class, 'getOrderDetails']);
             Route::get('user/orders', [OrderController::class, 'getAllOrdersBySeller']);
             //sellerAccount management
 
-            //Shop Performance
-            Route::get('account/shopPerformance', [ShopPerformanceController::class, 'show']);
 
             //Conversations
-            Route::group(['prefix' => 'conversations'], function () {
-                Route::get('/', [ConversationController::class, 'index']);
-                Route::post('/', [ConversationController::class, 'store']);
-                Route::get('/{conversation_id}', [ConversationController::class, 'show']);
-                // Messages
-                Route::get('/{conversation_id}/messages', [MessageController::class, 'index']);
-                Route::post('/{conversation_id}/messages', [MessageController::class, 'store']);
-            });
-
+            Route::get( '/conversation', [ConversationController::class, 'getAllConversation']);
+            Route::post('/conversation', [ConversationController::class, 'createNewConversation']);
+            Route::get('/conversation/{conversation_id}', [ConversationController::class, 'getSpecificConversation']);
+            // Messages
+            Route::get('/conversation/{conversation_id}/messages', [MessageController::class, 'index']);
+            Route::post('/conversation/{conversation_id}/messages', [MessageController::class, 'store']);
             //user settings
             Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
             Route::patch('settings/notifications/email', [UserSettingsController::class, 'updateEmailNotificationSettings']);

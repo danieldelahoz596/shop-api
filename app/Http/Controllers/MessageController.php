@@ -6,6 +6,7 @@ use App\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
@@ -14,9 +15,14 @@ class MessageController extends Controller
     public function store(Request $request, $conversationId)
     {
         $conversation = Conversation::findOrFail($conversationId);
+        $image = null;
 
         if (!$request->user()->isPartOfConversation($conversation)) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        
+        if($request->hasFile('image')){
+            $image = $request->file('image')->store('messages/images', 'public');
         }
 
         $message = $conversation->messages()->create([
@@ -24,6 +30,7 @@ class MessageController extends Controller
             'sender_id' => Auth::id(),
             'receiver_id'=> $conversation->receiver_id,
             'read' => false,
+            'image'=>$image,
         ]);
 
         //TODO: For realtime
@@ -32,8 +39,8 @@ class MessageController extends Controller
 
         return response()->json([
             'status'=>true,
-            'message'=>$message
-        ], 201);
+            'data'=>$message
+        ], 200);
     }
 
     // Retrieve messages from a conversation

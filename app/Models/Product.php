@@ -30,6 +30,7 @@ class Product extends Model
         'status',
         'image',
         'like',
+        'share',
         'shipping_fee'
     ];
 

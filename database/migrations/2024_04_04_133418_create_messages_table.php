@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('text')->nullable();
             $table->string('type')->nullable();
             $table->boolean('read')->default(0)->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
