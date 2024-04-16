@@ -8,6 +8,7 @@ use App\Mail\RegisterMail;
 use App\Mail\SendOtpViaMail;
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Models\UserNotificationSettings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -53,6 +54,10 @@ class RegistrationController extends Controller
             'region' => $request->region,
             'zip_code' => $request->zip_code,
             'is_default' => 1
+        ]);
+
+        UserNotificationSettings::create([
+            'user_id' => $user->id
         ]);
 
         Mail::to($user->email)->send(new RegisterMail($user->email_verify_token, $user->email, $user->name));
