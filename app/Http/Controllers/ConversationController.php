@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 class ConversationController extends Controller
 {
     //Display a listing of the conversations for the authenticated user.
-    public function index(Request $request)
+    public function getAllConversation(Request $request)
     {
         $userId = $request->user()->id;
         $conversations = Conversation::where('sender_id', $userId)
                                      ->orWhere('receiver_id', $userId)
                                      ->get();
-
+        dd('index');
         return response()->json([
             'status'=>true,
             'data'=>$conversations
@@ -22,7 +22,7 @@ class ConversationController extends Controller
     }
 
     //Store a newly created conversation in storage.
-    public function store(Request $request)
+    public function createNewConversation(Request $request)
     {
         $userId = $request->user()->id;
 
@@ -30,6 +30,7 @@ class ConversationController extends Controller
         if ($request->receiver_id == $userId) {
             return response()->json(['status'=>false,'message' => 'Cannot create a conversation with yourself'], 422);
         }
+
 
         // Check if the conversation already exists
         $conversation = Conversation::where(function ($query) use ($userId, $request) {
@@ -52,14 +53,13 @@ class ConversationController extends Controller
 
         return response()->json([
             'status'=>true,
-            'data'=>$conversation
-        ], 201);
+            'message'=>'Conversation Successfully created'
+        ], 200);
     }
 
-    public function show(Request $request, $id)
+    public function getSpecificConversation(Request $request, $id)
     {
         $conversation = Conversation::with(['messages'])->findOrFail($id);
-
         // Ensure the authenticated user is part of the conversation
         if (!$request->user()->isPartOfConversation($conversation)) {
             return response()->json(['message' => 'Unauthorized'], 403);

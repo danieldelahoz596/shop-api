@@ -39,15 +39,13 @@ class SellerRegistrationController extends Controller
     {
         $user = Auth::user();
 
-        // Check if the authenticated user is a seller with a role_id of 4 and is_seller true
+
         if ($user->role_id !== 4 || !$user->is_seller) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        // Get the seller's products IDs
         $productIds = Product::where('user_id', $user->id)->pluck('id');
 
-        // Now get all orders that include these product IDs in their order items
         $orders = Order::whereHas('orderItems', function ($query) use ($productIds) {
             $query->whereIn('product_id', $productIds);
         })
@@ -57,7 +55,6 @@ class SellerRegistrationController extends Controller
             }])
             ->get();
 
-        // Transform the orders for the API response
         $ordersData = $orders->map(function ($order) {
             return [
                 'order_id' => $order->id,
@@ -83,7 +80,7 @@ class SellerRegistrationController extends Controller
 
 
         if ($seller->role_id != 4 || !$seller->is_seller) {
-            return Response::json(['error' => 'Unauthorized - User is not a verified seller'], 403);
+            return Response::json(['error' => 'Unauthorized'], 403);
         }
 
 

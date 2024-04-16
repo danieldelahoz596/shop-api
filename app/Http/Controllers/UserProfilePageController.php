@@ -37,8 +37,8 @@ class UserProfilePageController extends Controller
         ];
 
         return response()->json([
-            'user' => $userData,
-            'profile' => $profileData
+            'status' => 200,
+            'data' => $data
         ]);
     }
 

@@ -71,10 +71,6 @@ class User extends Authenticatable
         return $this->hasOne(UserRole::class, 'role_id');
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
     public function userAddress()
     {
         return $this->hasMany(UserAddress::class);
@@ -108,8 +104,9 @@ class User extends Authenticatable
 
     public function wishlists()
     {
-        return $this->hasMany(Wishlist::class);
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();;
     }
+
     public function likedProducts()
     {
         return $this->belongsToMany(Product::class, 'likes', 'user_id', 'product_id')->withTimestamps();
