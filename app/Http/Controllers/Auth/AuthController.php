@@ -31,6 +31,7 @@ class AuthController extends Controller
             if (auth()->user()->is_deleted != 1) {
                 $online = User::find(auth()->user()->id);
                 $online->is_online = 1;
+                $online->ftl = 0;
                 $online->save();
                 $logtitle = 'User Successfully logged in';
                 $logdescription = 'User logged in with name ' . auth()->user()->user_firstname . ' ' . auth()->user()->user_lastname;

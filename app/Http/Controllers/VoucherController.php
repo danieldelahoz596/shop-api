@@ -48,4 +48,14 @@ class VoucherController extends Controller
             'data' => $voucher
         ], 200);
     }
+
+    public function removeVoucher(Voucher $voucher)
+    {
+        $voucher->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Voucher Deleted.'
+        ], 200);
+    }
 }
