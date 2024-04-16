@@ -12,29 +12,8 @@ class UserProfilePageController extends Controller
 {
     public function getProfile()
     {
-        $user = User::with('userAddress')->findOrFail(auth()->user()->id);
-        $userData = [
-            'id' => $user->id,
-            'email' => $user->email,
-            'firstname' => $user->firstname,
-            'lastname' => $user->lastname,
-            'name' => $user->name,
-            'gender' => $user->gender,
-            'birthday' => $user->birthday,
-            'phone_area_code' => $user->phone_area_code,
-            'phone_number' => $user->phone_number,
-            'address' => $user->userAddress,
-            'profile_picture' => $user->profile_picture ? Storage::url($user->profile_picture) : asset('assets/img/public_profile/Vector.jpg'),
-        ];
-
-        $profileData = [
-            'reviews' => [
-                'rating' => 4.8, // this should be rating in the db
-                'count' => 4,    // this should be count in the db
-            ],
-            'followers' => 4,  // this should be followers in the db
-            'following' => 8,  // this should be following in the db
-        ];
+        $user = Auth::user();
+        $data = $user;
 
         return response()->json([
             'status' => 200,
