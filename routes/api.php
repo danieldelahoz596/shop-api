@@ -10,6 +10,7 @@ use App\Http\Controllers\SearchController;
 // Auth Controller
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\BlockedUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutAndBuyNowController;
 use App\Http\Controllers\MakeOfferController;
@@ -102,17 +103,12 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/{product_id}', [CartController::class, 'addToCart']);
         });
 
-        // Checkout
-        Route::group(['prefix' => 'checkout'], function () {
-            Route::post('/{cartItem}', [CheckoutAndBuyNowController::class, 'checkout']);
-            Route::patch('/buynow/{sale}/{cartItem}', [CheckoutAndBuyNowController::class, 'buynow']);
-        });
-
         // Voucher
         Route::group(['prefix' => 'voucher'], function () {
             Route::get('/{code}', [VoucherController::class, 'getVoucher']);
             Route::post('/', [VoucherController::class, 'addVoucher']);
             Route::put('/{voucher}', [VoucherController::class, 'editVoucher']);
+            Route::delete('/{voucher}', [VoucherController::class, 'removeVoucher']);
         });
 
         // Discount
@@ -133,9 +129,42 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('sizes', [CategoryController::class, 'sizes']);
             Route::get('colors', [CategoryController::class, 'colors']);
         });
+
+        // User Settings
+        Route::group(['prefix' => 'settings'], function() {
+            Route::patch('/notifications', [UserSettingsController::class, 'updateNotificationSettings']);
+            Route::patch('/notifications/buying', [UserSettingsController::class, 'updateBuyingNotificationSettings']);
+            Route::patch('/notifications/buying/email', [UserSettingsController::class, 'updateBuyingEmailNotificationSettings']);
+            Route::patch('/privacy', [UserSettingsController::class, 'updatePrivacySettings']);
+        });
+
+        // Blocked Users
+        Route::group(['prefix' => 'blocked'], function() {
+            Route::get('/', [BlockedUserController::class, 'getBlockedUsers']);
+            Route::post('/', [BlockedUserController::class, 'addBlockedUser']);
+        });
+
+        // Checkout
+        Route::group(['prefix' => 'checkout'], function () {
+            Route::post('/{cartItem}', [CheckoutAndBuyNowController::class, 'checkout']);
+            Route::get('/buynow/{sale}/{cartItem}', [CheckoutAndBuyNowController::class, 'buynow']);
+        });
+
+        //user profile
+        Route::group(['prefix' => 'user'], function() {
+            Route::get('/profile', [UserProfilePageController::class, 'getProfile']);
+            Route::patch('/profile', [UserProfilePageController::class, 'updateProfile']);
+        });
+
+        //wishlist
+        Route::group(['prefix' => 'wishlist'], function() {
+            Route::get('/', [WishlistController::class, 'wishlist']);
+            Route::post('/', [WishlistController::class, 'addProductToWishlist']);
+            Route::delete('/{wishlist}', [WishlistController::class, 'removeProductFromWishlist']);
+        });
     });
 
-    Route::get('/dragonpay', [CheckoutAndBuyNowController::class, 'dragonpay']);
+    Route::get('/payment/{sale}', [CheckoutAndBuyNowController::class, 'payment']);
 
     // Auth Route
     Route::group(['prefix' => 'auth'], function () {
@@ -165,14 +194,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('cart', [CartPageQueryController::class, 'loadCart']);
             Route::delete('cart/items/{itemId}', [CartPageQueryController::class, 'deleteItem']);
             Route::post('cart/checkout', [CartPageQueryController::class, 'checkout']);
-            //userprofile
-            Route::get('user/profile', [UserProfilePageController::class, 'getProfile']);
-            Route::post('user/profile', [UserProfilePageController::class, 'updateProfile']);
-
-            //wishlist
-            Route::get('wishlist/{user_id}', [WishlistController::class, 'wishlist']);
-            Route::post('wishlist', [WishlistController::class, 'addProductToWishlist']);
-            Route::delete('wishlist/{user_id}/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
 
             //reviews
             //type = product or seller
@@ -218,14 +239,6 @@ Route::group(['prefix' => 'v1'], function () {
             // Messages
             Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
             Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
-
-            //user settings
-            Route::patch('settings/notifications/push', [UserSettingsController::class, 'updatePushNotificationSettings']);
-            Route::patch('settings/notifications/email', [UserSettingsController::class, 'updateEmailNotificationSettings']);
-            Route::patch('settings/notifications/buying', [UserSettingsController::class, 'updateBuyingNotificationSettings']);
-            Route::patch('settings/notifications/selling', [UserSettingsController::class, 'updateSellingNotificationSettings']);
-            Route::patch('settings/privacy', [UserSettingsController::class, 'updatePrivacySettings']);
-            Route::patch('settings/blocked-users', [UserSettingsController::class, 'updateBlockedUsers']);
         });
     });
 });
