@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SellerShop;
+use App\Models\ShopPerformance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Js;
 
@@ -50,21 +51,17 @@ class ShopPerformanceController extends Controller
         $totalViews = $products->sum('view_count');
         $totalSale = $sales->sum('total');
 
-
-
-
-        $data = [
-            'salesTotal' => $totalSale,
-            'ordersCount' => $ordersCount,
-            'engagements' => [
-                'likes' => $totalLikes,
-                'shares' => $totalShares,
-            ],
-            'visitors' => $totalViews, // Dummy data
-            'conversionRate' => $averageConversionRate,
+        $data = ShopPerformance::create([
+            'user_id' => $users->id,
+            'sales_total' => $totalSale,
+            'orders_count' => $ordersCount,
+            'engagements_likes'=>$totalLikes,
+            'engagements_shares'=>$totalShares,
+            'visitors' => $totalViews,
+            'conversion_rate' => $averageConversionRate,
             // Not yet since there is no J&T 
-            'returnRate' => 0,
-        ];
+            'return_rate' => 0,
+        ]);
 
         return response()->json([
             'status' => true,

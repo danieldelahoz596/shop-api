@@ -4,55 +4,107 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Wishlist;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WishlistController extends Controller
 {
+    //Get all wishlist of a user
     public function wishlist()
     {
-        $data = auth()->user()->wishlists;
+        try{
+            $data = Wishlist::with('product')->where('user_id', auth()->user()->id)->paginate(10);
+        } catch(\Exception $e){
+            //For logging
+            Log::error('Error getting all product to wishlist: ' . $e->getMessage());
+
+            return response()->json([
+                'status'=>500,
+                'message'=>'Failed getting all wishlist'
+            ], 500);
+        }
+        if($data->isEmpty()){
+            return response()->json([
+                'status' => 200,
+                'message'=> 'Wishlist is empty'
+            ], 200);
+        }
+
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data,
         ], 200);
     }
 
-    public function addProductToWishlist($product_id)
+    //adding a product to a user by clicking like button
+    public function addProductToWishlist(Request $request)
     {
-        $user = User::find(auth()->user()->id);
-        $product = Product::find($product_id);
+        try{
+            
+            $exists = Wishlist::where('user_id', auth()->user()->id)
+                                ->where('product_id', $request->product_id)
+                                ->exists();
+            if($exists){
+                return response()->json([
+                    'status'=>409,
+                    'message'=>'Product already in wishlist'
+                ], 409);
+            }
 
-        if(!$user->wishlists()->where('product_id', $product_id)->exists()){
-            $user->wishlists()->attach($product);
+            $data = Wishlist::create([
+                'user_id' => auth()->user()->id,
+                'product_id' => $request->product_id,
+            ]);
+    
+            Product::where('id', $request->product_id)->increment('like');
+    
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product added to wishlist successfully',
+                'data' => $data
+            ], 200);
+        } catch(\Exception $e) {
 
-            $product->increment('like');
+            //For logging
+            Log::error('Error adding product to wishlist: ' . $e->getMessage());
 
             return response()->json([
-                'status'=>true,
-                'message'=>"Product added to wishlist successfully"
-            ],200);
+                'status'=>500,
+                'message'=> 'Failed to add the product to the wishlist.'
+            ], 500);
         }
-
-
     }
 
-    public function removeProductFromWishlist($product_id)
+    //Remove a produt on the wishlist
+    public function removeProductFromWishlist(Request $request)
     {
-        $user = User::findOrFail(auth()->user()->id);
-        $product = Product::findOrFail($product_id);
-        $wishlist = $user->wishlists();
-
-        if($wishlist){
-            $wishlist->detach($product);
-            $product->decrement('like');
+        try{
+            $user = User::findOrFail(auth()->user()->id);
+            $product = Product::findOrFail($request->product_id);
+            $wishlist = $user->wishlists();
+    
+            if($wishlist){
+                $wishlist->detach($product);
+                $product->decrement('like');
+                return response()->json([
+                    'status'=>true,
+                    'message'=>"Product removed from wishlist successfully"
+                ],200);
+            }
+    
             return response()->json([
-                'status'=>true,
-                'message'=>"Product removed from wishlist successfully"
-            ],200);
-        }
+                'status'=> false,
+                'message' => 'Wishlist is empty.'
+            ], 404);
+        } catch(\Exception $e){
+            //For logging
+            Log::error('Error deleting product to wishlist: ' . $e->getMessage());
 
-        return response()->json([
-            'status'=> false,
-            'message' => 'Wishlist is empty.'
-        ], 404);
+            return response()->json([
+                'status'=>500,
+                'message'=>'Failed to remove a product'
+            ], 500);
+        }
     }
 }
