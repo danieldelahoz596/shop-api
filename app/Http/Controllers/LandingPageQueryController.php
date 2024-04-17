@@ -10,10 +10,14 @@ use App\Models\Product;
 use App\Models\SellerShop;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\PersonalAccessToken;
+
+use function PHPSTORM_META\map;
 
 class LandingPageQueryController extends Controller
 {
+    //Get the products if user pick styles or not
     public function exploreStyles(Request $request)
     {
         $token = $request->bearerToken();
@@ -23,18 +27,35 @@ class LandingPageQueryController extends Controller
                 auth()->setUser($accessToken->tokenable);
             }
         }
-
         $styleData = '';
-
-        if(auth()->check()){
-            $styleData = [];
-            $userStyles = json_decode(auth()->user()->style_id, true);
-            $userStyleData = Style::whereIn('id', $userStyles)->get();
-            array_push($styleData, $userStyleData);
-        }else{
-            $styleData = Style::all();
+        try{
+            if(auth()->check()){
+                $styleData = [];
+                $userStyles = json_decode(auth()->user()->style_id, true);
+                if($userStyles !== null){
+                    try{
+                        $userStyleData = Style::whereIn('id', $userStyles)->get();
+                        array_push($styleData, $userStyleData);
+                    } catch (\Throwable $th){
+                        Log::error("Failed to query to get exploreStyles on user id " . auth()->id() . " : " . $th->getMessage());
+                        return response()->json([
+                            'status'=> 500,
+                            'message' => 'Internal server error failed to get the exploreStyles' 
+                        ],500);
+                    }
+                } else {
+                    $styleData = Style::all();
+                }
+            }else{
+                $styleData = Style::all();
+            }
+        }catch(\Exception $e){
+            Log::error('Something went wrong on getting exploreStyle: ' . $e->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message'=>'Internal server error failed on getting explore data'
+            ], 500);
         }
-
         return response()->json([
             'status' => 200,
             'data' => $styleData,
@@ -42,6 +63,7 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
+    //Get the proucts by category
     public function shopCategory(Request $request)
     {
         $token = $request->bearerToken();
@@ -57,8 +79,20 @@ class LandingPageQueryController extends Controller
         if(auth()->check()){
             $categoryData = [];
             $userCategories = json_decode(auth()->user()->category_id, true);
-            $userCategoryData = Category::whereIn('id', $userCategories)->get();
-            array_push($categoryData, $userCategoryData);
+            if($userCategories !== null){
+                try{
+                    $userCategoryData = Category::whereIn('id', $userCategories)->get();
+                    array_push($categoryData, $userCategoryData);
+                }catch(\Throwable $th){
+                    Log::error("Failed to query get shopCategory on user id " . auth()->id() . " : " . $th->getMessage());
+                    return response()->json([
+                        'status'=> 500,
+                        'message' => 'Internal server error failed to get the shopCategory'
+                    ],500);
+                }
+            } else {
+                $categoryData = Category::skip(3)->take(4)->get();
+            }
         }else{
             $categoryData = Category::skip(3)->take(4)->get();
         }
@@ -70,14 +104,24 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function getNewArrivals() {
+    //Get the latest products
+    public function getNewArrivals() 
+    {
         $oneWeekAgo = Carbon::now()->subWeek();
         $now = Carbon::now();
 
-        $data = Product::whereBetween('created_at', [$oneWeekAgo, $now])
+        try{
+            $data = Product::whereBetween('created_at', [$oneWeekAgo, $now])
                         ->with('user')
                         ->take(4)
                         ->get();
+        } catch (\Throwable $th) {
+            Log::error("Failed to query getNewArrivals on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving getNewArrivals'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,
@@ -86,13 +130,23 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function getOurPicks() {
+    //get the recommended products
+    public function getOurPicks() 
+    {
         $oneWeekAgo = Carbon::now()->subWeek();
 
-        $data = Product::inRandomOrder()
+        try{
+            $data = Product::inRandomOrder()
                         ->with('user')
                         ->take(4)
                         ->get();
+        } catch (\Throwable $th){
+            Log::error("Failed to query getOurPicks on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving getOurPicks'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,
@@ -101,14 +155,24 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function getPopularItem() {
+    //Get the top or popular products
+    public function getPopularItem() 
+    {
         $oneWeekAgo = Carbon::now()->subWeek();
 
-        $data = Product::where('view_count', '>=', 100)
+        try{
+            $data = Product::where('view_count', '>=', 100)
                         ->inRandomOrder()
                         ->with('user')
                         ->take(4)
                         ->get();
+        } catch (\Throwable $th){
+            Log::error("Failed to query get getPopularItem on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving getPopularItem'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,
@@ -117,12 +181,21 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function getMoreItemsForYou() {
-
-        $data = Product::inRandomOrder()
+    //Get the additional products 
+    public function getMoreItemsForYou() 
+    {
+        try{
+            $data = Product::inRandomOrder()
                         ->with('user')
                         ->take(8)
                         ->get();
+        } catch (\Throwable $th){
+            Log::error("Failed to query getMoreItemsForYou on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving getMoreItemsForYou'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,
@@ -131,12 +204,22 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function shopSpotlight() {
+    //Get the shop or store that is highlighted
+    public function shopSpotlight() 
+    {
 
-        $data = SellerShop::orderBy('rating', 'desc')
+        try{
+            $data = SellerShop::orderBy('rating', 'desc')
                             ->take(4)
                             ->with('user')
                             ->get();
+        } catch (\Throwable $th){
+            Log::error("Failed to query get shopSpotlight on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving shopSpotlight'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,
@@ -145,12 +228,22 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    public function shopsToWatch(){
-        $data = SellerShop::where('rating', '>=', 100)
+    //Get the shop to watch
+    public function shopsToWatch()
+    {
+        try{
+            $data = SellerShop::where('rating', '>=', 100)
                             ->orderBy('rating', 'asc')
                             ->take(4)
                             ->with('user')
                             ->get();
+        }catch (\Throwable $th){
+            Log::error("Failed to query get shopsToWatch on user " . auth()->id() . " : " . $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while retrieving shopsToWatch'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,

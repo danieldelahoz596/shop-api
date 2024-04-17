@@ -143,23 +143,4 @@ class CartController extends Controller
         }
     }
 
-    // For checkout all the product 
-    // TODO: check the logic for checkout
-    public function checkout()
-    {
-        if (!auth()->check()) {
-            return response()->json([
-                'status' => 401,
-                'message' => 'User not authenticated'
-            ], 401);
-        }
-
-        $cartItems = Auth::user()->cartItems()->with('product')->get();
-
-        if ($cartItems->isEmpty()) {
-            return response()->json(['status' => 400, 'message' => 'Your cart is empty.'], 400);
-        }
-
-        return response()->json(['status' => 200, 'message' => 'Checkout successful.']);
-    }
 }
