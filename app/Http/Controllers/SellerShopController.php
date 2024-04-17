@@ -12,7 +12,7 @@ class SellerShopController extends Controller
         $data = SellerShop::where('user_id', auth()->user()->id)->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -33,7 +33,7 @@ class SellerShopController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $data
         ], 201);
     }

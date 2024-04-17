@@ -108,7 +108,7 @@ class CartController extends Controller
         ], 200);
     }
 
-    // Delete the cart item 
+    // Delete the cart item
     public function deleteItem($itemId)
     {
         if (!auth()->check()) {
@@ -143,7 +143,7 @@ class CartController extends Controller
         }
     }
 
-    // For checkout all the product 
+    // For checkout all the product
     // TODO: check the logic for checkout
     public function checkout()
     {

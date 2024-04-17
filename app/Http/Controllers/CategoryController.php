@@ -63,10 +63,10 @@ class CategoryController extends Controller
 
     public function categories()
     {
-        $data = Category::where('status', true)->get();
+        $data = Category::where('status', 200)->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         $data = SubCategory::where('category_id', $category_id)->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -86,17 +86,17 @@ class CategoryController extends Controller
         $data = SubsubCategory::where('subcategory_id', $subcategory_id)->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
 
     public function brands()
     {
-        $data = Brand::where('status', true)->get();
+        $data = Brand::where('status', 200)->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         $data = StyleEnum::values();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -116,7 +116,7 @@ class CategoryController extends Controller
         $data = SizeEnum::values();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -126,7 +126,7 @@ class CategoryController extends Controller
         $data = ColorEnum::values();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
