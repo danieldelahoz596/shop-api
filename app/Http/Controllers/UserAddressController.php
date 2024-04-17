@@ -19,7 +19,7 @@ class UserAddressController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $data
         ], 201);
     }
@@ -35,7 +35,7 @@ class UserAddressController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $userAddress
         ], 200);
     }
@@ -55,7 +55,7 @@ class UserAddressController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $userAddress
         ], 200);
     }

@@ -159,8 +159,8 @@ Route::group(['prefix' => 'v1'], function () {
         //wishlist
         Route::group(['prefix' => 'wishlist'], function() {
             Route::get('/', [WishlistController::class, 'wishlist']);
-            Route::post('/', [WishlistController::class, 'addProductToWishlist']);
-            Route::delete('/{wishlist}', [WishlistController::class, 'removeProductFromWishlist']);
+            Route::post('/{product_id}', [WishlistController::class, 'addProductToWishlist']);
+            Route::delete('/{product_id}', [WishlistController::class, 'removeProductFromWishlist']);
         });
     });
 
@@ -229,7 +229,7 @@ Route::group(['prefix' => 'v1'], function () {
                 //shipping
                 Route::post('/{productId}/shipping', [ProductListingPageController::class, 'addShippingDetails']);
                 // Image upload routes
-                Route::post('/{productId}/images', [ImageController::class, 'uploadImage']);
+                Route::post('/upload/{productId}/images', [ImageController::class, 'uploadImage']);
                 Route::delete('/{productId}/images', [ImageController::class, 'deleteImage']);
             });
             //seller

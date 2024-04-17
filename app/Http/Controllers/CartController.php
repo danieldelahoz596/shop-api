@@ -18,9 +18,9 @@ class CartController extends Controller
             ->groupBy('product.user_id');
 
         return response()->json([
-            'status' => $data ? true : false,
+            'status' => $data ? 200 : 404,
             'data' => $data
-        ], 200);
+        ], $data ? 200 : 404);
     }
 
     public function addToCart(Request $request, $product_id)
@@ -33,7 +33,7 @@ class CartController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'message' => 'Item added to cart.',
             'data' => $data
         ], 201);
@@ -44,7 +44,7 @@ class CartController extends Controller
         $data = CartItem::where('user_id', auth()->user()->id)->count();
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'message' => 'Item added to cart.',
             'data' => $data
         ], 201);

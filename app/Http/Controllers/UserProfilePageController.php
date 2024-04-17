@@ -18,7 +18,7 @@ class UserProfilePageController extends Controller
         return response()->json([
             'status' => 200,
             'data' => $data
-        ]);
+        ], 200);
     }
 
     public function updateProfile(Request $request)
@@ -44,9 +44,9 @@ class UserProfilePageController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'message' => 'Profile updated successfully.',
             'data' => $user
-        ]);
+        ], 200);
     }
 }
