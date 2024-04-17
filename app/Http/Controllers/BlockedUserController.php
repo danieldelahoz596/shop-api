@@ -12,7 +12,7 @@ class BlockedUserController extends Controller
         $data = BlockedUser::where('user_id', auth()->user()->id)->with('blockedUsers')->paginate(10);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -25,7 +25,7 @@ class BlockedUserController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $data
         ], 201);
     }

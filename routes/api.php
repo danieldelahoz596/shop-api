@@ -240,15 +240,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('changePassword', [AuthController::class, 'changePassword']);
             Route::post('logout', [AuthController::class, 'logout']);
 
-            Route::patch('onboardStyles', [OnboardingController::class, 'onboardStyles']);
-            Route::patch('onboardCategories', [OnboardingController::class, 'onboardCategories']);
-            Route::patch('onboardItems', [OnboardingController::class, 'onboardItems']);
+            // Onboarding
+            Route::group(['prefix' => 'onboard'], function() {
+                Route::patch('styles', [OnboardingController::class, 'onboardStyles']);
+                Route::patch('categories', [OnboardingController::class, 'onboardCategories']);
+                Route::patch('items', [OnboardingController::class, 'onboardItems']);
+            });
 
+            // Styles, categories, items
             Route::get('allStyles', [OnboardingController::class, 'fetchAllStyles']);
             Route::get('allCategories', [OnboardingController::class, 'fetchAllCategories']);
             Route::get('allItems', [OnboardingController::class, 'fetchAllItems']);
-
-            
         });
     });
 });

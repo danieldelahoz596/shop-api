@@ -28,7 +28,7 @@ class VoucherController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $data
         ], 201);
     }
@@ -44,7 +44,7 @@ class VoucherController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $voucher
         ], 200);
     }
@@ -54,7 +54,7 @@ class VoucherController extends Controller
         $voucher->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'message' => 'Voucher Deleted.'
         ], 200);
     }

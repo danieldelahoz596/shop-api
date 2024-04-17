@@ -40,7 +40,7 @@ class CheckoutAndBuyNowController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $data
         ], 201);
     }
@@ -74,7 +74,7 @@ class CheckoutAndBuyNowController extends Controller
         $cartItem->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $sale
         ], 200);
     }
@@ -84,9 +84,9 @@ class CheckoutAndBuyNowController extends Controller
         $sale->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'message' => 'Checkout cancelled',
-        ]);
+        ], 200);
     }
 
     public function payment(Sale $sale)

@@ -18,7 +18,7 @@ class MakeOfferController extends Controller
             ->get();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $data
         ], 200);
     }
@@ -35,7 +35,7 @@ class MakeOfferController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 201,
             'data' => $offer
         ], 201);
     }
@@ -58,9 +58,9 @@ class MakeOfferController extends Controller
         ]);
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => $makeOffer
-        ]);
+        ], 200);
     }
 
     /**
@@ -71,8 +71,8 @@ class MakeOfferController extends Controller
         $makeOffer->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'message' => 'Offer Successfully Deleted'
-        ]);
+        ], 200);
     }
 }

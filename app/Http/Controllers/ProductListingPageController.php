@@ -59,14 +59,17 @@ class ProductListingPageController extends Controller
 
 
         if ($request->hasfile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filename = 'product_' . $product->id . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('productimages/' . $product->user_id, $filename, 'public');
+            $images = $request->file('images');
+
+            foreach ($images as $image) {
+                $filename = $product->id . '_' . $product->slug . '_' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('images/' . $product->user_id, $filename, 'public');
+                $fullpath = Storage::url($path);
 
                 Image::create([
                     'product_id' => $product->id,
                     'filename' => $filename,
-                    'path' => Storage::url($path),
+                    'path' => $fullpath
                 ]);
             }
         }
