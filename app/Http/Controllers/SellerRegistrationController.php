@@ -11,14 +11,28 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class SellerRegistrationController extends Controller
 {
 
     public function getSellerProfile(Request $request)
     {
-        $user = Auth::user();
-
+        try{
+            $user = Auth::user();
+            if(!$user){
+                return response()->json([
+                    'status'=> 204,
+                    'message'=>'No content'
+                ], 200);
+            }
+        }catch(\Throwable $th){
+            Log::error('Failed to get the user ' . $th->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message'=>'An error occurred to get user information'
+            ], 500);
+        }
 
         if ($user->role_id == 4 && $user->is_seller == 1) {
             $profileData = [
@@ -28,7 +42,10 @@ class SellerRegistrationController extends Controller
                 'is_seller' => $user->is_seller,
             ];
 
-            return response()->json($profileData, 200);
+            return response()->json([
+                'status'=>200,
+                'data'=>$profileData
+            ], 200);
         }
 
 
@@ -37,23 +54,30 @@ class SellerRegistrationController extends Controller
 
     public function getSellerOrders(Request $request)
     {
-        $user = Auth::user();
+        try{
+            $user = Auth::user();
 
+            if ($user->role_id !== 4 || !$user->is_seller) {
+                return response()->json(['message' => 'Unauthorized'], 403);
+            }
 
-        if ($user->role_id !== 4 || !$user->is_seller) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            $productIds = Product::where('user_id', $user->id)->pluck('id');
+
+            $orders = Order::whereHas('orderItems', function ($query) use ($productIds) {
+                $query->whereIn('product_id', $productIds);
+            })
+                ->with(['orderItems' => function ($query) use ($productIds) {
+                    $query->whereIn('product_id', $productIds)
+                        ->with('product');
+                }])
+                ->get();
+        }catch(\Throwable $th){
+            Log::error('Failed to get seller orders due to server error. ' . $th->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message'=>'Failed to get seller orders due to server error'
+            ], 500);
         }
-
-        $productIds = Product::where('user_id', $user->id)->pluck('id');
-
-        $orders = Order::whereHas('orderItems', function ($query) use ($productIds) {
-            $query->whereIn('product_id', $productIds);
-        })
-            ->with(['orderItems' => function ($query) use ($productIds) {
-                $query->whereIn('product_id', $productIds)
-                    ->with('product');
-            }])
-            ->get();
 
         $ordersData = $orders->map(function ($order) {
             return [
@@ -71,13 +95,21 @@ class SellerRegistrationController extends Controller
             ];
         });
 
-        return response()->json($ordersData, 200);
+        return response()->json([
+            'status'=>200,
+            'data'=>$ordersData
+        ], 200);
     }
 
     public function getSellerProducts(Request $request)
     {
         $seller = Auth::user();
-
+        if(!$seller){
+            return response()->json([
+                'status'=> 204,
+                'message'=>'No content'
+            ], 200);
+        }
 
         if ($seller->role_id != 4 || !$seller->is_seller) {
             return Response::json(['error' => 'Unauthorized'], 403);
@@ -85,9 +117,18 @@ class SellerRegistrationController extends Controller
 
 
         $products = $seller->products()->get();
+        if(!$products){
+            return response()->json([
+                'status'=> 204,
+                'message'=>'No content'
+            ], 200);
+        }
 
 
-        return Response::json($products, 200);
+        return response()->json([
+            'status'=>200,
+            'data'=>$products
+        ], 200);
     }
 
     public function register(Request $request)
@@ -127,7 +168,15 @@ class SellerRegistrationController extends Controller
         }
 
         $user = Auth::user();
-        $user->save();
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            Log::error('Failed to save seller info: ' . $e->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message' => 'Unable to register seller at this time.'
+            ], 500);
+        }
 
         return response()->json(['message' => 'Identity verified']);
     }
@@ -151,7 +200,15 @@ class SellerRegistrationController extends Controller
         $user->front_id_path = $request->front_id->store('public/ids');
         $user->back_id_path = $request->back_id->store('public/ids');
         $user->selfie_path = $request->selfie->store('public/selfies');
-        $user->save();
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            Log::error('Failed to submit Id: ' . $e->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message' => 'Unable process submitting Id at this time.'
+            ], 500);
+        }
 
         return response()->json(['message' => 'ID submitted']);
     }
@@ -188,8 +245,15 @@ class SellerRegistrationController extends Controller
             // Store $selfiePath in the database
         }
 
-
-        $user->save();
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            Log::error('Failed to save the process for review: ' . $e->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message' => 'Unable to process the submitting of application.'
+            ], 500);
+        }
         return response()->json(['message' => 'Your application is under review.']);
     }
 

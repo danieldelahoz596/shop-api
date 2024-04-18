@@ -90,9 +90,11 @@ Route::group(['prefix' => 'v1'], function () {
 
         // User Address
         Route::group(['prefix' => 'userAddress'], function () {
+            Route::get('/', [UserAddressController::class, 'getAddress']);
             Route::post('/', [UserAddressController::class, 'addAddress']);
             Route::put('/{userAddress}', [UserAddressController::class, 'updateAddress']);
             Route::patch('/{userAddress}', [UserAddressController::class, 'selectAddress']);
+            Route::delete('/{userAddress}', [UserAddressController::class, 'deleteAddress']);
         });
 
         // Cart

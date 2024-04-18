@@ -8,16 +8,19 @@ use App\Models\Sale;
 use App\Models\SellerShop;
 use App\Models\ShopPerformance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Js;
 
 class ShopPerformanceController extends Controller
 {
     public function show(Request $request)
     {
+
         $users = SellerShop::findOrFail($request->user()->id);
         //probably will change the 'user_id' to 'shop_id'
         $products = Product::where('user_id', $users->id)->get();
         $sales = Sale::where('seller_id', $users->id)->get();
+
 
         //Like & Share
         $totalLikes = $products->sum('like');
@@ -51,17 +54,25 @@ class ShopPerformanceController extends Controller
         $totalViews = $products->sum('view_count');
         $totalSale = $sales->sum('total');
 
-        $data = ShopPerformance::create([
-            'user_id' => $users->id,
-            'sales_total' => $totalSale,
-            'orders_count' => $ordersCount,
-            'engagements_likes'=>$totalLikes,
-            'engagements_shares'=>$totalShares,
-            'visitors' => $totalViews,
-            'conversion_rate' => $averageConversionRate,
-            // Not yet since there is no J&T 
-            'return_rate' => 0,
-        ]);
+        try{
+            $data = ShopPerformance::create([
+                'user_id' => $users->id,
+                'sales_total' => $totalSale,
+                'orders_count' => $ordersCount,
+                'engagements_likes'=>$totalLikes,
+                'engagements_shares'=>$totalShares,
+                'visitors' => $totalViews,
+                'conversion_rate' => $averageConversionRate,
+                // Not yet since there is no J&T 
+                'return_rate' => 0,
+            ]);
+        }catch(\Throwable $th){
+            Log::error('Failed to save the shop performance ' . $th->getMessage());
+            return response()->json([
+                'status'=>500,
+                'message'=>'An error occurred to save the shop performance'
+            ], 500);
+        }
 
         return response()->json([
             'status' => true,
