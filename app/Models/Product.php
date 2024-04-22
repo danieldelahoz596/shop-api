@@ -122,4 +122,9 @@ class Product extends Model
 
         return $this;
     }
+
+    public function shipping()
+    {
+        return $this->hasMany(Shipping::class);
+    }
 }

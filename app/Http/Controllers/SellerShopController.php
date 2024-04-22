@@ -11,15 +11,9 @@ class SellerShopController extends Controller
 {
     public function getSellerShop()
     {
-        try {
-            $data = SellerShop::where('user_id', auth()->user()->id)->get();
-        } catch (\Throwable $th) {
-            Log::error("Failed to get the seller shop info: " . $th->getMessage());
-            return response()->json([
-                'status' => 500,
-                'message' => 'An error occurred getting the seller shop info'
-            ], 500);
-        }
+        $data = SellerShop::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->get();
 
         return response()->json([
             'status' => 200,
@@ -29,32 +23,67 @@ class SellerShopController extends Controller
 
     public function addSellerShop(Request $request)
     {
-        try {
-            $this->validate($request, [
-                'shop_name' => 'required',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => 400,
-                'message' => "Validation failed. Please try again"
-            ], 400);
-        }
-        try {
-            $slug = strtolower(str_replace(' ', '-', $request->shop_name));
-            $data = SellerShop::create([
-                'shop_name' => $request->shop_name,
-                'slug' => $slug,
-                'shop_tag' => $request->shop_tag,
-                'shop_image' => $request->shop_image,
-                'user_id' => auth()->user()->id
-            ]);
-        } catch (\Throwable $th) {
-            Log::error('Failed to add seller shop: ' . $th->getMessage());
-            return response()->json([
-                'status' => 500,
-                'message' => 'An error occurred while adding seller shop'
-            ], 500);
-        }
+        $this->validate($request, [
+            'shop_name' => 'required',
+        ]);
+
+        $slug = strtolower(str_replace(' ', '-', $request->shop_name));
+        $data = SellerShop::create([
+            'shop_name' => $request->shop_name,
+            'slug' => $slug,
+            'shop_tag' => $request->shop_tag,
+            'shop_image' => $request->shop_image,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ], 200);
+    }
+
+    public function updateRating()
+    {
+        $data = SellerShop::where('user_id', auth()->user()->id)->first();
+
+        $data->increment('rating');
+
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ], 200);
+    }
+
+    public function updateLike()
+    {
+        $data = SellerShop::where('user_id', auth()->user()->id)->first();
+
+        $data->increment('like');
+
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ], 200);
+    }
+
+    public function updateShare()
+    {
+        $data = SellerShop::where('user_id', auth()->user()->id)->first();
+
+        $data->increment('share');
+
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ], 200);
+    }
+
+    public function updateViewCount()
+    {
+        $data = SellerShop::where('user_id', auth()->user()->id)->first();
+
+        $data->increment('view_count');
+
         return response()->json([
             'status' => 200,
             'data' => $data
