@@ -9,40 +9,57 @@ use App\Models\Sale;
 use Crazymeeks\Foundation\PaymentGateway\Dragonpay;
 use Crazymeeks\Foundation\PaymentGateway\DragonPay\Action\CancelTransaction;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutAndBuyNowController extends Controller
 {
     public function checkout(SaleRequest $request, CartItem $cartItem)
     {
-        $sale = Sale::select('transaction_id')->orderBy('transaction_id', 'desc')->first();
+        try{
+            $sale = Sale::select('transaction_id')->orderBy('transaction_id', 'desc')->first();
 
-        if (!is_null($sale->transaction_id)) {
-            $number = intval(substr($sale->transaction_id, 5));
-            $trNum = 'TRID-'.$number + 1;
-        } else {
-            $trNum = 'TRID-1';
+            if (!is_null($sale->transaction_id)) {
+                $number = intval(substr($sale->transaction_id, 5));
+                $trNum = 'TRID-'.$number + 1;
+            } else {
+                $trNum = 'TRID-1';
+            }
+        }catch(\Throwable $th){
+            Log::error('Failed to process checkout due to server error. ' . $th->getMessage());
+            return response()->json([
+                'status'=> 500,
+                'message'=>'An error occurred during checkout process due to server error'
+            ], 500);
         }
 
-        $data = Sale::create([
-            'transaction_id' => $trNum,
-            'product_id' => $cartItem->product_id,
-            'seller_id' => $cartItem->product->user->id,
-            'buyer_id' => $cartItem->user_id,
-            'address_id' => $request->address_id,
-            'item_price' => $request->item_price,
-            'item_quantity' => $cartItem->quantity,
-            'voucher_code' => $request->voucher_code,
-            'voucher_amount' => $request->voucher_amount,
-            'shipping_fee' => $cartItem->product->shipping_fee,
-            'total' => $request->total,
-        ]);
+        try{
+            $data = Sale::create([
+                'transaction_id' => $trNum,
+                'product_id' => $cartItem->product_id,
+                'seller_id' => $cartItem->product->user->id,
+                'buyer_id' => $cartItem->user_id,
+                'address_id' => $request->address_id,
+                'item_price' => $request->item_price,
+                'item_quantity' => $cartItem->quantity,
+                'voucher_code' => $request->voucher_code,
+                'voucher_amount' => $request->voucher_amount,
+                'shipping_fee' => $cartItem->product->shipping_fee,
+                'total' => $request->total,
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status'=> 400,
+                'message'=>'Validation failed. Please check credentials. '
+            ], 400);
+        }
 
         return response()->json([
-            'status' => 201,
+            'status' => 200,
             'data' => $data
-        ], 201);
+        ], 200);
     }
 
     public function buynow(Sale $sale, CartItem $cartItem)
@@ -55,23 +72,43 @@ class CheckoutAndBuyNowController extends Controller
         $client = new Client();
         $url = env('DRAGONPAY_BASEURL');
 
-        $response = $client->request('GET', $url.'/txnid/'.$transactionId, [
-            'auth' => [$username, $password]
-        ]);
-
-        $contents = $response->getBody()->getContents();
-        $data = json_decode($contents, true);
-
-        $status = $this->paymentStatus($data['Status']);
-        $mop = $this->modeOfPayments($data['ProcId']);
-
-        $sale->update([
-            'payment_status' => $status,
-            'status' => 'To be Packed',
-            'mode_of_payment' => $mop
-        ]);
-
-        $cartItem->delete();
+        try{
+            $response = $client->request('GET', $url.'/txnid/'.$transactionId, [
+                'auth' => [$username, $password]
+            ]);
+            if($response->getStatusCode() !== 200){
+                return response()->json([
+                    'status'=> 400,
+                    'message'=> 'Payment Gateaway error. '
+                ], 400);
+            }
+    
+            $contents = $response->getBody()->getContents();
+            $data = json_decode($contents, true);
+    
+            $status = $this->paymentStatus($data['Status']);
+            $mop = $this->modeOfPayments($data['ProcId']);
+    
+            $sale->update([
+                'payment_status' => $status,
+                'status' => 'To be Packed',
+                'mode_of_payment' => $mop
+            ]);
+    
+            $cartItem->delete();
+        }catch(GuzzleException $e){
+            Log::error("HTTP request failed: " . $e->getMessage());
+            return response()->json([
+                'status' => 502,
+                'message'=> 'Failed to process payment'
+            ], 500);
+        }catch(\Exception $e){
+            Log::error("Error processing payment: " . $e->getMessage());
+            return response()->json([
+                'status' => 502,
+                'message'=> 'Failed to process payment'
+            ], 500);
+        }
 
         return response()->json([
             'status' => 200,

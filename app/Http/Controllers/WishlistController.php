@@ -40,8 +40,13 @@ class WishlistController extends Controller
     //adding a product to a user by clicking like button
     public function addProductToWishlist(Request $request)
     {
+        if (!auth()->check()) {
+            return response()->json([
+                'status' => 401,
+                'message' => 'User not authenticated'
+            ], 401);
+        }
         try{
-            
             $exists = Wishlist::where('user_id', auth()->user()->id)
                                 ->where('product_id', $request->product_id)
                                 ->exists();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\SellerShop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class SellerShopController extends Controller
 {
@@ -35,9 +37,9 @@ class SellerShopController extends Controller
         ]);
 
         return response()->json([
-            'status' => 201,
+            'status' => 200,
             'data' => $data
-        ], 201);
+        ], 200);
     }
 
     public function updateRating()
