@@ -154,17 +154,14 @@ class ProductListingPageController extends Controller
     {
         $product = Product::findOrFail($productId);
 
-
         $validatedData = $request->validate([
             'weight' => 'required|numeric',
             'width' => 'required|numeric',
             'height' => 'required|numeric',
             'depth' => 'required|numeric',
-            'shipping_fee' => 'required|numeric',
             'shipping_type' => 'required|string',
             //this is initial validation
         ]);
-
 
         $shippingDetails = $product->shipping()->updateOrCreate(
             ['product_id' => $productId],
@@ -191,12 +188,6 @@ class ProductListingPageController extends Controller
             $data = "Offers sent!";
         }
 
-        if ($request->has('set_discount') && $request->get('set_discount')) {
-            $discountData = $request->get('set_discount');
-            $discount = $this->manageDiscount($product, $discountData);
-            $data = $discount;
-        }
-
         if ($request->has('mark_as_sold')) {
             $data = $product->markAsSold();
         }
@@ -219,24 +210,5 @@ class ProductListingPageController extends Controller
         foreach ($likes as $liker) {
             Mail::to($liker->email)->send(new SendOfferMail($product));
         }
-    }
-
-    protected function  manageDiscount($product, $discountData)
-    {
-        $discount = $product->discounts()->updateOrCreate(
-            [
-                'name' => $discountData['name']
-            ],
-            [
-                'symbol' => $discountData['symbol'],
-                'value' => $discountData['value'],
-                'start_date' => $discountData['start_date'] ?? null,
-                'end_date' => $discountData['end_date'] ?? null,
-                'quantity_applicable' => $discountData['quantity_applicable'] ?? 1,
-                'status' => false,
-            ]
-        );
-
-        return $discount;
     }
 }

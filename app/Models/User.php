@@ -131,4 +131,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ShopPerformance::class);
     }
+
+    public function sellerShop()
+    {
+        return $this->hasOne(SellerShop::class);
+    }
 }

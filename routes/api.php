@@ -78,6 +78,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'seller'], function () {
             Route::get('/shop', [SellerShopController::class, 'getSellerShop']);
             Route::post('/shopName', [SellerShopController::class, 'addSellerShop']);
+            Route::get('/updateRating', [SellerShopController::class, 'updateRating']);
+            Route::get('/updateLike', [SellerShopController::class, 'updateLike']);
+            Route::get('/updateShare', [SellerShopController::class, 'updateShare']);
+            Route::get('/updateViewCount', [SellerShopController::class, 'updateViewCount']);
         });
 
         // Make Offer
@@ -196,13 +200,7 @@ Route::group(['prefix' => 'v1'], function () {
         //seller
         Route::group(['prefix'=>'seller'], function(){
             Route::get('/profile', [SellerRegistrationController::class, 'getSellerProfile']);
-            Route::get('/products', [SellerRegistrationController::class, 'getSellerProducts']);
             Route::get('/orders', [SellerRegistrationController::class, 'getSellerOrders']);
-            Route::get('/products', [SellerRegistrationController::class, 'getSellerProducts']);
-            Route::post('/register', [SellerRegistrationController::class, 'register']);
-            Route::post('/verify-identity', [SellerRegistrationController::class, 'verifyIdentity']);
-            Route::post('/submit-id', [SellerRegistrationController::class, 'submitId']);
-            Route::post('/review-application', [SellerRegistrationController::class, 'reviewApplication']);
             Route::post('/complete-verification', [SellerRegistrationController::class, 'completeVerification']);
             //Shop Performance
             Route::get('/shop-performance', [ShopPerformanceController::class, 'show']);
