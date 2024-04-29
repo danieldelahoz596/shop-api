@@ -32,7 +32,7 @@ class SellerShop extends Model
     }
     public function reviews()
     {
-        return $this->morphMany(Review::class, 'reviewable');
+        return $this->morphToMany(Review::class, 'reviewable');
     }
     
 }

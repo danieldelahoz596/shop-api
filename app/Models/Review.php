@@ -13,13 +13,16 @@ class Review extends Model
         'user_id',
         'comment',
         'rating',
-        'reviewable_id',
-        'reviewable_type'
+        'image'
     ];
 
-    public function reviewable()
+    public function products()
     {
-        return $this->morphTo('reviewable', 'reviewable_type', 'reviewable_id');
+        return $this->morphedByMany(Product::class, 'reviewables');
+    }
+    public function shops()
+    {
+        return $this->morphedByMany(SellerShop::class, 'reviewables');
     }
 
     public function user()

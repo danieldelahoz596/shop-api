@@ -4,7 +4,7 @@
         <div class="wrapper px-5">
             @foreach ($steals as $steal)
                 <div class="stealsContainer">
-                    <h1>{{ $steal->products->product_name }}</h1>
+                    <h1>{{ $steal->product->product_name }}</h1>
                     <h1>P {{ $steal->item_price }}</h1>
                 </div>
             @endforeach

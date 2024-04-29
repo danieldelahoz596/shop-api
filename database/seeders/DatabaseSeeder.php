@@ -27,13 +27,12 @@ class DatabaseSeeder extends Seeder
             SaleSeeder::class,
             StyleSeeder::class,
             SellerShopSeeder::class,
-            WishlistsSeeder::class,
-            WishlistProductsTableSeeder::class,
-            ReviewsSeeder::class,
+            // WishlistsSeeder::class,
+            // ReviewsSeeder::class,
             LikesTableSeeder::class,
-            ConversationsTableSeeder::class,
-            MessagesTableSeeder::class,
-            ShopPerformanceSeeder::class,
+            // ConversationsTableSeeder::class,
+            // MessagesTableSeeder::class,
+            // ShopPerformanceSeeder::class,
         ]);
     }
 }

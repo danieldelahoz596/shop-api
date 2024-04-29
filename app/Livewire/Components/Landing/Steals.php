@@ -11,7 +11,7 @@ class Steals extends Component
 
     public function getAllSteals()
     {
-        $this->steals = Sale::with('products')->where('item_quantity', '>=', 50)->limit(4)->get();
+        $this->steals = Sale::with('product')->where('item_quantity', '>=', 50)->limit(4)->get();
     }
 
     public function mount()

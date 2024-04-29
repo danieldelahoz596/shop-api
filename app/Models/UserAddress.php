@@ -22,7 +22,7 @@ class UserAddress extends Model
         'region',
         'zip_code',
         'is_deleted',
-        'is_selected'
+        'is_default'
     ];
 
     public function user()

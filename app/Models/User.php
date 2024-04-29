@@ -71,10 +71,6 @@ class User extends Authenticatable
         return $this->hasOne(UserRole::class, 'role_id');
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
     public function userAddress()
     {
         return $this->hasMany(UserAddress::class);
@@ -108,8 +104,9 @@ class User extends Authenticatable
 
     public function wishlists()
     {
-        return $this->hasMany(Wishlist::class);
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();;
     }
+
     public function likedProducts()
     {
         return $this->belongsToMany(Product::class, 'likes', 'user_id', 'product_id')->withTimestamps();
@@ -122,16 +119,21 @@ class User extends Authenticatable
 
     public function conversations()
     {
-        return $this->hasMany(Conversation::class, 'user_one')
-                    ->orWhere('user_two', $this->id);
+        return $this->hasMany(Conversation::class, 'sender_id')
+                    ->orWhere('receiver_id', $this->id);
     }
 
     public function isPartOfConversation(Conversation $conversation)
     {
-        return $this->id === $conversation->user_one || $this->id === $conversation->user_two;
+        return $this->id === $conversation->sender_id || $this->id === $conversation->receiver_id;
     }
     public function shopPerformance()
     {
         return $this->hasMany(ShopPerformance::class);
+    }
+
+    public function sellerShop()
+    {
+        return $this->hasOne(SellerShop::class);
     }
 }

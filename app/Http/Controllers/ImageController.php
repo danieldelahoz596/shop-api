@@ -14,19 +14,22 @@ class ImageController extends Controller
         $product = Product::findOrFail($productId);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '_' . $image->getClientOriginalName();
-            $path = $image->storeAs('images', $filename, 'public');
+            $images = $request->file('image');
 
-            $imageModel = new Image();
-            $imageModel->filename = $filename;
-            $imageModel->path = $path;
-            $product->images()->save($imageModel); // Assuming a one-to-many relationship
+            foreach ($images as $image) {
+                $filename = $product->id . '_' . $product->slug . '_' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('images/' . $product->user_id, $filename, 'public');
+                $fullpath = Storage::url($path);
 
-            return response()->json(['message' => 'Image uploaded successfully!', 'image' => $imageModel]);
+                Image::create([
+                    'product_id' => $product->id,
+                    'filename' => $filename,
+                    'path' => $fullpath
+                ]);
+            }
         }
 
-        return response()->json(['message' => 'No image was uploaded.'], 400);
+        return response()->json(['message' => 'Image uploaded successfully!']);
     }
 
     public function deleteImage($productId, $imageId)
