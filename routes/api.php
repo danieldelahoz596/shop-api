@@ -105,7 +105,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'cart'], function () {
             Route::get('items', [CartController::class, 'cartItems']);
             Route::get('cartCounter', [CartController::class, 'cartCounter']);
-            Route::post('addToCart', [CartController::class, 'addToCart']);
+            Route::post('addToCart/{itemid}', [CartController::class, 'addToCart']);
             Route::delete('/items/{itemId}', [CartController::class, 'deleteItem']);
             Route::post('/checkout', [CartController::class, 'checkout']);
         });

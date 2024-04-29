@@ -56,10 +56,10 @@ class CartController extends Controller
             ], 401);
         }
         try {
-            $exists = CartItem::where('product_id', $request->product_id)
+            $exists = CartItem::where('product_id', $request->itemid)
                 ->exists();
             if ($exists) {
-                CartItem::where('product_id', $request->product_id)
+                CartItem::where('product_id', $request->itemid)
                     ->increment('quantity');
                 return response()->json([
                     'status' => 200,
@@ -68,14 +68,14 @@ class CartController extends Controller
             } else {
                 $data = CartItem::create([
                     'user_id' => auth()->user()->id,
-                    'product_id' => $request->product_id,
+                    'product_id' => $request->itemid,
                     'quantity' => $request->quantity,
                 ]);
                 return response()->json([
                     'status' => true,
                     'message' => 'Item added to cart.',
                     'data' => $data
-                ], 201);
+                ], 200);
             }
         } catch (\Exception $e) {
             Log::error('Error to query add product to cart: ' . $e->getMessage());

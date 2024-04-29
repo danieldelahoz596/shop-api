@@ -13,6 +13,10 @@ use App\Livewire\Pages\Auth\LoginPhone;
 use App\Livewire\Pages\Auth\EmailVerify;
 use App\Livewire\Pages\Auth\CheckoutProcess;
 
+use App\Livewire\Pages\PrivacyTerms;
+use App\Livewire\Pages\TermsConditions;
+use App\Livewire\Pages\FacebookData;
+
 use App\Livewire\Pages\Shop\Component\Listing;
 use App\Livewire\Pages\Shop\Component\ManageProducts;
 use App\Livewire\Pages\Shop\Profile;
@@ -39,6 +43,10 @@ use App\Livewire\Styles;
 Route::get('/', LandingPage::class)->name('/');
 Route::get('/index', LandingPage::class)->name('index');
 Route::get('/landingpage', LandingPage::class)->name('landingpage');
+
+Route::get('/privacy-policy', PrivacyTerms::class)->name('privacy-terms');
+Route::get('/terms-conditions', TermsConditions::class)->name('terms-conditions');
+Route::get('/facebook-data', FacebookData::class)->name('facebook-data');
 
 Route::get('/download', Download::class)->name('download');
 

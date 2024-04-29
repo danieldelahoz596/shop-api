@@ -13,10 +13,10 @@
                 <li><a href="">Sell</a></li>
                 <li><a href="">Help</a></li>
                 <li><a href="">Blog</a></li>
-                <li><a href="">Terms and Service</a></li>
-                <li><a href="">Privacy Policy</a></li>
+                <li><a href="{{ url('terms-conditions') }}">Terms and Service</a></li>
+                <li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
                 <li><a href="">Discover</a></li>
-              </ul>
+            </ul>
           </div>
           <div class="col-2 d-none d-md-inline">
             <div class="footerInfos">
@@ -35,7 +35,8 @@
               <h1 class="fw-bolder">Sell</h1>
               <ul>
                 <li><a href="" class="footerLinks">Sell on Buudl</a></li>
-                <li><a href="" class="footerLinks">Privacy and Terms</a></li>
+                <li><a href="{{ url('privacy-policy') }}" class="footerLinks">Privacy Policy</a></li>
+                <li><a href="{{ url('terms-conditions') }}" class="footerLinks">Terms & Conditions</a></li>
               </ul>
             </div>
           </div>
@@ -47,7 +48,7 @@
                 <li><a href="" class="footerLinks">Blogs</a></li>
                 <li><a href="" class="footerLinks">Contact</a></li>
                 <li><a href="" class="footerLinks">FAQ</a></li>
-                <li><a href="" class="footerLinks">Privacy Policy</a></li>
+                <li><a href="{{ url('facebook-data') }}" class="footerLinks">Facebook Privacy Policy</a></li>
               </ul>
             </div>
           </div>
