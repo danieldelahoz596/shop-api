@@ -16,6 +16,7 @@ use App\Livewire\Pages\Auth\CheckoutProcess;
 use App\Livewire\Pages\PrivacyTerms;
 use App\Livewire\Pages\TermsConditions;
 use App\Livewire\Pages\FacebookData;
+use App\Livewire\Pages\ContactUs;
 
 use App\Livewire\Pages\Shop\Component\Listing;
 use App\Livewire\Pages\Shop\Component\ManageProducts;
@@ -47,6 +48,8 @@ Route::get('/landingpage', LandingPage::class)->name('landingpage');
 Route::get('/privacy-policy', PrivacyTerms::class)->name('privacy-terms');
 Route::get('/terms-conditions', TermsConditions::class)->name('terms-conditions');
 Route::get('/facebook-data', FacebookData::class)->name('facebook-data');
+
+Route::get('/contact', ContactUs::class)->name('contact');
 
 Route::get('/download', Download::class)->name('download');
 

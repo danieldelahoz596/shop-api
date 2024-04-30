@@ -46,7 +46,7 @@
               <ul>
                 <li><a href="" class="footerLinks">About us</a></li>
                 <li><a href="" class="footerLinks">Blogs</a></li>
-                <li><a href="" class="footerLinks">Contact</a></li>
+                <li><a href="{{ url('contact') }}" class="footerLinks">Contact</a></li>
                 <li><a href="" class="footerLinks">FAQ</a></li>
                 <li><a href="{{ url('facebook-data') }}" class="footerLinks">Facebook Privacy Policy</a></li>
               </ul>
