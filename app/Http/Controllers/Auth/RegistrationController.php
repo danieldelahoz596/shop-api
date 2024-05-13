@@ -22,7 +22,7 @@ use Psr\Http\Client\NetworkExceptionInterface;
 
 class RegistrationController extends Controller
 {
-    public function registration(Request $request)
+    public function registration(RegistrationRequest $request)
     {
 
         try{
@@ -40,7 +40,7 @@ class RegistrationController extends Controller
                 'password' => Hash::make($request->password),
                 'email_verify_token' => randon_prefix(),
             ]);
-    
+
             UserAddress::create([
                 'user_id' => $user->id,
                 'street' => $request->street,
@@ -50,7 +50,7 @@ class RegistrationController extends Controller
                 'zip_code' => $request->zip_code,
                 'is_default' => 1
             ]);
-    
+
             UserNotificationSettings::create([
                 'user_id' => $user->id
             ]);
@@ -179,7 +179,7 @@ class RegistrationController extends Controller
                     'status'=> 500,
                     'message' => 'Failed to fetch cities due to server error'
                 ], 500);
-            } 
+            }
         } else{
             Log::error('Something went wrong. Please check if province code is provided.');
             return response()->json([

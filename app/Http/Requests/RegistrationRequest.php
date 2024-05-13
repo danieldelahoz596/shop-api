@@ -22,7 +22,6 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => 'required|exists:user_roles,id',
             'firstname' => 'required',
             'lastname' => 'required',
             'gender' => 'required',

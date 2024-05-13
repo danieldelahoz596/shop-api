@@ -6,28 +6,35 @@ use App\Http\Requests\SaleRequest;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleProduct;
+use App\Models\User;
 use Crazymeeks\Foundation\PaymentGateway\Dragonpay;
 use Crazymeeks\Foundation\PaymentGateway\DragonPay\Action\CancelTransaction;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Xendit\Configuration;
+use Xendit\Payout\PayoutApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Omnipay\Omnipay;
 
 class CheckoutAndBuyNowController extends Controller
 {
-    public function checkout(SaleRequest $request, CartItem $cartItem)
-    {
-        try{
-            $sale = Sale::select('transaction_id')->orderBy('transaction_id', 'desc')->first();
 
-            if (!is_null($sale->transaction_id)) {
+    public function checkout(SaleRequest $request)
+    {
+
+        try {
+            $sale = Sale::select('transaction_id')->orderBy('id', 'desc')->first();
+
+            if (!is_null($sale) && !is_null($sale->transaction_id)) {
                 $number = intval(substr($sale->transaction_id, 5));
-                $trNum = 'TRID-'.$number + 1;
+                $trNum = 'TRID-' . ($number + 1);
             } else {
                 $trNum = 'TRID-1';
             }
-        }catch(\Throwable $th){
+        } catch(\Throwable $th) {
             Log::error('Failed to process checkout due to server error. ' . $th->getMessage());
             return response()->json([
                 'status'=> 500,
@@ -35,31 +42,124 @@ class CheckoutAndBuyNowController extends Controller
             ], 500);
         }
 
-        try{
+        // try {
             $data = Sale::create([
                 'transaction_id' => $trNum,
-                'product_id' => $cartItem->product_id,
-                'seller_id' => $cartItem->product->user->id,
-                'buyer_id' => $cartItem->user_id,
+                'buyer_id' => auth()->guard('sanctum')->id(),
                 'address_id' => $request->address_id,
                 'item_price' => $request->item_price,
-                'item_quantity' => $cartItem->quantity,
+                'item_quantity' => $request->quantity,
                 'voucher_code' => $request->voucher_code,
                 'voucher_amount' => $request->voucher_amount,
-                'shipping_fee' => $cartItem->product->shipping_fee,
+                'shipping_fee' => $request->shipping_fee,
                 'total' => $request->total,
+                'status' => 'Pending',
+                'mode_of_payment' => $request->mode_of_payment,
             ]);
-        }catch(\Exception $e){
-            return response()->json([
-                'status'=> 400,
-                'message'=>'Validation failed. Please check credentials. '
-            ], 400);
-        }
 
-        return response()->json([
-            'status' => 200,
-            'data' => $data
-        ], 200);
+            $id = $data->id;
+            $p = $request->product_id;
+            foreach($p as $index => $product)
+            {
+                $saleProduct = new SaleProduct();
+                $saleProduct->transection_id = $data->transaction_id;
+                $saleProduct->sale_id = $id;
+                $saleProduct->product_id = $product;
+                $saleProduct->save();
+            }
+        // } catch(\Exception $e) {
+        //     return response()->json([
+        //         'status'=> 400,
+        //         'message'=>'Validation failed. Please check credentials. '
+        //     ], 400);
+        // }
+
+        if($data->mode_of_payment == 'card')
+        {
+            $u = User::where('id', $data->buyer_id)->first();
+            return $this->createPayout($data->id, $u->email, $data->total);
+        }
+        elseif($data->mode_of_payment == 'gCash')
+        {
+            $u = User::where('id', $data->buyer_id)->first();
+            return $this->createPayout($data->id, $u->email, $data->total);
+        }
+        elseif($data->mode_of_payment == 'cod')
+        {
+
+            $d = Sale::where('id', $data->id)->first();
+            $d->status = 'Completed';
+            $d->save();
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ], 200);
+        }
+    }
+
+
+
+    public function createPayout($order_id, $email, $amount)
+    {
+        $success_url = url('/') . "/api/payment/success-url?order_id=$order_id";
+        $cancel_url = url('/') . "/api/stripe/payment/error-url";
+        $data = array(
+            "external_id" => "invoice-1715343198",
+            "amount" => $amount * 1000,
+            "payer_email" => $email,
+            "description" => "Invoice Data",
+            "success_redirect_url" => $success_url,
+            "failure_redirect_url" => $cancel_url,
+            "currency" => "IDR",
+        );
+
+        // Encode data array to JSON
+        $json_data = json_encode($data);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://api.xendit.co/v2/invoices',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>$json_data,
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Authorization: Basic eG5kX2RldmVsb3BtZW50X1E3UmxOZDVYN1VxSHBmOEV4Vld3VTdnYjVUQ3djZENKb3U5cEFmS0FPVTdXQXV3alh2WHBqaXJNb1BEdjo=',
+            'Cookie: __cf_bm=x6ibnXOtkrv2oExG_VTLkdFUr0S4kyAyASVU2jGnqIw-1715343136-1.0.1.1-E2CBxrGc374pyb5EHERxR7_7PptSUsxoWTdF_hO9_lrtloomzNtrRSimIpMXWATWtEG0AYJdVhHiEys41Cei1A'
+          ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $decoded_response = json_decode($response, true);
+
+        return response()->json(['data'=> $decoded_response, 'status' => true]);
+    }
+
+    public function  paymentSuccess(Request $request)
+    {
+        $payment = Sale::where([
+            'id' => $request->order_id,
+        ]);
+
+        $payment->update([
+            'status' => 'Completed',
+        ]);
+
+        return response()->json(['message' => 'Payment completed successfully!', 'status' => true]);
+    }
+
+    public function paymenterror(Request $request)
+    {
+
+        return response()->json(['message' => 'Payment was unsuccessful. Your credit card was not charged!', 'status' => false]);
     }
 
     public function buynow(Sale $sale, CartItem $cartItem)
@@ -82,19 +182,19 @@ class CheckoutAndBuyNowController extends Controller
                     'message'=> 'Payment Gateaway error. '
                 ], 400);
             }
-    
+
             $contents = $response->getBody()->getContents();
             $data = json_decode($contents, true);
-    
+
             $status = $this->paymentStatus($data['Status']);
             $mop = $this->modeOfPayments($data['ProcId']);
-    
+
             $sale->update([
                 'payment_status' => $status,
                 'status' => 'To be Packed',
                 'mode_of_payment' => $mop
             ]);
-    
+
             $cartItem->delete();
         }catch(GuzzleException $e){
             Log::error("HTTP request failed: " . $e->getMessage());

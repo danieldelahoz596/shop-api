@@ -24,7 +24,7 @@ class CartController extends Controller
 
         try {
             $data = CartItem::with('product')
-                ->where('user_id', auth()->user()->id)
+                ->where('user_id', auth()->guard('sanctum')->id())
                 ->get();
         } catch (\Exception $e) {
             Log::error("Failed querying to get cart items: " . $e->getMessage());
@@ -56,10 +56,10 @@ class CartController extends Controller
             ], 401);
         }
         try {
-            $exists = CartItem::where('product_id', $request->itemid)
+            $exists = CartItem::where('product_id', $request->itemid)->where('user_id', auth()->guard('sanctum')->id())
                 ->exists();
             if ($exists) {
-                CartItem::where('product_id', $request->itemid)
+                CartItem::where('product_id', $request->itemid)->where('user_id', auth()->guard('sanctum')->id())
                     ->increment('quantity');
                 return response()->json([
                     'status' => 200,
@@ -67,7 +67,7 @@ class CartController extends Controller
                 ], 200);
             } else {
                 $data = CartItem::create([
-                    'user_id' => auth()->user()->id,
+                    'user_id' => auth()->guard('sanctum')->id(),
                     'product_id' => $request->itemid,
                     'quantity' => $request->quantity,
                 ]);
@@ -108,7 +108,7 @@ class CartController extends Controller
         ], 200);
     }
 
-    // Delete the cart item 
+    // Delete the cart item
     public function deleteItem($itemId)
     {
         if (!auth()->check()) {

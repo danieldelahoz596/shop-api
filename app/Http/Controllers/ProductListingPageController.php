@@ -23,20 +23,21 @@ class ProductListingPageController extends Controller
             'quantity' => 'required|numeric',
             'price' => 'required|numeric',
             'category_id' => 'required|integer',
-            'subcategory_id' => 'required|integer',
+            'sub_subcategory_id' => 'required|integer',
             'status' => 'required|boolean',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        try{
+        // try{
             $slug = strtolower(str_replace(' ', '-', $request->product_name));
             $tags = explode(', ', $request->tags ?? '');
 
             $product = Product::create([
                 'category_id' => $validated['category_id'],
                 'product_code' => $validated['product_code'],
-                'subcategory_id' => $validated['subcategory_id'],
+                'sub_subcategory_id' => $validated['sub_subcategory_id'],
+                'subcategory_id' => $validated['sub_subcategory_id'],
                 'quantity' => $validated['quantity'],
                 'status' => $validated['status'],
                 'user_id' => Auth::id(),
@@ -59,29 +60,30 @@ class ProductListingPageController extends Controller
                 ]);
             }
 
+            if ($request->has('images')) {
+                $image = $request->file('images');
+                foreach ($image as $index => $files) {
 
-            if ($request->hasfile('images')) {
-                $images = $request->file('images');
-
-                foreach ($images as $image) {
-                    $filename = $product->id . '_' . $product->slug . '_' . $image->getClientOriginalExtension();
-                    $path = $image->storeAs('images/' . $product->user_id, $filename, 'public');
-                    $fullpath = Storage::url($path);
+                    $file_origninl_name =  $files->getClientOriginalName();
+                    $file_name = $file_origninl_name . time() . $index . "." . $files->getClientOriginalExtension();
+                    $files->move('storage/images/', $file_name);
+                    $imagepath = url('/') . '/' . 'storage/images/' . $file_name;
 
                     Image::create([
                         'product_id' => $product->id,
-                        'filename' => $filename,
-                        'path' => $fullpath
+                        'filename' => $file_name,
+                        'path' => $imagepath
                     ]);
                 }
             }
-        }catch(\Throwable $th){
-            Log::error('Failed to add product: ' . $th->getMessage());
-            return response()->json([
-                'status'=>500,
-                'message'=>'Failed to add product, please try again.'
-            ], 500);
-        }
+        // }
+        // catch(\Throwable $th){
+        //     Log::error('Failed to add product: ' . $th->getMessage());
+        //     return response()->json([
+        //         'status'=>500,
+        //         'message'=>'Failed to add product, please try again.'
+        //     ], 500);
+        // }
 
 
         return response()->json([
@@ -146,7 +148,7 @@ class ProductListingPageController extends Controller
     public function listProducts()
     {
         try{
-            $products = Product::with('user')
+            $products = Product::with(['user', 'images'])
             ->orderBy('user_id')
             ->get();
         }catch(\Throwable $th){

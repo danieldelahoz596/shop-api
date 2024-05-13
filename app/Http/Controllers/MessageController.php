@@ -22,7 +22,7 @@ class MessageController extends Controller
             if (!$request->user()->isPartOfConversation($conversation)) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
-            
+
             if($request->hasFile('image')){
                 $image = $request->file('image')->store('messages/images', 'public');
             }

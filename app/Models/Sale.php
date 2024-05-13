@@ -24,7 +24,7 @@ class Sale extends Model
         'total',
         'status',
         'payment_status',
-        'mode_of_payment'
+        'mode_of_payment',
     ];
 
     public function product()

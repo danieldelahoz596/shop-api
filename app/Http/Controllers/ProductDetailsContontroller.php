@@ -18,7 +18,7 @@ class ProductDetailsContontroller extends Controller
             Log::error("Failed to query to get moreFromSeller on user id " . auth()->id() . " : " . $th->getMessage());
             return response()->json([
                 'status'=> 500,
-                'message' => 'Internal server error failed to get the moreFromSeller' 
+                'message' => 'Internal server error failed to get the moreFromSeller'
             ],500);
         }
 
@@ -32,7 +32,7 @@ class ProductDetailsContontroller extends Controller
     public function relatedProducts(Request $request){
         try{
             $data = Product::where('product_code', $request->product_code)->first();
-    
+
             $dataList = Product::whereJsonContains('keyword', $data->keyword)
                                 ->take(4)
                                 ->get();
@@ -40,7 +40,7 @@ class ProductDetailsContontroller extends Controller
             Log::error("Failed to query to get relatedProducts on user id " . auth()->id() . " : " . $th->getMessage());
             return response()->json([
                 'status'=> 500,
-                'message' => 'Internal server error failed to get the relatedProducts' 
+                'message' => 'Internal server error failed to get the relatedProducts'
             ],500);
         }
 

@@ -45,7 +45,7 @@ class VoucherController extends Controller
         } catch(\Exception $e){
             return response()->json([
                 'status' => 403,
-                'message'=> 'Validation failed. Please check input ' 
+                'message'=> 'Validation failed. Please check input '
             ], 403);
         }catch(\Throwable $th){
             Log::error('Failed adding voucher on user_id ' . auth()->id() . ": " . $th->getMessage());
@@ -74,7 +74,7 @@ class VoucherController extends Controller
         }catch(\Exception $e){
             return response()->json([
                 'status' => 403,
-                'message'=> 'Validation failed. Please check input ' 
+                'message'=> 'Validation failed. Please check input '
             ], 403);
         }catch(\Throwable $th){
             Log::error('Failed updating voucher on user_id ' . auth()->id() . ": " . $th->getMessage());

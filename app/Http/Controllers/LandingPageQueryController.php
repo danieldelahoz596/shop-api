@@ -40,7 +40,7 @@ class LandingPageQueryController extends Controller
                         Log::error("Failed to query to get exploreStyles on user id " . auth()->id() . " : " . $th->getMessage());
                         return response()->json([
                             'status'=> 500,
-                            'message' => 'Internal server error failed to get the exploreStyles' 
+                            'message' => 'Internal server error failed to get the exploreStyles'
                         ],500);
                     }
                 } else {
@@ -105,14 +105,14 @@ class LandingPageQueryController extends Controller
     }
 
     //Get the latest products
-    public function getNewArrivals() 
+    public function getNewArrivals()
     {
         $oneWeekAgo = Carbon::now()->subWeek();
         $now = Carbon::now();
 
         try{
             $data = Product::whereBetween('created_at', [$oneWeekAgo, $now])
-                        ->with('user')
+                        ->with(['user', 'images'])
                         ->take(4)
                         ->get();
         } catch (\Throwable $th) {
@@ -131,13 +131,13 @@ class LandingPageQueryController extends Controller
     }
 
     //get the recommended products
-    public function getOurPicks() 
+    public function getOurPicks()
     {
         $oneWeekAgo = Carbon::now()->subWeek();
 
         try{
             $data = Product::inRandomOrder()
-                        ->with('user')
+                        ->with(['user', 'images'])
                         ->take(4)
                         ->get();
         } catch (\Throwable $th){
@@ -156,7 +156,7 @@ class LandingPageQueryController extends Controller
     }
 
     //Get the top or popular products
-    public function getPopularItem() 
+    public function getPopularItem()
     {
         $oneWeekAgo = Carbon::now()->subWeek();
 
@@ -181,12 +181,12 @@ class LandingPageQueryController extends Controller
         ], 200);
     }
 
-    //Get the additional products 
-    public function getMoreItemsForYou() 
+    //Get the additional products
+    public function getMoreItemsForYou()
     {
         try{
             $data = Product::inRandomOrder()
-                        ->with('user')
+                        ->with(['user', 'images'])
                         ->take(8)
                         ->get();
         } catch (\Throwable $th){
@@ -205,7 +205,7 @@ class LandingPageQueryController extends Controller
     }
 
     //Get the shop or store that is highlighted
-    public function shopSpotlight() 
+    public function shopSpotlight()
     {
 
         try{

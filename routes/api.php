@@ -153,7 +153,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Checkout
         Route::group(['prefix' => 'checkout'], function () {
-            Route::post('/{cartItem}', [CheckoutAndBuyNowController::class, 'checkout']);
+            Route::post('/', [CheckoutAndBuyNowController::class, 'checkout']);
             Route::get('/buynow/{sale}/{cartItem}', [CheckoutAndBuyNowController::class, 'buynow']);
         });
 
@@ -254,3 +254,8 @@ Route::group(['prefix' => 'v1'], function () {
         });
     });
 });
+
+
+Route::post('check-this', [CheckoutAndBuyNowController::class, 'createPayout']);
+Route::get('payment/success-url', [CheckoutAndBuyNowController::class, 'paymentSuccess']);
+Route::post('payment/error-url', [CheckoutAndBuyNowController::class, 'paymenterror ']);

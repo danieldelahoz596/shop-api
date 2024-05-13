@@ -28,7 +28,7 @@ class AuthController extends Controller
                 $auth_user = Auth::user();
                 $tokenResult = $auth_user->createToken('auth-token')->plainTextToken;
                 $token_expires_at = Carbon::now()->addWeeks(1);
-    
+
                 if (auth()->user()->is_deleted != 1) {
                     $online = User::find(auth()->user()->id);
                     $online->is_online = 1;

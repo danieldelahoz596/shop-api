@@ -38,6 +38,9 @@ class Product extends Model
         'keyword' => 'array',
         'size' => 'array'
     ];
+    protected $with = [
+        'images'
+    ];
 
     public function category()
     {
